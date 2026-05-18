@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Icarus MUN 2026 | Rewrite Destiny</title>
     
-    <!-- Favicon (Sekme İkonu) -->
     <link rel="icon" type="image/png" href="assets/icarus.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -51,6 +50,7 @@
         .line-draw {
             position: relative;
         }
+        
         .line-draw::after {
             content: '';
             position: absolute;
@@ -61,6 +61,7 @@
             background-color: #D4AF37;
             transition: width 0.3s ease-in-out;
         }
+        
         .line-draw:hover::after {
             width: 100%;
         }
@@ -77,9 +78,11 @@
         ::-webkit-scrollbar {
             width: 8px;
         }
+        
         ::-webkit-scrollbar-track {
             background: transparent; 
         }
+        
         ::-webkit-scrollbar-thumb {
             background: #D4AF37; 
             border-radius: 4px;
@@ -89,6 +92,7 @@
             background-color: #020617; 
             color: #f8fafc;
         }
+        
         html.light body {
             background-color: #f1f5f9; 
             color: #1e293b;
@@ -107,13 +111,13 @@
             backdrop-filter: blur(8px);
         }
 
-        /* Dark Mode Button Absolute Fix */
         .theme-toggle-fab {
             position: fixed !important;
             bottom: 2rem !important;
             right: 2rem !important;
             z-index: 999999 !important;
         }
+        
         @media (max-width: 640px) {
             .theme-toggle-fab {
                 bottom: 1.5rem !important;
@@ -128,7 +132,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        const content = {
+        const localeData = {
             en: {
                 nav: { home: 'Home', team: 'Team', apply: 'Apply' },
                 heroSubtitle: "THE BRINK OF CHAOS",
@@ -193,7 +197,7 @@
             }
         };
 
-        const committeeRolesConfig = {
+        const rolesByCommittee = {
             nato: ['Co-Under Secretary General', 'Co-Under Secretary General'],
             fjcc: ['Under Secretary General', 'Academic Assistant'],
             jcc: ['Under Secretary General', 'Academic Assistant', 'Academic Assistant'],
@@ -205,29 +209,78 @@
             unhrc: ['Under Secretary General', 'Academic Assistant']
         };
 
-        // KONSEPTLERE ÖZEL TASARLANMIŞ YENİ SVG'LER
-        const CommitteeIcons = {
-            nato: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M12 2 L15 9 L22 12 L15 15 L12 22 L9 15 L2 12 L9 9 Z"/><circle cx="12" cy="12" r="3"/></svg>,
-            fjcc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M12 3 L12 21 M12 3 L7 9 M12 3 L17 9"/><circle cx="12" cy="12" r="10" strokeDasharray="4 4"/></svg>, 
-            jcc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M4 20 h16 L18 8 L15 12 L12 4 L9 12 L6 8 Z"/><path d="M12 20 V12"/></svg>, 
-            hjcc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M12 3 L15 9 L21 9 L16 13 L18 20 L12 16 L6 20 L8 13 L3 9 L9 9 Z"/><path d="M2 12 Q 7 8 12 12 T 22 12" strokeDasharray="2 2"/></svg>, 
-            hcc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M3 16 Q12 22 21 16"/><path d="M6 16 V10 C6 5 18 5 18 10 V16"/><path d="M6 14 H18" strokeWidth="1"/></svg>, 
-            senate: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M12 3 V6 M8 9 C8 4 16 4 16 9 M5 12 H19 M3 21 H21 M8 12 V21 M12 12 V21 M16 12 V21"/></svg>, 
-            untac: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><rect x="6" y="10" width="12" height="12" rx="1"/><path d="M12 10 V4 M9 7 l3-3 3 3"/><path d="M4 14 h16"/></svg>, 
-            disec: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><circle cx="12" cy="12" r="9" strokeWidth="1"/><circle cx="12" cy="12" r="4"/><path d="M12 3 V21 M3 12 H21 M6 6 L18 18 M6 18 L18 6" strokeDasharray="2 2"/></svg>, 
-            unhrc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M4 20 L20 4 M16 4 C16 4 14 6 16 8 C18 6 20 4 20 4 Z M12 8 C12 8 10 10 12 12 C14 10 16 8 16 8 Z M8 12 C8 12 6 14 8 16 C10 14 12 12 12 12 Z M4 16 C4 16 2 18 4 20 C6 18 8 16 8 16 Z"/></svg> 
+        const SVGIcons = {
+            nato: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <path d="M12 2 L15 9 L22 12 L15 15 L12 22 L9 15 L2 12 L9 9 Z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            ),
+            fjcc: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <path d="M12 3 L12 21 M12 3 L7 9 M12 3 L17 9"/>
+                    <circle cx="12" cy="12" r="10" strokeDasharray="4 4"/>
+                </svg>
+            ), 
+            jcc: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <path d="M4 20 h16 L18 8 L15 12 L12 4 L9 12 L6 8 Z"/>
+                    <path d="M12 20 V12"/>
+                </svg>
+            ), 
+            hjcc: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <path d="M12 3 L15 9 L21 9 L16 13 L18 20 L12 16 L6 20 L8 13 L3 9 L9 9 Z"/>
+                    <path d="M2 12 Q 7 8 12 12 T 22 12" strokeDasharray="2 2"/>
+                </svg>
+            ), 
+            hcc: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <path d="M3 16 Q12 22 21 16"/>
+                    <path d="M6 16 V10 C6 5 18 5 18 10 V16"/>
+                    <path d="M6 14 H18" strokeWidth="1"/>
+                </svg>
+            ), 
+            senate: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <path d="M12 3 V6 M8 9 C8 4 16 4 16 9 M5 12 H19 M3 21 H21 M8 12 V21 M12 12 V21 M16 12 V21"/>
+                </svg>
+            ), 
+            untac: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <rect x="6" y="10" width="12" height="12" rx="1"/>
+                    <path d="M12 10 V4 M9 7 l3-3 3 3"/>
+                    <path d="M4 14 h16"/>
+                </svg>
+            ), 
+            disec: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <circle cx="12" cy="12" r="9" strokeWidth="1"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <path d="M12 3 V21 M3 12 H21 M6 6 L18 18 M6 18 L18 6" strokeDasharray="2 2"/>
+                </svg>
+            ), 
+            unhrc: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                    <path d="M4 20 L20 4 M16 4 C16 4 14 6 16 8 C18 6 20 4 20 4 Z M12 8 C12 8 10 10 12 12 C14 10 16 8 16 8 Z M8 12 C8 12 6 14 8 16 C10 14 12 12 12 12 Z M4 16 C4 16 2 18 4 20 C6 18 8 16 8 16 Z"/>
+                </svg>
+            ) 
         };
 
         const LoadingScreen = ({ onComplete }) => {
             const [textIndex, setTextIndex] = useState(0);
             const [progress, setProgress] = useState(0);
             
-            const texts = ["Simulation Ready.", "Diplomatic Network Established.", "ICARUS Systems Activated."];
+            const systemLogs = [
+                "Simulation Ready.", 
+                "Diplomatic Network Established.", 
+                "ICARUS Systems Activated."
+            ];
 
             useEffect(() => {
-                const totalDuration = 3500; 
-                const interval = 50; 
-                const step = (100 / (totalDuration / interval));
+                const DURATION = 3500; 
+                const INTERVAL = 50; 
+                const step = 100 / (DURATION / INTERVAL);
 
                 const progressTimer = setInterval(() => {
                     setProgress(prev => {
@@ -237,79 +290,105 @@
                         }
                         return prev + step;
                     });
-                }, interval);
+                }, INTERVAL);
 
-                const textTimer1 = setTimeout(() => setTextIndex(1), 1200);
-                const textTimer2 = setTimeout(() => setTextIndex(2), 2400);
+                const timer1 = setTimeout(() => setTextIndex(1), 1200);
+                const timer2 = setTimeout(() => setTextIndex(2), 2400);
                 const completeTimer = setTimeout(() => onComplete(), 3500);
 
                 return () => {
                     clearInterval(progressTimer);
-                    clearTimeout(textTimer1);
-                    clearTimeout(textTimer2);
+                    clearTimeout(timer1);
+                    clearTimeout(timer2);
                     clearTimeout(completeTimer);
                 };
             }, [onComplete]);
 
             return (
-                <div className="fixed inset-0 bg-slate-100 dark:bg-slate-950 flex flex-col items-center justify-center z-50 bg-grid-pattern transition-colors duration-500">
-                    <div className="flex flex-col items-center w-full max-w-md px-6 fade-in">
-                        <div className="relative w-56 h-56 mb-12 flex items-center justify-center">
-                            <div className="absolute w-48 h-48 border border-gold/40 rounded-full animate-[spin_10s_linear_infinite]"></div>
-                            <img src="assets/icarusarkaplansiz.png" alt="Icarus Logo" className="w-28 h-auto z-10 drop-shadow-lg" onError={(e) => { e.target.src = 'assets/icarus.png'; }} />
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-950 bg-grid-pattern transition-colors duration-500">
+                    <div className="w-full max-w-md px-6 flex flex-col items-center fade-in">
+                        <div className="relative flex items-center justify-center w-56 h-56 mb-12">
+                            <div className="absolute w-48 h-48 border rounded-full border-gold/40 animate-[spin_10s_linear_infinite]" />
+                            <img 
+                                src="assets/icarusarkaplansiz.png" 
+                                alt="Icarus Logo" 
+                                className="z-10 w-28 h-auto drop-shadow-lg" 
+                                onError={(e) => { e.target.src = 'assets/icarus.png'; }} 
+                            />
                         </div>
-                        <div className="w-full h-[2px] bg-slate-200 dark:bg-slate-800 relative mb-6">
-                            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-gold"></div>
-                            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-gold"></div>
-                            <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-gold"></div>
-                            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-gold"></div>
-                            <div className="h-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.6)] transition-all duration-75 ease-out" style={{ width: `${progress}%` }}></div>
+                        
+                        <div className="relative w-full h-[2px] mb-6 bg-slate-200 dark:bg-slate-800">
+                            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-gold" />
+                            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-gold" />
+                            <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-gold" />
+                            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-gold" />
+                            <div 
+                                className="h-full bg-gold transition-all duration-75 ease-out shadow-[0_0_10px_rgba(212,175,55,0.6)]" 
+                                style={{ width: `${progress}%` }} 
+                            />
                         </div>
-                        <div className="h-8 font-mono text-xs md:text-sm tracking-widest text-slate-600 dark:text-slate-400 uppercase text-center w-full">
-                            <span className="opacity-80">> {texts[textIndex]}</span>
-                            <span className="animate-pulse text-gold">_</span>
+                        
+                        <div className="w-full h-8 text-center text-xs md:text-sm font-mono tracking-widest uppercase text-slate-600 dark:text-slate-400">
+                            <span className="opacity-80">> {systemLogs[textIndex]}</span>
+                            <span className="text-gold animate-pulse">_</span>
                         </div>
                     </div>
                 </div>
             );
         };
 
-        const ConsentScreen = ({ onAccept, langData }) => {
-            const [checked, setChecked] = useState(false);
+        const ConsentScreen = ({ onAccept, data }) => {
+            const [hasConsented, setHasConsented] = useState(false);
             
             return (
-                <div className="fixed inset-0 bg-slate-100 dark:bg-slate-950 flex items-center justify-center z-50 bg-grid-pattern fade-in px-4">
-                    <div className="max-w-md w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 shadow-xl relative m-4">
-                        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-gold"></div>
-                        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-gold"></div>
+                <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-slate-100 dark:bg-slate-950 bg-grid-pattern fade-in">
+                    <div className="relative w-full max-w-md p-8 m-4 shadow-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-gold" />
+                        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-gold" />
                         
-                        <div className="text-gold mb-6 flex justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                        <div className="flex justify-center mb-6 text-gold">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                                <path d="m9 12 2 2 4-4" />
+                            </svg>
                         </div>
                         
-                        <p className="text-center text-slate-700 dark:text-slate-300 mb-8 font-mono text-sm leading-relaxed">
-                            {langData.consentWarn}
+                        <p className="mb-8 text-sm text-center leading-relaxed font-mono text-slate-700 dark:text-slate-300">
+                            {data.consentWarn}
                         </p>
 
-                        <a href="https://instagram.com/talha.ozturks" target="_blank" className="flex items-center justify-center gap-2 text-sm text-gold hover:text-gold/80 mb-8 transition-colors font-mono">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        <a href="https://instagram.com/talha.ozturks" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 mb-8 text-sm font-mono text-gold hover:text-gold/80 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                            </svg>
                             @talha.ozturks
                         </a>
 
-                        <label className="flex items-center gap-3 cursor-pointer mb-8 justify-center group">
-                            <div className={`w-5 h-5 border flex items-center justify-center transition-colors ${checked ? 'border-gold bg-gold/10' : 'border-slate-400 dark:border-slate-600 group-hover:border-gold'}`}>
-                                {checked && <svg className="w-3 h-3 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"></polyline></svg>}
+                        <label className="flex items-center justify-center gap-3 mb-8 cursor-pointer group">
+                            <div className={`flex items-center justify-center w-5 h-5 border transition-colors ${hasConsented ? 'border-gold bg-gold/10' : 'border-slate-400 dark:border-slate-600 group-hover:border-gold'}`}>
+                                {hasConsented && (
+                                    <svg className="w-3 h-3 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                )}
                             </div>
-                            <span className="text-sm text-slate-600 dark:text-slate-400 font-medium select-none">{langData.consentCheck}</span>
-                            <input type="checkbox" className="hidden" checked={checked} onChange={() => setChecked(!checked)} />
+                            <span className="text-sm font-medium select-none text-slate-600 dark:text-slate-400">
+                                {data.consentCheck}
+                            </span>
+                            <input type="checkbox" className="hidden" checked={hasConsented} onChange={() => setHasConsented(!hasConsented)} />
                         </label>
 
                         <button 
-                            disabled={!checked}
+                            disabled={!hasConsented}
                             onClick={onAccept}
-                            className={`w-full py-3 font-mono text-sm tracking-widest border transition-all duration-300 ${checked ? 'border-gold text-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-900 cursor-pointer' : 'border-slate-300 dark:border-slate-700 text-slate-400 dark:text-slate-600 cursor-not-allowed opacity-50'}`}
+                            className={`w-full py-3 text-sm tracking-widest font-mono border transition-all duration-300 
+                                ${hasConsented 
+                                    ? 'border-gold text-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-900 cursor-pointer' 
+                                    : 'border-slate-300 dark:border-slate-700 text-slate-400 dark:text-slate-600 cursor-not-allowed opacity-50'}`}
                         >
-                            {langData.consentBtn}
+                            {data.consentBtn}
                         </button>
                     </div>
                 </div>
@@ -318,24 +397,43 @@
 
         const LanguageScreen = ({ onSelect }) => {
             return (
-                <div className="fixed inset-0 bg-slate-100 dark:bg-slate-950 flex items-center justify-center z-40 bg-grid-pattern transition-colors duration-500">
-                    <div className="flex flex-col items-center max-w-2xl w-full px-4 fade-in">
+                <div className="fixed inset-0 z-40 flex items-center justify-center px-4 bg-slate-100 dark:bg-slate-950 bg-grid-pattern transition-colors duration-500">
+                    <div className="flex flex-col items-center w-full max-w-2xl fade-in">
                         <div className="mb-12 text-center">
-                            <h2 className="text-2xl md:text-3xl font-light tracking-[0.2em] text-slate-800 dark:text-slate-200 mb-2 font-serif">Please select your language.</h2>
-                            <div className="w-24 h-[1px] bg-gold/50 mx-auto"></div>
+                            <h2 className="mb-2 text-2xl md:text-3xl font-light tracking-[0.2em] font-serif text-slate-800 dark:text-slate-200">
+                                Please select your language.
+                            </h2>
+                            <div className="w-24 h-[1px] mx-auto bg-gold/50" />
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-8 w-full justify-center">
-                            <button onClick={() => onSelect('en')} className="group relative p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80 transition-all duration-300 flex flex-col items-center w-full sm:w-52 shadow-sm hover:shadow-md">
-                                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent group-hover:border-gold transition-colors"></div>
-                                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent group-hover:border-gold transition-colors"></div>
-                                <svg className="w-24 h-16 mb-4 opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-sm" viewBox="0 0 60 30"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clipPath="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/><path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/></g></svg>
-                                <span className="font-mono text-sm tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-gold transition-colors">ENGLISH</span>
+                        
+                        <div className="flex flex-col sm:flex-row justify-center w-full gap-8">
+                            <button onClick={() => onSelect('en')} className="relative flex flex-col items-center w-full sm:w-52 p-8 shadow-sm hover:shadow-md transition-all duration-300 group border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80">
+                                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent transition-colors group-hover:border-gold" />
+                                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent transition-colors group-hover:border-gold" />
+                                <svg className="w-24 h-16 mb-4 opacity-80 transition-opacity drop-shadow-sm group-hover:opacity-100" viewBox="0 0 60 30">
+                                    <clipPath id="uk-flag-clip-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
+                                    <clipPath id="uk-flag-clip-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath>
+                                    <g clipPath="url(#uk-flag-clip-s)">
+                                        <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                                        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
+                                        <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#uk-flag-clip-t)" stroke="#C8102E" strokeWidth="4"/>
+                                        <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
+                                        <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
+                                    </g>
+                                </svg>
+                                <span className="text-sm tracking-widest font-mono transition-colors text-slate-500 dark:text-slate-400 group-hover:text-gold">ENGLISH</span>
                             </button>
-                            <button onClick={() => onSelect('tr')} className="group relative p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80 transition-all duration-300 flex flex-col items-center w-full sm:w-52 shadow-sm hover:shadow-md">
-                                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-transparent group-hover:border-gold transition-colors"></div>
-                                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-transparent group-hover:border-gold transition-colors"></div>
-                                <svg className="w-24 h-16 mb-4 opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-sm" viewBox="0 0 120 80"><rect width="120" height="80" fill="#E30A17"/><circle cx="42.5" cy="40" r="20" fill="#fff"/><circle cx="47.5" cy="40" r="16" fill="#E30A17"/><path d="M 68 32.5 L 70.5 39 L 77.5 39 L 71.5 43.5 L 73.5 50.5 L 68 46 L 62.5 50.5 L 64.5 43.5 L 58.5 39 L 65.5 39 Z" fill="#fff" transform="rotate(-15, 68, 41.5)"/></svg>
-                                <span className="font-mono text-sm tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-gold transition-colors">TÜRKÇE</span>
+                            
+                            <button onClick={() => onSelect('tr')} className="relative flex flex-col items-center w-full sm:w-52 p-8 shadow-sm hover:shadow-md transition-all duration-300 group border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80">
+                                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-transparent transition-colors group-hover:border-gold" />
+                                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-transparent transition-colors group-hover:border-gold" />
+                                <svg className="w-24 h-16 mb-4 opacity-80 transition-opacity drop-shadow-sm group-hover:opacity-100" viewBox="0 0 120 80">
+                                    <rect width="120" height="80" fill="#E30A17"/>
+                                    <circle cx="42.5" cy="40" r="20" fill="#fff"/>
+                                    <circle cx="47.5" cy="40" r="16" fill="#E30A17"/>
+                                    <path d="M 68 32.5 L 70.5 39 L 77.5 39 L 71.5 43.5 L 73.5 50.5 L 68 46 L 62.5 50.5 L 64.5 43.5 L 58.5 39 L 65.5 39 Z" fill="#fff" transform="rotate(-15, 68, 41.5)"/>
+                                </svg>
+                                <span className="text-sm tracking-widest font-mono transition-colors text-slate-500 dark:text-slate-400 group-hover:text-gold">TÜRKÇE</span>
                             </button>
                         </div>
                     </div>
@@ -343,46 +441,49 @@
             );
         };
 
-        const Countdown = ({ text }) => {
-            const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        const Countdown = ({ label }) => {
+            const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
             useEffect(() => {
-                const targetDate = new Date("2026-09-25T00:00:00").getTime();
+                const target = new Date("2026-09-25T00:00:00").getTime();
                 
-                const timer = setInterval(() => {
-                    const now = new Date().getTime();
-                    const difference = targetDate - now;
+                const intervalId = setInterval(() => {
+                    const diff = target - new Date().getTime();
 
-                    if (difference > 0) {
-                        setTimeLeft({
-                            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                            hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                            minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-                            seconds: Math.floor((difference % (1000 * 60)) / 1000)
+                    if (diff > 0) {
+                        setTime({
+                            days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+                            hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                            minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+                            seconds: Math.floor((diff % (1000 * 60)) / 1000)
                         });
                     } else {
-                        clearInterval(timer);
+                        clearInterval(intervalId);
                     }
                 }, 1000);
 
-                return () => clearInterval(timer);
+                return () => clearInterval(intervalId);
             }, []);
 
             return (
-                <div className="mt-12 flex flex-col items-center">
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400 mb-4">{text}</div>
+                <div className="flex flex-col items-center mt-12">
+                    <div className="mb-4 text-[10px] tracking-widest uppercase font-mono text-slate-400">
+                        {label}
+                    </div>
                     <div className="flex gap-4 md:gap-8">
-                        {Object.entries(timeLeft).map(([unit, value], idx) => (
+                        {Object.entries(time).map(([unit, val], idx) => (
                             <div key={idx} className="flex flex-col items-center">
-                                <div className="text-2xl md:text-4xl font-serif text-gold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-14 h-14 md:w-20 md:h-20 flex items-center justify-center shadow-sm relative group">
-                                    <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    {String(value).padStart(2, '0')}
+                                <div className="relative flex items-center justify-center w-14 h-14 md:w-20 md:h-20 shadow-sm group border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
+                                    <div className="absolute inset-0 opacity-0 transition-opacity bg-gold/5 group-hover:opacity-100" />
+                                    {String(val).padStart(2, '0')}
                                 </div>
-                                <span className="mt-2 text-[9px] md:text-[10px] font-mono text-slate-500 uppercase">{unit}</span>
+                                <span className="mt-2 text-[9px] md:text-[10px] uppercase font-mono text-slate-500">
+                                    {unit}
+                                </span>
                             </div>
                         ))}
                     </div>
-                    <div className="mt-4 font-mono text-xs text-gold">25.09.2026</div>
+                    <div className="mt-4 text-xs font-mono text-gold">25.09.2026</div>
                 </div>
             );
         };
@@ -390,42 +491,59 @@
         const CommitteeModal = ({ committee, onClose }) => {
             if (!committee) return null;
             
-            const roles = committeeRolesConfig[committee.id] || [];
+            const roles = rolesByCommittee[committee.id] || [];
             
             return (
-                <div className="fixed inset-0 z-[150] flex items-center justify-center fade-in px-4">
-                    <div className="absolute inset-0 bg-slate-900/80 modal-overlay" onClick={onClose}></div>
-                    <div className="relative w-full max-w-4xl bg-slate-50 dark:bg-slate-950 border border-gold/30 shadow-2xl overflow-hidden h-[85vh] sm:h-[80vh] flex flex-col">
-                        
-                        <div className="h-40 md:h-64 bg-white dark:bg-slate-900 relative border-b border-gold/20 flex flex-col items-center justify-center overflow-hidden">
-                            <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
+                <div className="fixed inset-0 z-[150] flex items-center justify-center px-4 fade-in">
+                    <div className="absolute inset-0 modal-overlay bg-slate-900/80" onClick={onClose} />
+                    
+                    <div className="relative flex flex-col w-full max-w-4xl h-[85vh] sm:h-[80vh] overflow-hidden shadow-2xl bg-slate-50 dark:bg-slate-950 border border-gold/30">
+                        <header className="relative flex flex-col items-center justify-center h-40 md:h-64 overflow-hidden bg-white dark:bg-slate-900 border-b border-gold/20">
+                            <div className="absolute inset-0 opacity-30 bg-grid-pattern" />
                             <svg className="absolute w-[120%] h-[120%] text-gold/5" viewBox="0 0 100 50" fill="none" stroke="currentColor" strokeWidth="0.5">
                                 <path d="M10 40 L90 40 M20 40 L30 10 L70 10 L80 40" strokeDasharray="2 2" />
                                 <rect x="35" y="15" width="30" height="15" />
                                 <line x1="50" y1="15" x2="50" y2="30" />
                             </svg>
-                            <div className="relative z-10 text-gold mb-2 md:mb-4 bg-slate-50 dark:bg-slate-950 p-3 border border-gold/30 rounded-full shadow-lg">
-                                {CommitteeIcons[committee.id]}
+                            
+                            <div className="relative z-10 p-3 mb-2 md:mb-4 rounded-full shadow-lg text-gold bg-slate-50 dark:bg-slate-950 border border-gold/30">
+                                {SVGIcons[committee.id]}
                             </div>
-                            <h2 className="relative z-10 font-serif text-xl sm:text-2xl md:text-4xl text-slate-900 dark:text-white mb-1 md:mb-2 text-center px-2">{committee.name}</h2>
-                            <p className="relative z-10 font-mono text-[9px] sm:text-[10px] md:text-xs text-gold uppercase tracking-widest px-4 text-center">{committee.agenda}</p>
-                            <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-gold transition-colors z-20 bg-slate-50/50 p-1 rounded-full dark:bg-slate-900/50 backdrop-blur">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                            
+                            <h2 className="relative z-10 px-2 mb-1 md:mb-2 text-center text-xl sm:text-2xl md:text-4xl font-serif text-slate-900 dark:text-white">
+                                {committee.name}
+                            </h2>
+                            <p className="relative z-10 px-4 text-center text-[9px] sm:text-[10px] md:text-xs tracking-widest uppercase font-mono text-gold">
+                                {committee.agenda}
+                            </p>
+                            
+                            <button onClick={onClose} className="absolute top-4 right-4 z-20 p-1 rounded-full backdrop-blur transition-colors bg-slate-50/50 dark:bg-slate-900/50 text-slate-400 hover:text-gold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M18 6 6 18" />
+                                    <path d="m6 6 12 12" />
+                                </svg>
                             </button>
-                        </div>
+                        </header>
 
-                        <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-12">
-                            <div className="flex flex-col md:flex-row gap-4 sm:gap-6 justify-center items-center h-full min-h-max">
+                        <div className="flex-1 p-4 overflow-y-auto sm:p-6 md:p-12">
+                            <div className="flex flex-col md:flex-row items-center justify-center h-full min-h-max gap-4 sm:gap-6">
                                 {roles.map((role, idx) => (
-                                    <div key={idx} className="flex flex-col items-center w-full max-w-[250px] p-4 sm:p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 relative group hover:border-gold/50 transition-all duration-300">
-                                        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent group-hover:border-gold transition-colors"></div>
-                                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent group-hover:border-gold transition-colors"></div>
+                                    <div key={idx} className="relative flex flex-col items-center w-full max-w-[250px] p-4 sm:p-6 transition-all duration-300 group border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-gold/50">
+                                        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent transition-colors group-hover:border-gold" />
+                                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent transition-colors group-hover:border-gold" />
                                         
-                                        <div className="w-16 h-16 sm:w-20 sm:h-20 mb-3 sm:mb-4 rounded-full border border-gold/30 bg-slate-50 dark:bg-slate-950 flex items-center justify-center overflow-hidden">
-                                            <svg className="w-8 h-8 sm:w-10 sm:h-10 text-slate-300 dark:text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 mb-3 sm:mb-4 overflow-hidden rounded-full border border-gold/30 bg-slate-50 dark:bg-slate-950">
+                                            <svg className="w-8 h-8 sm:w-10 sm:h-10 text-slate-300 dark:text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                                <circle cx="12" cy="7" r="4" />
+                                            </svg>
                                         </div>
-                                        <h4 className="font-serif text-base sm:text-lg text-slate-800 dark:text-slate-200 mb-1">TBA</h4>
-                                        <p className="font-mono text-[8px] sm:text-[9px] md:text-[10px] text-gold uppercase tracking-widest text-center">{role}</p>
+                                        <h4 className="mb-1 text-base sm:text-lg font-serif text-slate-800 dark:text-slate-200">
+                                            TBA
+                                        </h4>
+                                        <p className="text-center text-[8px] sm:text-[9px] md:text-[10px] tracking-widest uppercase font-mono text-gold">
+                                            {role}
+                                        </p>
                                     </div>
                                 ))}
                             </div>
@@ -435,32 +553,45 @@
             );
         };
 
-        const TeamScreen = ({ langData }) => {
-            const team = Array(4).fill({ name: "talha", role: "talha" });
+        const TeamSection = ({ data }) => {
+            const members = Array(4).fill({ name: "talha", role: "talha" });
 
             return (
-                <div className="pt-24 md:pt-32 pb-20 px-4 md:px-6 max-w-7xl mx-auto min-h-[90vh] fade-in">
-                    <div className="text-center mb-12 md:mb-16 relative">
-                        <span className="font-mono text-gold tracking-[0.3em] text-[10px] md:text-xs uppercase mb-3 md:mb-4 block">ICARUS MUN 2026</span>
-                        <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl text-slate-900 dark:text-white mb-4 md:mb-6">{langData.teamTitle}</h1>
-                        <p className="text-slate-600 dark:text-slate-400 font-light text-sm md:text-base">{langData.teamDesc}</p>
-                        <div className="w-16 md:w-24 h-[1px] bg-gold mx-auto mt-6 md:mt-8"></div>
-                    </div>
+                <div className="max-w-7xl mx-auto min-h-[90vh] pt-24 md:pt-32 pb-20 px-4 md:px-6 fade-in">
+                    <header className="relative mb-12 text-center md:mb-16">
+                        <span className="block mb-3 md:mb-4 text-[10px] md:text-xs tracking-[0.3em] uppercase font-mono text-gold">
+                            ICARUS MUN 2026
+                        </span>
+                        <h1 className="mb-4 md:mb-6 text-3xl sm:text-4xl md:text-6xl font-serif text-slate-900 dark:text-white">
+                            {data.teamTitle}
+                        </h1>
+                        <p className="text-sm font-light md:text-base text-slate-600 dark:text-slate-400">
+                            {data.teamDesc}
+                        </p>
+                        <div className="w-16 h-[1px] md:w-24 mx-auto mt-6 md:mt-8 bg-gold" />
+                    </header>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 justify-center">
-                        {team.map((member, idx) => (
-                            <div key={idx} className="relative group p-6 border border-slate-200 dark:border-slate-800 hover:border-gold/50 bg-white dark:bg-slate-900/50 transition-all duration-300 flex flex-col items-center shadow-sm hover:shadow-md">
-                                <div className="absolute inset-0 bg-grid-pattern opacity-10 group-hover:opacity-30 transition-opacity"></div>
-                                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-transparent group-hover:border-gold transition-colors"></div>
-                                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-transparent group-hover:border-gold transition-colors"></div>
+                    <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 md:gap-8">
+                        {members.map((member, index) => (
+                            <div key={index} className="relative flex flex-col items-center p-6 shadow-sm transition-all duration-300 group hover:shadow-md border border-slate-200 dark:border-slate-800 hover:border-gold/50 bg-white dark:bg-slate-900/50">
+                                <div className="absolute inset-0 opacity-10 transition-opacity bg-grid-pattern group-hover:opacity-30" />
+                                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-transparent transition-colors group-hover:border-gold" />
+                                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-transparent transition-colors group-hover:border-gold" />
                                 
-                                <div className="w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-6 rounded-full border-2 border-gold/20 p-1 group-hover:border-gold transition-colors relative z-10">
-                                    <div className="w-full h-full rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
-                                        <svg className="w-12 h-12 md:w-16 md:h-16 text-slate-300 dark:text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <div className="relative z-10 w-24 h-24 p-1 mb-4 transition-colors rounded-full md:w-32 md:h-32 md:mb-6 border-2 border-gold/20 group-hover:border-gold">
+                                    <div className="flex items-center justify-center w-full h-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                                        <svg className="w-12 h-12 md:w-16 md:h-16 text-slate-300 dark:text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                            <circle cx="12" cy="7" r="4" />
+                                        </svg>
                                     </div>
                                 </div>
-                                <h3 className="font-serif text-lg md:text-xl text-slate-800 dark:text-slate-100 mb-1 md:mb-2 relative z-10">{member.name}</h3>
-                                <p className="font-mono text-[9px] md:text-[10px] text-gold uppercase tracking-widest text-center relative z-10">{member.role}</p>
+                                <h3 className="relative z-10 mb-1 text-lg md:text-xl font-serif text-slate-800 dark:text-slate-100 md:mb-2">
+                                    {member.name}
+                                </h3>
+                                <p className="relative z-10 text-center text-[9px] md:text-[10px] tracking-widest uppercase font-mono text-gold">
+                                    {member.role}
+                                </p>
                             </div>
                         ))}
                     </div>
@@ -468,91 +599,137 @@
             );
         };
 
-        const MainScreen = ({ lang }) => {
-            const t = content[lang];
-            const [activeTab, setActiveTab] = useState('home');
-            const [selectedModal, setSelectedModal] = useState(null);
-            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+        const MainApp = ({ lang }) => {
+            const data = localeData[lang];
+            const [view, setView] = useState('home');
+            const [activeCommittee, setActiveCommittee] = useState(null);
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+            const handleScrollToCommittees = () => {
+                document.getElementById('committees')?.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            const toggleMobileMenu = () => setIsMenuOpen(!isMenuOpen);
+
+            const handleNavClick = (targetView) => {
+                setView(targetView);
+                setIsMenuOpen(false);
+            };
 
             return (
-                <div className="relative min-h-screen bg-grid-pattern fade-in transition-colors duration-500">
-                    <nav className="fixed w-full z-40 border-b border-gold/20 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md shadow-sm">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
-                            <div className="flex items-center gap-2 sm:gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
-                                <img src="assets/icarusarkaplansiz.png" alt="Logo" className="h-8 sm:h-12 w-auto drop-shadow" onError={(e) => { e.target.src='assets/icarus.png'; }}/>
+                <div className="relative min-h-screen transition-colors duration-500 bg-grid-pattern fade-in">
+                    <nav className="fixed w-full z-40 shadow-sm backdrop-blur-md border-b border-gold/20 bg-white/95 dark:bg-slate-950/95">
+                        <div className="flex items-center justify-between h-16 max-w-7xl mx-auto px-4 sm:px-6 sm:h-20">
+                            <div className="flex items-center gap-2 cursor-pointer sm:gap-3" onClick={() => handleNavClick('home')}>
+                                <img 
+                                    src="assets/icarusarkaplansiz.png" 
+                                    alt="Logo" 
+                                    className="w-auto h-8 drop-shadow sm:h-12" 
+                                    onError={(e) => { e.target.src='assets/icarus.png'; }}
+                                />
                                 <div className="flex flex-col">
-                                    <span className="font-serif font-bold text-sm sm:text-lg tracking-wider text-gold leading-tight">ICARUS</span>
-                                    <span className="font-mono text-[7px] sm:text-[10px] tracking-widest text-slate-400 leading-tight">MUN 2026</span>
+                                    <span className="text-sm font-bold tracking-wider leading-tight sm:text-lg font-serif text-gold">
+                                        ICARUS
+                                    </span>
+                                    <span className="text-[7px] tracking-widest leading-tight sm:text-[10px] font-mono text-slate-400">
+                                        MUN 2026
+                                    </span>
                                 </div>
                             </div>
                             
-                            <div className="hidden md:flex gap-8 items-center">
-                                <button onClick={() => setActiveTab('home')} className={`text-sm font-medium tracking-wide uppercase transition-colors line-draw ${activeTab === 'home' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold'}`}>{t.nav.home}</button>
-                                <button onClick={() => setActiveTab('team')} className={`text-sm font-medium tracking-wide uppercase transition-colors line-draw ${activeTab === 'team' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold'}`}>{t.nav.team}</button>
-                                <button className="text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold line-draw uppercase">{t.nav.apply}</button>
+                            <div className="items-center hidden gap-8 md:flex">
+                                <button onClick={() => handleNavClick('home')} className={`text-sm font-medium tracking-wide uppercase transition-colors line-draw ${view === 'home' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold'}`}>
+                                    {data.nav.home}
+                                </button>
+                                <button onClick={() => handleNavClick('team')} className={`text-sm font-medium tracking-wide uppercase transition-colors line-draw ${view === 'team' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold'}`}>
+                                    {data.nav.team}
+                                </button>
+                                <button className="text-sm font-medium tracking-wide uppercase transition-colors line-draw text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold">
+                                    {data.nav.apply}
+                                </button>
                             </div>
                             
-                            <div className="md:hidden text-gold cursor-pointer p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                                {isMobileMenuOpen ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <div className="p-2 cursor-pointer md:hidden text-gold" onClick={toggleMobileMenu}>
+                                {isMenuOpen ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
                                 ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <line x1="4" x2="20" y1="12" y2="12" />
+                                        <line x1="4" x2="20" y1="6" y2="6" />
+                                        <line x1="4" x2="20" y1="18" y2="18" />
+                                    </svg>
                                 )}
                             </div>
                         </div>
                     </nav>
 
-                    {/* Mobil Menü Açılır Panel */}
-                    {isMobileMenuOpen && (
-                        <div className="md:hidden fixed top-16 sm:top-20 left-0 w-full bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-gold/20 flex flex-col p-4 gap-4 z-30 shadow-lg fade-in">
-                            <button onClick={() => { setActiveTab('home'); setIsMobileMenuOpen(false); }} className={`text-sm font-medium tracking-wide uppercase py-2 text-left ${activeTab === 'home' ? 'text-gold' : 'text-slate-600 dark:text-slate-300'}`}>{t.nav.home}</button>
-                            <button onClick={() => { setActiveTab('team'); setIsMobileMenuOpen(false); }} className={`text-sm font-medium tracking-wide uppercase py-2 text-left ${activeTab === 'team' ? 'text-gold' : 'text-slate-600 dark:text-slate-300'}`}>{t.nav.team}</button>
-                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300 py-2 text-left uppercase">{t.nav.apply}</button>
+                    {isMenuOpen && (
+                        <div className="fixed top-16 left-0 z-30 flex flex-col w-full p-4 gap-4 shadow-lg backdrop-blur-md fade-in sm:top-20 md:hidden border-b border-gold/20 bg-white/95 dark:bg-slate-950/95">
+                            <button onClick={() => handleNavClick('home')} className={`py-2 text-sm font-medium text-left tracking-wide uppercase ${view === 'home' ? 'text-gold' : 'text-slate-600 dark:text-slate-300'}`}>
+                                {data.nav.home}
+                            </button>
+                            <button onClick={() => handleNavClick('team')} className={`py-2 text-sm font-medium text-left tracking-wide uppercase ${view === 'team' ? 'text-gold' : 'text-slate-600 dark:text-slate-300'}`}>
+                                {data.nav.team}
+                            </button>
+                            <button onClick={() => setIsMenuOpen(false)} className="py-2 text-sm font-medium text-left tracking-wide uppercase text-slate-600 dark:text-slate-300">
+                                {data.nav.apply}
+                            </button>
                         </div>
                     )}
 
-                    {activeTab === 'team' ? (
-                        <TeamScreen langData={t} />
+                    {view === 'team' ? (
+                        <TeamSection data={data} />
                     ) : (
-                        <div>
-                            <main className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[90vh] text-center">
-                                <div className="absolute top-1/4 left-10 w-[1px] h-64 bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden lg:block"></div>
-                                <div className="absolute bottom-1/4 right-10 w-[1px] h-64 bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden lg:block"></div>
-                                <div className="absolute top-1/3 left-10 w-16 h-[1px] bg-gold/40 hidden lg:block"></div>
+                        <>
+                            <main className="flex flex-col items-center justify-center max-w-7xl min-h-[90vh] mx-auto px-4 pt-24 pb-16 text-center sm:pt-32 sm:pb-20 sm:px-6">
+                                <div className="absolute top-1/4 left-10 w-[1px] h-64 bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden lg:block" />
+                                <div className="absolute bottom-1/4 right-10 w-[1px] h-64 bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden lg:block" />
+                                <div className="absolute top-1/3 left-10 w-16 h-[1px] hidden lg:block bg-gold/40" />
 
-                                <span className="font-mono text-gold tracking-[0.3em] text-[9px] sm:text-sm mb-4 sm:mb-6 uppercase border border-gold/30 py-1 px-3 sm:px-4 rounded-none bg-gold/5 backdrop-blur-sm">{t.heroSubtitle}</span>
-                                <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-8 tracking-tight transition-colors leading-tight">{t.heroTitle}</h1>
-                                <p className="max-w-2xl text-slate-600 dark:text-slate-400 text-xs sm:text-lg md:text-xl font-light leading-relaxed mb-8 sm:mb-12 px-2">{t.heroDesc}</p>
+                                <span className="px-3 py-1 mb-4 text-[9px] sm:text-sm tracking-[0.3em] uppercase rounded-none backdrop-blur-sm sm:mb-6 sm:px-4 font-mono text-gold border border-gold/30 bg-gold/5">
+                                    {data.heroSubtitle}
+                                </span>
+                                <h1 className="mb-4 text-4xl font-bold tracking-tight leading-tight transition-colors sm:text-6xl md:text-7xl lg:text-8xl sm:mb-8 font-serif text-slate-900 dark:text-white">
+                                    {data.heroTitle}
+                                </h1>
+                                <p className="max-w-2xl px-2 mb-8 text-xs font-light leading-relaxed sm:text-lg md:text-xl sm:mb-12 text-slate-600 dark:text-slate-400">
+                                    {data.heroDesc}
+                                </p>
 
-                                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full justify-center max-w-md mx-auto sm:max-w-none">
+                                <div className="flex flex-col justify-center w-full gap-4 mx-auto sm:flex-row sm:gap-6 max-w-md sm:max-w-none">
                                     <div className="flex flex-col items-center w-full sm:w-auto">
-                                        <button className="relative px-6 sm:px-8 py-3 sm:py-4 bg-gold/10 border border-gold text-gold hover:bg-gold hover:text-white dark:hover:text-slate-950 font-mono text-xs sm:text-sm tracking-widest transition-all duration-300 group shadow-sm w-full">
-                                            <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-gold group-hover:border-transparent"></span>
-                                            <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-gold group-hover:border-transparent"></span>
-                                            {t.ctaPrimary}
+                                        <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950">
+                                            <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-gold group-hover:border-transparent" />
+                                            <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-gold group-hover:border-transparent" />
+                                            {data.ctaPrimary}
                                         </button>
-                                        <Countdown text={t.countdownText} />
+                                        <Countdown label={data.countdownText} />
                                     </div>
-                                    <div className="flex items-start w-full sm:w-auto mt-4 sm:mt-0">
-                                        <button onClick={() => {
-                                            document.getElementById('committees').scrollIntoView({ behavior: 'smooth' });
-                                        }} className="px-6 sm:px-8 py-3 sm:py-4 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-gold/50 hover:text-gold dark:hover:text-gold font-mono text-xs sm:text-sm tracking-widest transition-all duration-300 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-sm hover:shadow-md w-full">
-                                            {t.ctaSecondary}
+                                    <div className="flex items-start w-full mt-4 sm:w-auto sm:mt-0">
+                                        <button onClick={handleScrollToCommittees} className="w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm backdrop-blur-sm hover:shadow-md sm:px-8 sm:py-4 sm:text-sm font-mono border text-slate-600 border-slate-300 bg-white/50 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
+                                            {data.ctaSecondary}
                                         </button>
                                     </div>
                                 </div>
                             </main>
 
-                            {/* YENİ HARİTA ALANI (TAM GENİŞLİK) */}
-                            <section className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 relative py-12 sm:py-24 transition-colors overflow-hidden">
-                                <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col items-center">
+                            <section className="relative py-12 overflow-hidden transition-colors sm:py-24 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80">
+                                <div className="flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6">
                                     
-                                    <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-slate-900 dark:text-slate-100 mb-6 sm:mb-8 flex items-center justify-center gap-3 sm:gap-4 transition-colors w-full text-center">
-                                        <img src="assets/Istanbul_Aydın_University_logo.svg.png" alt="İAÜ Logo" className="h-8 sm:h-12 md:h-14 w-auto object-contain" onError={(e) => { e.target.style.display='none'; }} />
+                                    <h2 className="flex items-center justify-center w-full gap-3 mb-6 text-2xl text-center transition-colors sm:text-3xl md:text-4xl sm:gap-4 sm:mb-8 font-serif text-slate-900 dark:text-slate-100">
+                                        <img 
+                                            src="assets/Istanbul_Aydın_University_logo.svg.png" 
+                                            alt="İAÜ Logo" 
+                                            className="w-auto h-8 object-contain sm:h-12 md:h-14" 
+                                            onError={(e) => { e.target.style.display='none'; }} 
+                                        />
                                         <span>İstanbul Aydın Üniversitesi</span>
                                     </h2>
                                     
-                                    <div className="w-full aspect-square sm:aspect-[16/9] md:aspect-[21/9] rounded border border-gold/20 overflow-hidden mb-6 shadow-sm">
+                                    <div className="w-full mb-6 overflow-hidden rounded shadow-sm aspect-square sm:aspect-[16/9] md:aspect-[21/9] border border-gold/20">
                                         <iframe 
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.587133725575!2d28.79458617655148!3d40.99052062051735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa396db59606d%3A0x6594147beb14e9b4!2zxLBzdGFuYnVsIEF5ZMSxbiDDnG5pdmVyc2l0ZXNp!5e0!3m2!1str!2str!4v1779138319153!5m2!1str!2str" 
                                             className="w-full h-full" 
@@ -560,70 +737,85 @@
                                             allowFullScreen="" 
                                             loading="lazy" 
                                             referrerPolicy="no-referrer-when-downgrade"
-                                        ></iframe>
+                                        />
                                     </div>
                                     
-                                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-2xl justify-center">
-                                        <a href="https://maps.google.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" className="flex-1 text-center px-4 py-3 sm:py-4 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-gold/50 hover:text-gold dark:hover:text-gold font-mono text-[10px] sm:text-xs tracking-widest transition-all duration-300 bg-slate-50 dark:bg-slate-900/50 shadow-sm hover:shadow-md">
-                                            {t.mapGoogle}
+                                    <div className="flex flex-col justify-center w-full max-w-2xl gap-3 sm:flex-row sm:gap-4">
+                                        <a href="https://maps.google.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-3 text-center text-[10px] tracking-widest transition-all duration-300 shadow-sm hover:shadow-md sm:py-4 sm:text-xs font-mono border text-slate-600 border-slate-300 bg-slate-50 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
+                                            {data.mapGoogle}
                                         </a>
-                                        <a href="http://maps.apple.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" className="flex-1 text-center px-4 py-3 sm:py-4 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-gold/50 hover:text-gold dark:hover:text-gold font-mono text-[10px] sm:text-xs tracking-widest transition-all duration-300 bg-slate-50 dark:bg-slate-900/50 shadow-sm hover:shadow-md">
-                                            {t.mapApple}
+                                        <a href="http://maps.apple.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-3 text-center text-[10px] tracking-widest transition-all duration-300 shadow-sm hover:shadow-md sm:py-4 sm:text-xs font-mono border text-slate-600 border-slate-300 bg-slate-50 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
+                                            {data.mapApple}
                                         </a>
                                     </div>
                                 </div>
                             </section>
 
-                            <section id="committees" className="py-16 sm:py-24 border-t border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 transition-colors">
+                            <section id="committees" className="py-16 transition-colors sm:py-24 border-t border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950">
                                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                                    
-                                    <div className="text-center mb-10 sm:mb-16 flex flex-col items-center">
-                                        <div className="flex items-center justify-center gap-3 sm:gap-5 mb-3 sm:mb-4">
-                                            {/* 3D Dünya Logosu (Başlığın Yanında) */}
-                                            <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full overflow-hidden flex-shrink-0" style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+                                    <div className="flex flex-col items-center mb-10 text-center sm:mb-16">
+                                        <div className="flex items-center justify-center gap-3 mb-3 sm:gap-5 sm:mb-4">
+                                            <div className="relative flex items-center justify-center flex-shrink-0 w-12 h-12 overflow-hidden rounded-full sm:w-16 sm:h-16 md:w-20 md:h-20" style={{ clipPath: 'circle(50% at 50% 50%)' }}>
                                                 <svg className="absolute w-[200%] h-full text-gold/30 globe-scroll" viewBox="0 0 200 100" fill="none" stroke="currentColor" strokeWidth="0.5">
-                                                    <line x1="0" y1="25" x2="200" y2="25" strokeDasharray="2 2"/>
-                                                    <line x1="0" y1="50" x2="200" y2="50" strokeDasharray="4 2"/>
-                                                    <line x1="0" y1="75" x2="200" y2="75" strokeDasharray="2 2"/>
+                                                    <line x1="0" y1="25" x2="200" y2="25" strokeDasharray="2 2" />
+                                                    <line x1="0" y1="50" x2="200" y2="50" strokeDasharray="4 2" />
+                                                    <line x1="0" y1="75" x2="200" y2="75" strokeDasharray="2 2" />
                                                     <g>
-                                                        <path d="M10 15 L25 10 L35 25 L25 45 L15 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                        <path d="M22 50 L32 48 L38 65 L28 85 L20 65 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                        <path d="M45 15 L75 10 L85 25 L95 40 L70 50 L50 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                        <path d="M48 45 L65 42 L72 60 L60 80 L45 60 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                        <path d="M80 65 L90 62 L95 75 L85 80 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M10 15 L25 10 L35 25 L25 45 L15 35 Z" fill="rgba(212, 175, 55, 0.1)" />
+                                                        <path d="M22 50 L32 48 L38 65 L28 85 L20 65 Z" fill="rgba(212, 175, 55, 0.1)" />
+                                                        <path d="M45 15 L75 10 L85 25 L95 40 L70 50 L50 35 Z" fill="rgba(212, 175, 55, 0.1)" />
+                                                        <path d="M48 45 L65 42 L72 60 L60 80 L45 60 Z" fill="rgba(212, 175, 55, 0.1)" />
+                                                        <path d="M80 65 L90 62 L95 75 L85 80 Z" fill="rgba(212, 175, 55, 0.1)" />
                                                     </g>
                                                     <g transform="translate(100, 0)">
-                                                        <path d="M10 15 L25 10 L35 25 L25 45 L15 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                        <path d="M22 50 L32 48 L38 65 L28 85 L20 65 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                        <path d="M45 15 L75 10 L85 25 L95 40 L70 50 L50 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                        <path d="M48 45 L65 42 L72 60 L60 80 L45 60 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                        <path d="M80 65 L90 62 L95 75 L85 80 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M10 15 L25 10 L35 25 L25 45 L15 35 Z" fill="rgba(212, 175, 55, 0.1)" />
+                                                        <path d="M22 50 L32 48 L38 65 L28 85 L20 65 Z" fill="rgba(212, 175, 55, 0.1)" />
+                                                        <path d="M45 15 L75 10 L85 25 L95 40 L70 50 L50 35 Z" fill="rgba(212, 175, 55, 0.1)" />
+                                                        <path d="M48 45 L65 42 L72 60 L60 80 L45 60 Z" fill="rgba(212, 175, 55, 0.1)" />
+                                                        <path d="M80 65 L90 62 L95 75 L85 80 Z" fill="rgba(212, 175, 55, 0.1)" />
                                                     </g>
                                                 </svg>
-                                                <img src="assets/icarusarkaplansiz.png" alt="Icarus" className="absolute w-[60%] h-auto z-10 drop-shadow-md dark:brightness-150" onError={(e) => { e.target.src='assets/icarus.png'; }} />
-                                                <div className="absolute inset-0 rounded-full shadow-[inset_0_0_10px_rgba(212,175,55,0.4)] border border-gold/40 pointer-events-none"></div>
+                                                <img 
+                                                    src="assets/icarusarkaplansiz.png" 
+                                                    alt="Icarus" 
+                                                    className="absolute z-10 w-[60%] h-auto drop-shadow-md dark:brightness-150" 
+                                                    onError={(e) => { e.target.src='assets/icarus.png'; }} 
+                                                />
+                                                <div className="absolute inset-0 pointer-events-none rounded-full shadow-[inset_0_0_10px_rgba(212,175,55,0.4)] border border-gold/40" />
                                             </div>
-                                            
-                                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-slate-900 dark:text-slate-100 text-left">{t.committeesTitle}</h2>
+                                            <h2 className="text-2xl text-left sm:text-3xl md:text-5xl font-serif text-slate-900 dark:text-slate-100">
+                                                {data.committeesTitle}
+                                            </h2>
                                         </div>
-                                        <div className="w-16 sm:w-32 h-[1px] bg-gold mx-auto"></div>
+                                        <div className="w-16 mx-auto sm:w-32 h-[1px] bg-gold" />
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-                                        {t.committees.map((com, idx) => (
-                                            <div key={idx} onClick={() => setSelectedModal(com)} className="relative group p-5 sm:p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/50 bg-white dark:bg-slate-900/50 transition-all duration-300 flex flex-col h-full overflow-hidden cursor-pointer shadow-sm hover:shadow-md">
-                                                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent group-hover:border-gold transition-colors"></div>
-                                                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent group-hover:border-gold transition-colors"></div>
-                                                <div className="absolute inset-0 bg-grid-pattern opacity-10 group-hover:opacity-30 transition-opacity"></div>
+                                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 sm:gap-8">
+                                        {data.committees.map((com, index) => (
+                                            <div 
+                                                key={index} 
+                                                onClick={() => setActiveCommittee(com)} 
+                                                className="relative flex flex-col h-full p-5 overflow-hidden transition-all duration-300 cursor-pointer shadow-sm group hover:shadow-md sm:p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/50 bg-white dark:bg-slate-900/50"
+                                            >
+                                                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent transition-colors group-hover:border-gold" />
+                                                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent transition-colors group-hover:border-gold" />
+                                                <div className="absolute inset-0 opacity-10 transition-opacity bg-grid-pattern group-hover:opacity-30" />
+                                                
                                                 <div className="relative z-10 flex flex-col h-full">
-                                                    <div className="text-gold mb-4 sm:mb-6 bg-gold/10 w-10 h-10 sm:w-16 sm:h-16 flex items-center justify-center rounded-sm group-hover:scale-110 transition-transform duration-500">
-                                                        {CommitteeIcons[com.id]}
+                                                    <div className="flex items-center justify-center w-10 h-10 mb-4 transition-transform duration-500 rounded-sm sm:mb-6 sm:w-16 sm:h-16 text-gold bg-gold/10 group-hover:scale-110">
+                                                        {SVGIcons[com.id]}
                                                     </div>
-                                                    <h3 className="font-serif text-lg sm:text-2xl text-slate-800 dark:text-slate-100 mb-1 sm:mb-2">{com.name}</h3>
-                                                    <div className="font-mono text-[9px] sm:text-[11px] uppercase tracking-widest text-gold mb-3 sm:mb-4 min-h-[24px] sm:min-h-[32px]">{com.agenda}</div>
-                                                    <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed flex-grow">{com.desc}</p>
-                                                    <div className="mt-4 sm:mt-6 pt-3 sm:pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[9px] sm:text-xs font-mono text-slate-400 group-hover:text-gold transition-colors">
-                                                        <span>SYS.C{idx+1}</span>
+                                                    <h3 className="mb-1 text-lg sm:text-2xl sm:mb-2 font-serif text-slate-800 dark:text-slate-100">
+                                                        {com.name}
+                                                    </h3>
+                                                    <div className="mb-3 text-[9px] min-h-[24px] tracking-widest uppercase sm:text-[11px] sm:mb-4 sm:min-h-[32px] font-mono text-gold">
+                                                        {com.agenda}
+                                                    </div>
+                                                    <p className="flex-grow text-xs leading-relaxed sm:text-sm text-slate-600 dark:text-slate-400">
+                                                        {com.desc}
+                                                    </p>
+                                                    <div className="flex items-center justify-between pt-3 mt-4 text-[9px] transition-colors sm:mt-6 sm:pt-6 sm:text-xs font-mono text-slate-400 group-hover:text-gold border-t border-slate-200 dark:border-slate-800">
+                                                        <span>SYS.C{index + 1}</span>
                                                         <span>&rarr; EXPLORE</span>
                                                     </div>
                                                 </div>
@@ -632,57 +824,91 @@
                                     </div>
                                 </div>
                             </section>
-                        </div>
+                        </>
                     )}
 
-                    <footer className="border-t border-gold/20 py-6 sm:py-8 text-center bg-slate-100 dark:bg-slate-900 transition-colors">
-                        <p className="font-mono text-[8px] sm:text-[10px] md:text-xs text-slate-500 dark:text-slate-400 tracking-widest uppercase px-4">{t.footer}</p>
+                    <footer className="py-6 text-center transition-colors sm:py-8 border-t border-gold/20 bg-slate-100 dark:bg-slate-900">
+                        <p className="px-4 text-[8px] tracking-widest uppercase sm:text-[10px] md:text-xs font-mono text-slate-500 dark:text-slate-400">
+                            {data.footer}
+                        </p>
                     </footer>
 
-                    <CommitteeModal committee={selectedModal} onClose={() => setSelectedModal(null)} />
+                    <CommitteeModal 
+                        committee={activeCommittee} 
+                        onClose={() => setActiveCommittee(null)} 
+                    />
                 </div>
             );
         };
 
-        const App = () => {
-            const [appState, setAppState] = useState('LOADING');
+        const ApplicationRoot = () => {
+            const [stage, setStage] = useState('LOADING');
             const [language, setLanguage] = useState('en');
             const [theme, setTheme] = useState('light');
 
-            const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
+            const toggleTheme = () => setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
 
             useEffect(() => {
+                const rootElement = document.documentElement;
                 if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.classList.remove('light');
+                    rootElement.classList.add('dark');
+                    rootElement.classList.remove('light');
                 } else {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.classList.add('light');
+                    rootElement.classList.remove('dark');
+                    rootElement.classList.add('light');
                 }
             }, [theme]);
 
-            return (
-                <React.Fragment>
-                    {appState === 'LOADING' && <LoadingScreen onComplete={() => setAppState('CONSENT')} />}
-                    {appState === 'CONSENT' && <ConsentScreen langData={content[language]} onAccept={() => setAppState('LANG')} />}
-                    {appState === 'LANG' && <LanguageScreen onSelect={(lang) => { setLanguage(lang); setAppState('MAIN'); }} />}
-                    {appState === 'MAIN' && <MainScreen lang={language} />}
+            const renderStage = () => {
+                switch (stage) {
+                    case 'LOADING':
+                        return <LoadingScreen onComplete={() => setStage('CONSENT')} />;
+                    case 'CONSENT':
+                        return <ConsentScreen data={localeData[language]} onAccept={() => setStage('LANG')} />;
+                    case 'LANG':
+                        return <LanguageScreen onSelect={(lang) => { setLanguage(lang); setStage('MAIN'); }} />;
+                    case 'MAIN':
+                        return <MainApp lang={language} />;
+                    default:
+                        return null;
+                }
+            };
 
-                    {/* ROOT seviyesinde ve tam sabit (fixed !important) çalışan Karanlık Mod Butonu */}
-                    {(appState === 'MAIN' || appState === 'LANG' || appState === 'CONSENT') && (
-                        <button onClick={toggleTheme} className="theme-toggle-fab w-12 h-12 md:w-14 md:h-14 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 shadow-xl hover:shadow-gold/30 hover:border-gold/50 flex items-center justify-center transition-all duration-300 hover:scale-110 group">
-                            <div className="relative w-5 h-5 md:w-6 md:h-6 flex items-center justify-center">
-                                <svg className={`absolute inset-0 text-slate-700 group-hover:text-gold transition-all duration-500 ease-in-out transform ${theme === 'light' ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'}`} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                                <svg className={`absolute inset-0 text-gold transition-all duration-500 ease-in-out transform ${theme === 'dark' ? 'rotate-0 opacity-100 scale-100' : 'rotate-90 opacity-0 scale-50'}`} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            const isAppReady = ['MAIN', 'LANG', 'CONSENT'].includes(stage);
+
+            return (
+                <>
+                    {renderStage()}
+                    
+                    {isAppReady && (
+                        <button 
+                            onClick={toggleTheme} 
+                            className="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-full shadow-xl theme-toggle-fab md:w-14 md:h-14 group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:shadow-gold/30 hover:border-gold/50 hover:scale-110"
+                        >
+                            <div className="relative flex items-center justify-center w-5 h-5 md:w-6 md:h-6">
+                                <svg className={`absolute inset-0 transition-all duration-500 ease-in-out transform ${theme === 'light' ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'} text-slate-700 group-hover:text-gold`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                                </svg>
+                                <svg className={`absolute inset-0 transition-all duration-500 ease-in-out transform ${theme === 'dark' ? 'rotate-0 opacity-100 scale-100' : 'rotate-90 opacity-0 scale-50'} text-gold`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="12" cy="12" r="4" />
+                                    <path d="M12 2v2" />
+                                    <path d="M12 20v2" />
+                                    <path d="m4.93 4.93 1.41 1.41" />
+                                    <path d="m17.66 17.66 1.41 1.41" />
+                                    <path d="M2 12h2" />
+                                    <path d="M20 12h2" />
+                                    <path d="m6.34 17.66-1.41 1.41" />
+                                    <path d="m19.07 4.93-1.41 1.41" />
+                                </svg>
                             </div>
                         </button>
                     )}
-                </React.Fragment>
+                </>
             );
         };
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        const rootNode = document.getElementById('root');
+        ReactDOM.createRoot(rootNode).render(<ApplicationRoot />);
     </script>
 </body>
 </html>
