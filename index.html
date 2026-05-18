@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nisan'a Özel 🍒</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #4c0519; /* Derin Vişne Rengi */
+            overflow-x: hidden;
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .cherry-bg {
+            background-image: url('https://www.transparentpng.com/download/cherry/cherry-png-images-9.png');
+            background-size: 100px;
+            opacity: 0.1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            from { background-position: 0 0; }
+            to { background-position: 500px 1000px; }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+        }
+
+        .error-shake {
+            animation: shake 0.5s core;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .floating-cherry {
+            position: absolute;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen flex items-center justify-center p-4">
+
+    <div class="cherry-bg"></div>
+
+    <!-- Giriş Ekranı -->
+    <div id="login-screen" class="glass p-8 w-full max-w-md shadow-2xl transition-all duration-700">
+        <div class="text-center mb-8">
+            <div class="text-6xl mb-4">🍒</div>
+            <h1 class="cursive text-4xl text-pink-200">Hoş Geldin Sevgilim</h1>
+            <p class="text-sm text-pink-300 mt-2">Bu kapı sadece sana özel...</p>
+        </div>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs font-semibold text-pink-200 uppercase tracking-wider mb-1">İsminiz</label>
+                <input type="text" id="username" placeholder="İsmini yaz..." 
+                    class="w-full bg-white/10 border border-white/20 rounded-lg p-3 outline-none focus:border-pink-400 transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-pink-200 uppercase tracking-wider mb-1">Şifre</label>
+                <input type="password" id="password" placeholder="Kalbimizin şifresi..." 
+                    class="w-full bg-white/10 border border-white/20 rounded-lg p-3 outline-none focus:border-pink-400 transition-colors">
+            </div>
+            
+            <!-- Hata Mesajı -->
+            <div id="error-box" class="hidden bg-red-500/20 border border-red-500/50 text-red-200 text-sm p-3 rounded-lg text-center">
+                Yanlış girdiniz sevgilim, tekrar dene. ❤️
+            </div>
+
+            <button onclick="checkLogin()" 
+                class="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 rounded-lg transition-all transform active:scale-95 shadow-lg">
+                Giriş Yap
+            </button>
+        </div>
+    </div>
+
+    <!-- Hediye İçeriği (Başlangıçta Gizli) -->
+    <div id="content-screen" class="hidden w-full max-w-4xl">
+        <div class="glass p-10 text-center relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="cursive text-6xl text-pink-200 mb-6 animate-bounce">Seni Çok Seviyorum Nisan!</h2>
+                <div class="w-32 h-1 bg-pink-400 mx-auto mb-8 rounded-full"></div>
+                
+                <p class="text-xl leading-relaxed mb-8 font-light italic">
+                    "Vişne tadında bir hayatımız olsun istedim... <br> 
+                    Her anı taze, her anı tatlı ve her anı kıpkırmızı bir aşkla dolu."
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                        <div class="text-3xl mb-2">🍒</div>
+                        <h3 class="font-bold text-pink-300">En Tatlım</h3>
+                        <p class="text-sm">Hayatımın en güzel meyvesi sensin.</p>
+                    </div>
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                        <div class="text-3xl mb-2">❤️</div>
+                        <h3 class="font-bold text-pink-300">Sonsuzum</h3>
+                        <p class="text-sm">Her geçen gün daha çok bağlanıyorum.</p>
+                    </div>
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                        <div class="text-3xl mb-2">✨</div>
+                        <h3 class="font-bold text-pink-300">Işığım</h3>
+                        <p class="text-sm">Karanlık dünyamı aydınlatan sensin.</p>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-pink-900/40 rounded-xl inline-block border border-pink-500/30">
+                    <span class="text-pink-100">Burası bizim küçük dünyamız...</span>
+                </div>
+            </div>
+            
+            <!-- Süslemeler -->
+            <div class="absolute -top-10 -left-10 text-6xl opacity-20">🍒</div>
+            <div class="absolute -bottom-10 -right-10 text-6xl opacity-20">🍒</div>
+        </div>
+    </div>
+
+    <script>
+        function createCherry() {
+            const cherry = document.createElement('div');
+            cherry.innerHTML = '🍒';
+            cherry.className = 'floating-cherry';
+            cherry.style.left = Math.random() * 100 + 'vw';
+            cherry.style.fontSize = Math.random() * (30 - 15) + 15 + 'px';
+            cherry.style.animationDuration = Math.random() * (10 - 5) + 5 + 's';
+            cherry.style.opacity = Math.random();
+            document.body.appendChild(cherry);
+            
+            setTimeout(() => {
+                cherry.remove();
+            }, 10000);
+        }
+
+        function checkLogin() {
+            const nameInput = document.getElementById('username').value.trim();
+            const passInput = document.getElementById('password').value.trim();
+            const errorBox = document.getElementById('error-box');
+            const loginScreen = document.getElementById('login-screen');
+            const contentScreen = document.getElementById('content-screen');
+
+            // İsim Nisan (küçük/büyük harf duyarsız) ve şifre kontrolü
+            if (nameInput.toLowerCase() === 'nisan' && passInput === 'M()()odŞebnemvejeteryan') {
+                errorBox.classList.add('hidden');
+                
+                // Başarılı giriş animasyonu
+                loginScreen.style.opacity = '0';
+                loginScreen.style.transform = 'scale(0.9)';
+                
+                setTimeout(() => {
+                    loginScreen.classList.add('hidden');
+                    contentScreen.classList.remove('hidden');
+                    contentScreen.style.opacity = '0';
+                    contentScreen.style.transform = 'translateY(20px)';
+                    
+                    // İçeriği göster
+                    setTimeout(() => {
+                        contentScreen.style.transition = 'all 1s ease';
+                        contentScreen.style.opacity = '1';
+                        contentScreen.style.transform = 'translateY(0)';
+                        // Vişne yağmuru başlat
+                        setInterval(createCherry, 300);
+                    }, 50);
+                }, 700);
+
+            } else {
+                // Hata durumu
+                errorBox.classList.remove('hidden');
+                loginScreen.classList.add('error-shake');
+                setTimeout(() => {
+                    loginScreen.classList.remove('error-shake');
+                }, 500);
+            }
+        }
+
+        // Enter tuşu ile giriş yapma
+        document.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkLogin();
+            }
+        });
+    </script>
+</body>
+</html>
