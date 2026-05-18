@@ -1,209 +1,578 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nisan'a Özel 🍒</title>
+    <title>Icarus MUN 2026 | Reform</title>
+    
+    <!-- Tailwind CSS Config for Dark Mode -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #4c0519; /* Derin Vişne Rengi */
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
             overflow-x: hidden;
         }
 
-        .cursive {
-            font-family: 'Dancing Script', cursive;
+        .font-serif {
+            font-family: 'Playfair Display', serif;
         }
 
-        .cherry-bg {
-            background-image: url('https://www.transparentpng.com/download/cherry/cherry-png-images-9.png');
-            background-size: 100px;
-            opacity: 0.1;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            animation: float 20s linear infinite;
+        /* 2D Çizgili / Reform Teması İçin Grid Arka Planı (Hem Light hem Dark uyumlu) */
+        .bg-grid-pattern {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(212, 175, 55, 0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(212, 175, 55, 0.15) 1px, transparent 1px);
+            background-position: center center;
         }
 
-        @keyframes float {
-            from { background-position: 0 0; }
-            to { background-position: 500px 1000px; }
+        /* Çizgisel animasyonlar */
+        .line-draw {
+            position: relative;
         }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-        }
-
-        .error-shake {
-            animation: shake 0.5s core;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .floating-cherry {
+        .line-draw::after {
+            content: '';
             position: absolute;
-            pointer-events: none;
-            animation: fall linear infinite;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: #D4AF37;
+            transition: width 0.3s ease-in-out;
+        }
+        .line-draw:hover::after {
+            width: 100%;
         }
 
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(360deg); }
+        .fade-in {
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Özel Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37; 
+            border-radius: 4px;
+        }
+
+        /* Dark Mode Ayarları */
+        html.dark body {
+            background-color: #020617; /* slate-950 */
+            color: #f8fafc;
+        }
+        html.light body {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        
+        .globe-spin {
+            animation: spinGlobe 15s linear infinite;
+        }
+        
+        @keyframes spinGlobe {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body class="text-white min-h-screen flex items-center justify-center p-4">
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200">
+    <div id="root"></div>
 
-    <div class="cherry-bg"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-    <!-- Giriş Ekranı -->
-    <div id="login-screen" class="glass p-8 w-full max-w-md shadow-2xl transition-all duration-700">
-        <div class="text-center mb-8">
-            <div class="text-6xl mb-4">🍒</div>
-            <h1 class="cursive text-4xl text-pink-200">Hoş Geldin Sevgilim</h1>
-            <p class="text-sm text-pink-300 mt-2">Bu kapı sadece sana özel...</p>
-        </div>
+        // --- CONTENT DICTIONARY ---
+        const content = {
+            en: {
+                nav: ['Home', 'About Us', 'Committees', 'Team', 'Apply'],
+                heroSubtitle: "THE AGE OF RECONSTRUCTION",
+                heroTitle: "REFORM THE FUTURE",
+                heroDesc: "Icarus MUN 2026 brings a revolutionary perspective to conventional diplomacy. Join us in redesigning the global systems through a 2D-architectural approach to international relations.",
+                ctaPrimary: "Delegate Applications",
+                ctaSecondary: "Explore Committees",
+                aboutTitle: "Structural Reform",
+                aboutText: "This year, we are moving away from traditional models. Our theme 'Reform' focuses on the deconstruction and reconstruction of global policies. Just as a blueprint guides an architect, diplomacy requires meticulous planning and strong foundations.",
+                stat1: "Days",
+                stat2: "Committees",
+                stat3: "Delegates",
+                committeesTitle: "Active Committees",
+                footer: "© 2026 Icarus Model United Nations. All systems online.",
+                committees: [
+                    { id: 'nato', name: 'NATO', agenda: "Türkiye's Missile Defense Crisis & Security Implications", desc: "Navigate the complex geopolitical implications of Türkiye's defense choices and their impact on the alliance's integrated security architecture." },
+                    { id: 'fjcc', name: 'F-JCC', agenda: "Avatar: The Last Airbender - 100 Year War", desc: "Draft strategies in a war-torn world of elemental bending. Can the balance be restored, or will the Fire Nation consume all?" },
+                    { id: 'jcc', name: 'JCC', agenda: "Game of Thrones: House of the Dragon", desc: "A brutal dance of dragons and political machinations. Compete for the Iron Throne in this intense joint crisis cabinet." },
+                    { id: 'hjcc', name: 'H-JCC', agenda: "The Transnistrian War", desc: "Manage the volatile fallout, separatist movements, and border conflicts during the chaotic early 90s in Eastern Europe." },
+                    { id: 'hcc', name: 'HCC: RDR2', agenda: "The Van der Linde Gang", desc: "Survive the dying days of the Wild West. Make ruthless decisions as outlaws facing changing times and closing frontiers." },
+                    { id: 'senate', name: 'US SENATE', agenda: "Addressing Marginalization in a Polarized US", desc: "Tackle domestic systemic issues and bridge the expanding legislative divide in a highly polarized political climate." },
+                    { id: 'untac', name: 'UNTAC', agenda: "Rebuilding Stability & Preparing General Elections", desc: "Execute the monumental task of peacekeeping, institutional rebuilding, and organizing democratic elections in post-conflict Cambodia." },
+                    { id: 'disec', name: 'DISEC', agenda: "Ongoing Crises in the Horn of Africa", desc: "Formulate disarmament and international security strategies to address the escalating armed conflicts in the Horn of Africa." },
+                    { id: 'unhrc', name: 'UNHRC', agenda: "Israel-Palestine Conflict", desc: "Analyze human rights violations, navigate complex historical grievances, and draft resolutions for sustainable peace in the region." }
+                ]
+            },
+            tr: {
+                nav: ['Ana Sayfa', 'Hakkımızda', 'Komiteler', 'Ekip', 'Başvuru'],
+                heroSubtitle: "YENİDEN İNŞA ÇAĞI",
+                heroTitle: "GELECEĞİ REFORME ET",
+                heroDesc: "Icarus MUN 2026, geleneksel diplomasiye devrim niteliğinde bir bakış açısı getiriyor. Uluslararası ilişkilere mimari bir yaklaşımla, küresel sistemleri yeniden tasarlamak için bize katılın.",
+                ctaPrimary: "Delege Başvuruları",
+                ctaSecondary: "Komiteleri İncele",
+                aboutTitle: "Yapısal Reform",
+                aboutText: "Bu yıl geleneksel modellerden uzaklaşıyoruz. 'Reform' temamız, küresel politikaların yapı sökümüne ve yeniden inşasına odaklanıyor. Bir mimarı yönlendiren planlar gibi, diplomasi de titiz bir planlama ve sağlam temeller gerektirir.",
+                stat1: "Gün",
+                stat2: "Komite",
+                stat3: "Delege",
+                committeesTitle: "Aktif Komiteler",
+                footer: "© 2026 Icarus Model Birleşmiş Milletler. Tüm sistemler çevrimiçi.",
+                committees: [
+                    { id: 'nato', name: 'NATO', agenda: "Türkiye'nin Füze Savunma Krizi ve Güvenlik Etkileri", desc: "Türkiye'nin savunma tercihlerinin karmaşık jeopolitik sonuçlarını ve ittifakın entegre güvenlik mimarisine etkilerini yönetin." },
+                    { id: 'fjcc', name: 'F-JCC', agenda: "Avatar: Son Havabükücü - 100 Yıl Savaşı", desc: "Element bükücülerin savaşın eşiğinde olduğu bir dünyada stratejiler oluşturun. Denge sağlanabilecek mi, yoksa Ateş Ulusu her şeyi yutacak mı?" },
+                    { id: 'jcc', name: 'JCC', agenda: "Game of Thrones: House of the Dragon", desc: "Ejderhaların dansı ve acımasız siyasi entrikalar. Bu yoğun kriz komitesinde Demir Taht için kıyasıya mücadele edin." },
+                    { id: 'hjcc', name: 'H-JCC', agenda: "Transdinyester Savaşı", desc: "Doğu Avrupa'da 90'ların başındaki kaos ortamında, ayrılıkçı hareketleri, sınır çatışmalarını ve diplomatik krizleri yönetin." },
+                    { id: 'hcc', name: 'HCC: RDR2', agenda: "Van der Linde Çetesi", desc: "Vahşi Batı'nın son günlerinde hayatta kalın. Değişen zamanlara ve daralan sınırlara karşı kanunsuzlar olarak acımasız kararlar alın." },
+                    { id: 'senate', name: 'ABD SENATOSU', agenda: "Kutuplaşmış ABD'de Marjinalleşmenin Ele Alınması", desc: "Yüksek derecede kutuplaşmış siyasi iklimde, iç sistemik sorunları çözün ve genişleyen yasama uçurumunu kapatın." },
+                    { id: 'untac', name: 'UNTAC', agenda: "İstikrarın Yeniden İnşası ve Genel Seçimlere Hazırlık", desc: "Çatışma sonrası Kamboçya'da barışı koruma, kurumları yeniden inşa etme ve demokratik seçimler düzenleme gibi devasa bir görevi üstlenin." },
+                    { id: 'disec', name: 'DISEC', agenda: "Afrika Boynuzu'ndaki Devam Eden Krizler", desc: "Afrika Boynuzu'nda tırmanan silahlı çatışmaları ele almak için silahsızlanma ve uluslararası güvenlik stratejileri formüle edin." },
+                    { id: 'unhrc', name: 'UNHRC', agenda: "İsrail-Filistin Çatışması", desc: "İnsan hakları ihlallerini analiz edin, karmaşık tarihi sorunları yönlendirin ve bölgede sürdürülebilir barış için kararlar tasarlayın." }
+                ]
+            }
+        };
 
-        <div class="space-y-4">
-            <div>
-                <label class="block text-xs font-semibold text-pink-200 uppercase tracking-wider mb-1">İsminiz</label>
-                <input type="text" id="username" placeholder="İsmini yaz..." 
-                    class="w-full bg-white/10 border border-white/20 rounded-lg p-3 outline-none focus:border-pink-400 transition-colors">
-            </div>
-            <div>
-                <label class="block text-xs font-semibold text-pink-200 uppercase tracking-wider mb-1">Şifre</label>
-                <input type="password" id="password" placeholder="Kalbimizin şifresi..." 
-                    class="w-full bg-white/10 border border-white/20 rounded-lg p-3 outline-none focus:border-pink-400 transition-colors">
-            </div>
+        // --- ICONS (SVG) ---
+        const CommitteeIcons = {
+            nato: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon><circle cx="12" cy="12" r="10"></circle><path d="M12 2v20M2 12h20"></path></svg>,
+            fjcc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M12 22v-6"></path><path d="M4.5 13.5l3.5-3.5a10 10 0 0 1 14 0"></path><path d="M2.5 9.5l3.5-3.5a15 15 0 0 1 20 0"></path><path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path></svg>, // Glider/Elements vibe
+            jcc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242M12 12v9"></path><path d="M8 17l4 4 4-4"></path><path d="M11 3h2v6h-2z"></path></svg>, // Dragon/Throne symbolic vibe (Sword/Crown)
+            hjcc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="12" x2="12" y2="18"></line></svg>, // Document/Strategy
+            hcc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4"></path></svg>, // Revolver Cylinder
+            senate: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M4 22h16"></path><path d="M6 22V10"></path><path d="M18 22V10"></path><path d="M12 22V10"></path><path d="M2 10l10-8 10 8H2z"></path></svg>, // Capitol/Institution
+            untac: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>, // Ballot/Health
+            disec: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>, // Shield/Security
+            unhrc: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> // Scales/Justice (Simplified as balanced curve)
+        };
+
+        // --- COMPONENTS ---
+
+        // 1. LOADING SCREEN
+        const LoadingScreen = ({ onComplete }) => {
+            const [textIndex, setTextIndex] = useState(0);
+            const [progress, setProgress] = useState(0);
             
-            <!-- Hata Mesajı -->
-            <div id="error-box" class="hidden bg-red-500/20 border border-red-500/50 text-red-200 text-sm p-3 rounded-lg text-center">
-                Yanlış girdiniz sevgilim, tekrar dene. ❤️
-            </div>
+            const texts = [
+                "Simulation Ready.",
+                "Diplomatic Network Established.",
+                "ICARUS Systems Activated."
+            ];
 
-            <button onclick="checkLogin()" 
-                class="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 rounded-lg transition-all transform active:scale-95 shadow-lg">
-                Giriş Yap
-            </button>
-        </div>
-    </div>
+            useEffect(() => {
+                const totalDuration = 4500; 
+                const interval = 50; 
+                const step = (100 / (totalDuration / interval));
 
-    <!-- Hediye İçeriği (Başlangıçta Gizli) -->
-    <div id="content-screen" class="hidden w-full max-w-4xl">
-        <div class="glass p-10 text-center relative overflow-hidden">
-            <div class="relative z-10">
-                <h2 class="cursive text-6xl text-pink-200 mb-6 animate-bounce">Seni Çok Seviyorum Nisan!</h2>
-                <div class="w-32 h-1 bg-pink-400 mx-auto mb-8 rounded-full"></div>
-                
-                <p class="text-xl leading-relaxed mb-8 font-light italic">
-                    "Vişne tadında bir hayatımız olsun istedim... <br> 
-                    Her anı taze, her anı tatlı ve her anı kıpkırmızı bir aşkla dolu."
-                </p>
+                const progressTimer = setInterval(() => {
+                    setProgress(prev => {
+                        if (prev >= 100) {
+                            clearInterval(progressTimer);
+                            return 100;
+                        }
+                        return prev + step;
+                    });
+                }, interval);
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
-                        <div class="text-3xl mb-2">🍒</div>
-                        <h3 class="font-bold text-pink-300">En Tatlım</h3>
-                        <p class="text-sm">Hayatımın en güzel meyvesi sensin.</p>
-                    </div>
-                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
-                        <div class="text-3xl mb-2">❤️</div>
-                        <h3 class="font-bold text-pink-300">Sonsuzum</h3>
-                        <p class="text-sm">Her geçen gün daha çok bağlanıyorum.</p>
-                    </div>
-                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
-                        <div class="text-3xl mb-2">✨</div>
-                        <h3 class="font-bold text-pink-300">Işığım</h3>
-                        <p class="text-sm">Karanlık dünyamı aydınlatan sensin.</p>
+                const textTimer1 = setTimeout(() => setTextIndex(1), 1500);
+                const textTimer2 = setTimeout(() => setTextIndex(2), 3000);
+                const completeTimer = setTimeout(() => onComplete(), 4500);
+
+                return () => {
+                    clearInterval(progressTimer);
+                    clearTimeout(textTimer1);
+                    clearTimeout(textTimer2);
+                    clearTimeout(completeTimer);
+                };
+            }, [onComplete]);
+
+            return (
+                <div className="fixed inset-0 bg-white dark:bg-slate-950 flex flex-col items-center justify-center z-50 bg-grid-pattern transition-colors duration-500">
+                    <div className="flex flex-col items-center w-full max-w-md px-6 fade-in">
+                        
+                        {/* 2D Rotating Globe with Logo inside */}
+                        <div className="relative w-56 h-56 mb-12 flex items-center justify-center">
+                            
+                            {/* SVG Wireframe Globe */}
+                            <svg className="absolute inset-0 w-full h-full text-gold/40 globe-spin" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+                                <circle cx="50" cy="50" r="48" strokeDasharray="4 2" />
+                                <ellipse cx="50" cy="50" rx="20" ry="48" />
+                                <ellipse cx="50" cy="50" rx="40" ry="48" />
+                                <line x1="2" y1="50" x2="98" y2="50" />
+                                <line x1="10" y1="25" x2="90" y2="25" />
+                                <line x1="10" y1="75" x2="90" y2="75" />
+                            </svg>
+                            
+                            {/* Inner Logo */}
+                            <img 
+                                src="icarusarkaplansiz.png" 
+                                alt="Icarus Logo" 
+                                className="w-28 h-auto z-10 drop-shadow-lg"
+                                onError={(e) => {
+                                    e.target.src = 'icarus.png'; // Fallback
+                                    e.target.onerror = () => { e.target.style.display = 'none'; };
+                                }}
+                            />
+                        </div>
+
+                        {/* Progress Bar Container */}
+                        <div className="w-full h-[2px] bg-slate-200 dark:bg-slate-800 relative mb-6">
+                            {/* Çizgisel köşe işaretleri */}
+                            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-gold"></div>
+                            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-gold"></div>
+                            <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-gold"></div>
+                            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-gold"></div>
+                            
+                            {/* Animated Bar */}
+                            <div 
+                                className="h-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.6)] transition-all duration-75 ease-out"
+                                style={{ width: `${progress}%` }}
+                            ></div>
+                        </div>
+
+                        {/* Terminal Text */}
+                        <div className="h-8 font-mono text-xs md:text-sm tracking-widest text-slate-600 dark:text-slate-400 uppercase text-center w-full">
+                            <span className="opacity-80">> {texts[textIndex]}</span>
+                            <span className="animate-pulse text-gold">_</span>
+                        </div>
                     </div>
                 </div>
+            );
+        };
 
-                <div class="p-4 bg-pink-900/40 rounded-xl inline-block border border-pink-500/30">
-                    <span class="text-pink-100">Burası bizim küçük dünyamız...</span>
+        // 2. LANGUAGE SELECTION SCREEN
+        const LanguageScreen = ({ onSelect }) => {
+            return (
+                <div className="fixed inset-0 bg-white dark:bg-slate-950 flex items-center justify-center z-40 bg-grid-pattern transition-colors duration-500">
+                    <div className="flex flex-col items-center max-w-2xl w-full px-4 fade-in">
+                        
+                        <div className="mb-12 text-center">
+                            <h2 className="text-2xl md:text-3xl font-light tracking-[0.2em] text-slate-800 dark:text-slate-200 mb-2 font-serif">
+                                Please select your language.
+                            </h2>
+                            <div className="w-24 h-[1px] bg-gold/50 mx-auto"></div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row gap-8 w-full justify-center">
+                            {/* UK Flag Button */}
+                            <button 
+                                onClick={() => onSelect('en')}
+                                className="group relative p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-300 flex flex-col items-center w-52 backdrop-blur-sm shadow-sm hover:shadow-md"
+                            >
+                                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent group-hover:border-gold transition-colors"></div>
+                                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent group-hover:border-gold transition-colors"></div>
+                                
+                                <svg className="w-24 h-16 mb-4 opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-sm" viewBox="0 0 60 30">
+                                    <clipPath id="s">
+                                        <path d="M0,0 v30 h60 v-30 z"/>
+                                    </clipPath>
+                                    <clipPath id="t">
+                                        <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
+                                    </clipPath>
+                                    <g clipPath="url(#s)">
+                                        <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                                        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
+                                        <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4"/>
+                                        <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
+                                        <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
+                                    </g>
+                                </svg>
+                                <span className="font-mono text-sm tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-gold transition-colors">ENGLISH</span>
+                            </button>
+
+                            {/* Turkey Flag Button (Fixed Star) */}
+                            <button 
+                                onClick={() => onSelect('tr')}
+                                className="group relative p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-300 flex flex-col items-center w-52 backdrop-blur-sm shadow-sm hover:shadow-md"
+                            >
+                                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-transparent group-hover:border-gold transition-colors"></div>
+                                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-transparent group-hover:border-gold transition-colors"></div>
+
+                                <svg className="w-24 h-16 mb-4 opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-sm" viewBox="0 0 120 80">
+                                    <rect width="120" height="80" fill="#E30A17"/>
+                                    {/* Dış beyaz daire */}
+                                    <circle cx="42.5" cy="40" r="20" fill="#fff"/>
+                                    {/* İç kırmızı daire (Hilali oluşturur) */}
+                                    <circle cx="47.5" cy="40" r="16" fill="#E30A17"/>
+                                    {/* Yıldız (5 noktalı mükemmel form) */}
+                                    <path d="M 68 32.5 L 70.5 39 L 77.5 39 L 71.5 43.5 L 73.5 50.5 L 68 46 L 62.5 50.5 L 64.5 43.5 L 58.5 39 L 65.5 39 Z" fill="#fff" transform="rotate(-15, 68, 41.5)"/>
+                                </svg>
+                                <span className="font-mono text-sm tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-gold transition-colors">TÜRKÇE</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Süslemeler -->
-            <div class="absolute -top-10 -left-10 text-6xl opacity-20">🍒</div>
-            <div class="absolute -bottom-10 -right-10 text-6xl opacity-20">🍒</div>
-        </div>
-    </div>
+            );
+        };
 
-    <script>
-        function createCherry() {
-            const cherry = document.createElement('div');
-            cherry.innerHTML = '🍒';
-            cherry.className = 'floating-cherry';
-            cherry.style.left = Math.random() * 100 + 'vw';
-            cherry.style.fontSize = Math.random() * (30 - 15) + 15 + 'px';
-            cherry.style.animationDuration = Math.random() * (10 - 5) + 5 + 's';
-            cherry.style.opacity = Math.random();
-            document.body.appendChild(cherry);
-            
-            setTimeout(() => {
-                cherry.remove();
-            }, 10000);
-        }
+        // 3. MAIN SCREEN
+        const MainScreen = ({ lang, theme, toggleTheme }) => {
+            const t = content[lang];
 
-        function checkLogin() {
-            const nameInput = document.getElementById('username').value.trim();
-            const passInput = document.getElementById('password').value.trim();
-            const errorBox = document.getElementById('error-box');
-            const loginScreen = document.getElementById('login-screen');
-            const contentScreen = document.getElementById('content-screen');
-
-            // İsim Nisan (küçük/büyük harf duyarsız) ve şifre kontrolü
-            if (nameInput.toLowerCase() === 'nisan' && passInput === 'M()()odŞebnemvejeteryan') {
-                errorBox.classList.add('hidden');
-                
-                // Başarılı giriş animasyonu
-                loginScreen.style.opacity = '0';
-                loginScreen.style.transform = 'scale(0.9)';
-                
-                setTimeout(() => {
-                    loginScreen.classList.add('hidden');
-                    contentScreen.classList.remove('hidden');
-                    contentScreen.style.opacity = '0';
-                    contentScreen.style.transform = 'translateY(20px)';
+            return (
+                <div className="relative min-h-screen bg-grid-pattern fade-in transition-colors duration-500">
                     
-                    // İçeriği göster
-                    setTimeout(() => {
-                        contentScreen.style.transition = 'all 1s ease';
-                        contentScreen.style.opacity = '1';
-                        contentScreen.style.transform = 'translateY(0)';
-                        // Vişne yağmuru başlat
-                        setInterval(createCherry, 300);
-                    }, 50);
-                }, 700);
+                    {/* Navigation */}
+                    <nav className="fixed w-full z-50 border-b border-gold/20 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md shadow-sm">
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <img src="icarusarkaplansiz.png" alt="Logo" className="h-12 w-auto drop-shadow" 
+                                     onError={(e) => { e.target.src='icarus.png'; }}/>
+                                <div className="flex flex-col">
+                                    <span className="font-serif font-bold text-lg tracking-wider text-gold leading-tight">ICARUS</span>
+                                    <span className="font-mono text-[10px] tracking-widest text-slate-400 leading-tight">MUN 2026</span>
+                                </div>
+                            </div>
+                            
+                            <div className="hidden md:flex gap-8 items-center">
+                                {t.nav.map((item, idx) => (
+                                    <a key={idx} href="#" className="text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold line-draw uppercase">
+                                        {item}
+                                    </a>
+                                ))}
+                                
+                                {/* Dark Mode Toggle */}
+                                <button 
+                                    onClick={toggleTheme} 
+                                    className="ml-4 p-2 rounded-full border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:text-gold dark:hover:text-gold hover:border-gold/50 transition-all duration-300 relative overflow-hidden group"
+                                    title="Toggle Theme"
+                                >
+                                    <div className="relative z-10 transform transition-transform duration-500 group-hover:rotate-[360deg]">
+                                        {theme === 'dark' ? (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                                        )}
+                                    </div>
+                                </button>
+                            </div>
 
-            } else {
-                // Hata durumu
-                errorBox.classList.remove('hidden');
-                loginScreen.classList.add('error-shake');
-                setTimeout(() => {
-                    loginScreen.classList.remove('error-shake');
-                }, 500);
-            }
-        }
+                            <button className="md:hidden text-gold">
+                                <i data-lucide="menu"></i>
+                            </button>
+                        </div>
+                    </nav>
 
-        // Enter tuşu ile giriş yapma
-        document.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkLogin();
-            }
-        });
+                    {/* Hero Section */}
+                    <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[90vh] text-center">
+                        {/* 2D Dekoratif Çizgiler */}
+                        <div className="absolute top-1/4 left-10 w-[1px] h-64 bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden lg:block"></div>
+                        <div className="absolute bottom-1/4 right-10 w-[1px] h-64 bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden lg:block"></div>
+                        <div className="absolute top-1/3 left-10 w-16 h-[1px] bg-gold/40 hidden lg:block"></div>
+
+                        <span className="font-mono text-gold tracking-[0.3em] text-sm mb-6 uppercase border border-gold/30 py-1 px-4 rounded-none bg-gold/5 backdrop-blur-sm">
+                            {t.heroSubtitle}
+                        </span>
+                        
+                        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900 dark:text-white mb-8 tracking-tight transition-colors">
+                            {t.heroTitle}
+                        </h1>
+                        
+                        <p className="max-w-2xl text-slate-600 dark:text-slate-400 text-lg md:text-xl font-light leading-relaxed mb-12">
+                            {t.heroDesc}
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-6 w-full justify-center max-w-md mx-auto sm:max-w-none">
+                            <button className="relative px-8 py-4 bg-gold/10 border border-gold text-gold hover:bg-gold hover:text-white dark:hover:text-slate-950 font-mono text-sm tracking-widest transition-all duration-300 group shadow-sm">
+                                <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-gold group-hover:border-transparent"></span>
+                                <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-gold group-hover:border-transparent"></span>
+                                {t.ctaPrimary}
+                            </button>
+                            <button className="px-8 py-4 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-gold/50 hover:text-gold dark:hover:text-gold font-mono text-sm tracking-widest transition-all duration-300 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-sm hover:shadow-md">
+                                {t.ctaSecondary}
+                            </button>
+                        </div>
+                    </main>
+
+                    {/* Architectural Concept Section (About) */}
+                    <section className="border-t border-slate-200 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 relative py-24 transition-colors">
+                        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+                            <div className="relative">
+                                {/* 2D Çizgili İllüstrasyon Kutusu */}
+                                <div className="aspect-square border border-gold/20 p-8 relative group hover:border-gold/40 transition-colors duration-500 bg-white dark:bg-slate-950 shadow-sm">
+                                    <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-50"></div>
+                                    <div className="absolute inset-4 border border-dashed border-slate-300 dark:border-slate-700"></div>
+                                    <div className="absolute inset-1/4 border border-gold/30 group-hover:rotate-12 transition-transform duration-700"></div>
+                                    <div className="absolute inset-1/3 border border-gold/20 rotate-45 group-hover:rotate-[60deg] transition-transform duration-700 delay-100"></div>
+                                    
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <img src="icarusarkaplansiz.png" alt="Icarus" className="w-1/2 h-auto opacity-90 drop-shadow-md dark:brightness-150"
+                                        onError={(e) => { e.target.src='icarus.png'; }} />
+                                    </div>
+                                    
+                                    {/* Köşe Etiketleri */}
+                                    <div className="absolute top-2 left-2 font-mono text-[10px] text-gold/60">SYS.01</div>
+                                    <div className="absolute bottom-2 right-2 font-mono text-[10px] text-gold/60">RFM.26</div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h2 className="font-serif text-3xl md:text-5xl text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-4 transition-colors">
+                                    <span className="w-12 h-[1px] bg-gold"></span>
+                                    {t.aboutTitle}
+                                </h2>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg mb-10 transition-colors">
+                                    {t.aboutText}
+                                </p>
+                                
+                                <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200 dark:border-slate-800 transition-colors">
+                                    <div>
+                                        <div className="text-3xl font-serif text-gold mb-1">03</div>
+                                        <div className="text-xs font-mono text-slate-500 uppercase tracking-widest">{t.stat1}</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-3xl font-serif text-gold mb-1">09</div>
+                                        <div className="text-xs font-mono text-slate-500 uppercase tracking-widest">{t.stat2}</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-3xl font-serif text-gold mb-1">300+</div>
+                                        <div className="text-xs font-mono text-slate-500 uppercase tracking-widest">{t.stat3}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Committees Section */}
+                    <section className="py-24 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-colors">
+                        <div className="max-w-7xl mx-auto px-6">
+                            
+                            <div className="text-center mb-16">
+                                <h2 className="text-3xl md:text-5xl font-serif text-slate-900 dark:text-slate-100 mb-4">{t.committeesTitle}</h2>
+                                <div className="w-24 h-[1px] bg-gold mx-auto"></div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {t.committees.map((com, idx) => (
+                                    <div key={idx} className="relative group p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/50 bg-slate-50 dark:bg-slate-900/50 transition-all duration-300 flex flex-col h-full overflow-hidden">
+                                        
+                                        {/* Corner ACCENTS */}
+                                        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent group-hover:border-gold transition-colors"></div>
+                                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent group-hover:border-gold transition-colors"></div>
+                                        
+                                        {/* Background Grid faint */}
+                                        <div className="absolute inset-0 bg-grid-pattern opacity-10 group-hover:opacity-30 transition-opacity"></div>
+                                        
+                                        <div className="relative z-10 flex flex-col h-full">
+                                            {/* Icon */}
+                                            <div className="text-gold mb-6 bg-gold/10 w-16 h-16 flex items-center justify-center rounded-sm group-hover:scale-110 transition-transform duration-500">
+                                                {CommitteeIcons[com.id]}
+                                            </div>
+                                            
+                                            {/* Title & Agenda */}
+                                            <h3 className="font-serif text-2xl text-slate-800 dark:text-slate-100 mb-2">{com.name}</h3>
+                                            <div className="font-mono text-[11px] uppercase tracking-widest text-gold mb-4 min-h-[32px]">
+                                                {com.agenda}
+                                            </div>
+                                            
+                                            {/* Desc */}
+                                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-grow">
+                                                {com.desc}
+                                            </p>
+
+                                            <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400 group-hover:text-gold transition-colors">
+                                                <span>SYS.C{idx+1}</span>
+                                                <span>&rarr; EXPLORE</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="border-t border-gold/20 py-8 text-center bg-slate-50 dark:bg-slate-900 transition-colors">
+                        <p className="font-mono text-xs text-slate-500 dark:text-slate-400 tracking-widest uppercase">
+                            {t.footer}
+                        </p>
+                    </footer>
+
+                </div>
+            );
+        };
+
+        // --- APP ROOT ---
+        const App = () => {
+            const [appState, setAppState] = useState('LOADING'); // 'LOADING', 'LANG', 'MAIN'
+            const [language, setLanguage] = useState('en');
+            
+            // System Dark mode check
+            const [theme, setTheme] = useState(
+                window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            );
+
+            // Toggle Dark Mode function
+            const toggleTheme = () => {
+                setTheme(prev => prev === 'light' ? 'dark' : 'light');
+            };
+
+            // Apply Dark mode class to HTML element for Tailwind
+            useEffect(() => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                }
+            }, [theme]);
+
+            useEffect(() => {
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+            });
+
+            return (
+                <React.Fragment>
+                    {appState === 'LOADING' && <LoadingScreen onComplete={() => setAppState('LANG')} />}
+                    {appState === 'LANG' && <LanguageScreen onSelect={(lang) => { setLanguage(lang); setAppState('MAIN'); }} />}
+                    {appState === 'MAIN' && <MainScreen lang={language} theme={theme} toggleTheme={toggleTheme} />}
+                </React.Fragment>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
