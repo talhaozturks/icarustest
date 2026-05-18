@@ -521,7 +521,7 @@
                                 <div className="absolute top-1/3 left-10 w-16 h-[1px] bg-gold/40 hidden lg:block"></div>
 
                                 <span className="font-mono text-gold tracking-[0.3em] text-[9px] sm:text-sm mb-4 sm:mb-6 uppercase border border-gold/30 py-1 px-3 sm:px-4 rounded-none bg-gold/5 backdrop-blur-sm">{t.heroSubtitle}</span>
-                                <h1 className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-8 tracking-tight transition-colors">{t.heroTitle}</h1>
+                                <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-8 tracking-tight transition-colors leading-tight">{t.heroTitle}</h1>
                                 <p className="max-w-2xl text-slate-600 dark:text-slate-400 text-xs sm:text-lg md:text-xl font-light leading-relaxed mb-8 sm:mb-12 px-2">{t.heroDesc}</p>
 
                                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full justify-center max-w-md mx-auto sm:max-w-none">
@@ -543,79 +543,72 @@
                                 </div>
                             </main>
 
-                            {/* 3D Kıtalı Dünya ve Harita Alanı */}
+                            {/* YENİ HARİTA ALANI (TAM GENİŞLİK) */}
                             <section className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 relative py-12 sm:py-24 transition-colors overflow-hidden">
-                                <div className="max-w-7xl mx-auto px-2 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16 items-center">
+                                <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col items-center">
                                     
-                                    {/* Sol Taraf: 3D Dünya (Wireframe + Kıta) */}
-                                    <div className="relative flex justify-center items-center w-full">
-                                        <div className="relative w-48 h-48 sm:w-80 sm:h-80 flex items-center justify-center rounded-full overflow-hidden" style={{ clipPath: 'circle(50% at 50% 50%)' }}>
-                                            <svg className="absolute w-[200%] h-full text-gold/30 globe-scroll" viewBox="0 0 200 100" fill="none" stroke="currentColor" strokeWidth="0.5">
-                                                <line x1="0" y1="25" x2="200" y2="25" strokeDasharray="2 2"/>
-                                                <line x1="0" y1="50" x2="200" y2="50" strokeDasharray="4 2"/>
-                                                <line x1="0" y1="75" x2="200" y2="75" strokeDasharray="2 2"/>
-                                                
-                                                {/* Kıtalar - Harita 1 */}
-                                                <g>
-                                                    <path d="M10 15 L25 10 L35 25 L25 45 L15 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                    <path d="M22 50 L32 48 L38 65 L28 85 L20 65 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                    <path d="M45 15 L75 10 L85 25 L95 40 L70 50 L50 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                    <path d="M48 45 L65 42 L72 60 L60 80 L45 60 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                    <path d="M80 65 L90 62 L95 75 L85 80 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                </g>
-                                                {/* Kıtalar - Harita 2 (Kopya, sonsuz döngü için) */}
-                                                <g transform="translate(100, 0)">
-                                                    <path d="M10 15 L25 10 L35 25 L25 45 L15 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                    <path d="M22 50 L32 48 L38 65 L28 85 L20 65 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                    <path d="M45 15 L75 10 L85 25 L95 40 L70 50 L50 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                    <path d="M48 45 L65 42 L72 60 L60 80 L45 60 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                    <path d="M80 65 L90 62 L95 75 L85 80 Z" fill="rgba(212, 175, 55, 0.1)"/>
-                                                </g>
-                                            </svg>
-                                            <img src="assets/icarusarkaplansiz.png" alt="Icarus" className="absolute w-[60%] h-auto z-10 drop-shadow-md dark:brightness-150" onError={(e) => { e.target.src='assets/icarus.png'; }} />
-                                            <div className="absolute inset-0 rounded-full shadow-[inset_0_0_15px_rgba(212,175,55,0.4)] border border-gold/40 pointer-events-none"></div>
-                                        </div>
+                                    <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-slate-900 dark:text-slate-100 mb-6 sm:mb-8 flex items-center justify-center gap-3 sm:gap-4 transition-colors w-full text-center">
+                                        <img src="assets/Istanbul_Aydın_University_logo.svg.png" alt="İAÜ Logo" className="h-8 sm:h-12 md:h-14 w-auto object-contain" onError={(e) => { e.target.style.display='none'; }} />
+                                        <span>İstanbul Aydın Üniversitesi</span>
+                                    </h2>
+                                    
+                                    <div className="w-full aspect-square sm:aspect-[16/9] md:aspect-[21/9] rounded border border-gold/20 overflow-hidden mb-6 shadow-sm">
+                                        <iframe 
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.587133725575!2d28.79458617655148!3d40.99052062051735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa396db59606d%3A0x6594147beb14e9b4!2zxLBzdGFuYnVsIEF5ZMSxbiDDnG5pdmVyc2l0ZXNp!5e0!3m2!1str!2str!4v1779138319153!5m2!1str!2str" 
+                                            className="w-full h-full" 
+                                            style={{border:0}} 
+                                            allowFullScreen="" 
+                                            loading="lazy" 
+                                            referrerPolicy="no-referrer-when-downgrade"
+                                        ></iframe>
                                     </div>
                                     
-                                    {/* Sağ Taraf: Harita UI */}
-                                    <div className="flex flex-col w-full px-2 sm:px-0 mt-8 md:mt-0">
-                                        <h2 className="font-serif text-lg sm:text-2xl md:text-3xl lg:text-4xl text-slate-900 dark:text-slate-100 mb-4 sm:mb-6 flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-4 transition-colors">
-                                            <span className="w-8 sm:w-12 h-[1px] bg-gold hidden sm:block"></span>
-                                            <div className="flex items-center gap-2 sm:gap-3">
-                                                <img src="assets/Istanbul_Aydın_University_logo.svg.png" alt="İAÜ Logo" className="h-8 sm:h-10 md:h-12 w-auto object-contain" onError={(e) => { e.target.style.display='none'; }} />
-                                                <span className="text-center sm:text-left">İstanbul Aydın Üniversitesi</span>
-                                            </div>
-                                        </h2>
-                                        
-                                        <div className="w-full aspect-video md:aspect-[4/3] rounded border border-gold/20 overflow-hidden mb-4 sm:mb-6 shadow-sm">
-                                            <iframe 
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.587133725575!2d28.79458617655148!3d40.99052062051735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa396db59606d%3A0x6594147beb14e9b4!2zxLBzdGFuYnVsIEF5ZMSxbiDDnG5pdmVyc2l0ZXNp!5e0!3m2!1str!2str!4v1779138319153!5m2!1str!2str" 
-                                                className="w-full h-full" 
-                                                style={{border:0}} 
-                                                allowFullScreen="" 
-                                                loading="lazy" 
-                                                referrerPolicy="no-referrer-when-downgrade"
-                                            ></iframe>
-                                        </div>
-                                        
-                                        <div className="flex flex-row gap-2 sm:gap-4 w-full justify-center">
-                                            <a href="https://maps.google.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" className="flex-1 text-center px-2 py-2 sm:px-4 sm:py-3 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-gold/50 hover:text-gold dark:hover:text-gold font-mono text-[10px] sm:text-xs tracking-widest transition-all duration-300 bg-slate-50 dark:bg-slate-900/50 shadow-sm hover:shadow-md">
-                                                {t.mapGoogle}
-                                            </a>
-                                            <a href="http://maps.apple.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" className="flex-1 text-center px-2 py-2 sm:px-4 sm:py-3 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-gold/50 hover:text-gold dark:hover:text-gold font-mono text-[10px] sm:text-xs tracking-widest transition-all duration-300 bg-slate-50 dark:bg-slate-900/50 shadow-sm hover:shadow-md">
-                                                {t.mapApple}
-                                            </a>
-                                        </div>
+                                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-2xl justify-center">
+                                        <a href="https://maps.google.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" className="flex-1 text-center px-4 py-3 sm:py-4 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-gold/50 hover:text-gold dark:hover:text-gold font-mono text-[10px] sm:text-xs tracking-widest transition-all duration-300 bg-slate-50 dark:bg-slate-900/50 shadow-sm hover:shadow-md">
+                                            {t.mapGoogle}
+                                        </a>
+                                        <a href="http://maps.apple.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" className="flex-1 text-center px-4 py-3 sm:py-4 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-gold/50 hover:text-gold dark:hover:text-gold font-mono text-[10px] sm:text-xs tracking-widest transition-all duration-300 bg-slate-50 dark:bg-slate-900/50 shadow-sm hover:shadow-md">
+                                            {t.mapApple}
+                                        </a>
                                     </div>
                                 </div>
                             </section>
 
                             <section id="committees" className="py-16 sm:py-24 border-t border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 transition-colors">
                                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                                    <div className="text-center mb-10 sm:mb-16">
-                                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-slate-900 dark:text-slate-100 mb-3 sm:mb-4">{t.committeesTitle}</h2>
-                                        <div className="w-12 sm:w-24 h-[1px] bg-gold mx-auto"></div>
+                                    
+                                    <div className="text-center mb-10 sm:mb-16 flex flex-col items-center">
+                                        <div className="flex items-center justify-center gap-3 sm:gap-5 mb-3 sm:mb-4">
+                                            {/* 3D Dünya Logosu (Başlığın Yanında) */}
+                                            <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full overflow-hidden flex-shrink-0" style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+                                                <svg className="absolute w-[200%] h-full text-gold/30 globe-scroll" viewBox="0 0 200 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+                                                    <line x1="0" y1="25" x2="200" y2="25" strokeDasharray="2 2"/>
+                                                    <line x1="0" y1="50" x2="200" y2="50" strokeDasharray="4 2"/>
+                                                    <line x1="0" y1="75" x2="200" y2="75" strokeDasharray="2 2"/>
+                                                    <g>
+                                                        <path d="M10 15 L25 10 L35 25 L25 45 L15 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M22 50 L32 48 L38 65 L28 85 L20 65 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M45 15 L75 10 L85 25 L95 40 L70 50 L50 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M48 45 L65 42 L72 60 L60 80 L45 60 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M80 65 L90 62 L95 75 L85 80 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                    </g>
+                                                    <g transform="translate(100, 0)">
+                                                        <path d="M10 15 L25 10 L35 25 L25 45 L15 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M22 50 L32 48 L38 65 L28 85 L20 65 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M45 15 L75 10 L85 25 L95 40 L70 50 L50 35 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M48 45 L65 42 L72 60 L60 80 L45 60 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                        <path d="M80 65 L90 62 L95 75 L85 80 Z" fill="rgba(212, 175, 55, 0.1)"/>
+                                                    </g>
+                                                </svg>
+                                                <img src="assets/icarusarkaplansiz.png" alt="Icarus" className="absolute w-[60%] h-auto z-10 drop-shadow-md dark:brightness-150" onError={(e) => { e.target.src='assets/icarus.png'; }} />
+                                                <div className="absolute inset-0 rounded-full shadow-[inset_0_0_10px_rgba(212,175,55,0.4)] border border-gold/40 pointer-events-none"></div>
+                                            </div>
+                                            
+                                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-slate-900 dark:text-slate-100 text-left">{t.committeesTitle}</h2>
+                                        </div>
+                                        <div className="w-16 sm:w-32 h-[1px] bg-gold mx-auto"></div>
                                     </div>
+
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
                                         {t.committees.map((com, idx) => (
                                             <div key={idx} onClick={() => setSelectedModal(com)} className="relative group p-5 sm:p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/50 bg-white dark:bg-slate-900/50 transition-all duration-300 flex flex-col h-full overflow-hidden cursor-pointer shadow-sm hover:shadow-md">
