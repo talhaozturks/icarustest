@@ -94,9 +94,8 @@
             color: #f8fafc;
         }
         
-        /* GÖZ YORMAYAN MAT BEYAZ/GRİ ARKAPLAN EKLENDİ */
         html.light body {
-            background-color: #e2e8f0; 
+            background-color: #f1f5f9; 
             color: #1e293b;
         }
         
@@ -157,6 +156,9 @@
                 teamDesc: "The architects behind Icarus MUN 2026.",
                 mapGoogle: "Google Maps",
                 mapApple: "Apple Maps",
+                contactTitle: "Contact Us",
+                contactEmail: "EMAIL",
+                contactBtn: "SEND EMAIL",
                 committees: [
                     { id: 'nato', name: 'NATO', agenda: "Türkiye's Missile Defense Crisis & Security Implications", desc: "Navigate the complex geopolitical implications of Türkiye's defense choices." },
                     { id: 'fjcc', name: 'F-JCC', agenda: "Avatar: The Last Airbender - 100 Year War", desc: "Draft strategies in a war-torn world of elemental bending." },
@@ -186,6 +188,9 @@
                 teamDesc: "Icarus MUN 2026'nın mimarları.",
                 mapGoogle: "Google Haritalar",
                 mapApple: "Apple Haritalar",
+                contactTitle: "İletişim",
+                contactEmail: "E-POSTA",
+                contactBtn: "E-POSTA GÖNDER",
                 committees: [
                     { id: 'nato', name: 'NATO', agenda: "Türkiye'nin Füze Savunma Krizi ve Güvenlik Etkileri", desc: "Türkiye'nin savunma tercihlerinin karmaşık jeopolitik sonuçlarını yönetin." },
                     { id: 'fjcc', name: 'F-JCC', agenda: "Avatar: Son Havabükücü - 100 Yıl Savaşı", desc: "Element bükücülerin savaşın eşiğinde olduğu bir dünyada stratejiler oluşturun." },
@@ -308,8 +313,9 @@
             }, [onComplete]);
 
             return (
-                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-200 dark:bg-slate-950 bg-grid-pattern transition-colors duration-500">
-                    <div className="w-full max-w-md px-6 flex flex-col items-center fade-in">
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center transition-colors duration-500 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center bg-no-repeat">
+                    <div className="absolute inset-0 bg-slate-100/70 dark:bg-slate-950/80 backdrop-blur-sm" />
+                    <div className="relative z-10 w-full max-w-md px-6 flex flex-col items-center fade-in">
                         <div className="relative flex items-center justify-center w-56 h-56 mb-12">
                             <div className="absolute w-48 h-48 border rounded-full border-gold/40 animate-[spin_10s_linear_infinite]" />
                             <img 
@@ -331,8 +337,8 @@
                             />
                         </div>
                         
-                        <div className="w-full h-8 text-center text-xs md:text-sm font-mono tracking-widest uppercase text-slate-600 dark:text-slate-400">
-                            <span className="opacity-80">> {systemLogs[textIndex]}</span>
+                        <div className="w-full h-8 text-center text-xs md:text-sm font-mono tracking-widest uppercase text-slate-800 dark:text-slate-300 font-bold drop-shadow-md">
+                            <span>> {systemLogs[textIndex]}</span>
                             <span className="text-gold animate-pulse">_</span>
                         </div>
                     </div>
@@ -491,12 +497,70 @@
             );
         };
 
+        const ContactModal = ({ isOpen, onClose, data }) => {
+            useEffect(() => {
+                if (isOpen) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = 'auto';
+                }
+                return () => { document.body.style.overflow = 'auto'; };
+            }, [isOpen]);
+
+            if (!isOpen) return null;
+
+            const mailSubject = "IcarusMUN Bilgi Talebi";
+            const mailBody = "Merhaba şu konu hakkında bilgi almak istiyorum…";
+            const mailtoLink = `mailto:icarusmun.information@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+            return (
+                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
+                    <div className="absolute inset-0" onClick={onClose} />
+                    <div className="relative z-10 flex flex-col items-center w-full max-w-md p-8 sm:p-12 overflow-hidden shadow-2xl bg-slate-50 dark:bg-slate-950 border border-gold/40 rounded-xl">
+                        
+                        <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full transition-colors bg-white/50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-800 text-slate-500 hover:text-gold">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M18 6 6 18" />
+                                <path d="m6 6 12 12" />
+                            </svg>
+                        </button>
+                        
+                        <div className="p-4 mb-4 rounded-full shadow-lg text-gold bg-white dark:bg-slate-900 border border-gold/30">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                        </div>
+                        
+                        <h2 className="mb-4 text-2xl sm:text-3xl font-serif text-slate-900 dark:text-white text-center">
+                            {data.contactTitle}
+                        </h2>
+                        
+                        <div className="w-16 h-[1px] bg-gold mb-6" />
+                        
+                        <p className="mb-2 text-xs tracking-widest font-mono text-slate-500 dark:text-slate-400">
+                            {data.contactEmail}
+                        </p>
+                        <p className="mb-8 text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-200 break-all">
+                            icarusmun.information@gmail.com
+                        </p>
+
+                        <a 
+                            href={mailtoLink} 
+                            className="w-full text-center px-6 py-4 text-xs tracking-widest transition-all duration-300 shadow-sm sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950"
+                        >
+                            {data.contactBtn}
+                        </a>
+                    </div>
+                </div>
+            );
+        };
+
         const CommitteeModal = ({ committee, onClose }) => {
-            // Modal açıkken arkadaki body'nin kaymasını (scroll) engeller ve kilitlenmeyi önler.
             useEffect(() => {
                 document.body.style.overflow = 'hidden';
                 return () => {
-                    document.body.style.overflow = 'auto'; // Modaldan çıkıldığında eski haline geri döner
+                    document.body.style.overflow = 'auto'; 
                 };
             }, []);
 
@@ -512,7 +576,6 @@
                         
                         {/* SINIF (POV) ARKA PLAN SVG'Sİ */}
                         <svg className="absolute inset-0 z-0 w-full h-full object-cover text-slate-800 dark:text-slate-200 opacity-[0.06] dark:opacity-[0.12] pointer-events-none" viewBox="0 0 800 600" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            {/* Oda Köşeleri / Perspektif Çizgileri */}
                             <line x1="0" y1="0" x2="200" y2="150" />
                             <line x1="800" y1="0" x2="600" y2="150" />
                             <line x1="0" y1="600" x2="200" y2="450" />
@@ -547,7 +610,7 @@
                         </svg>
 
                         <header className="relative z-10 flex flex-col items-center justify-center h-48 md:h-64 border-b border-gold/20 bg-transparent">
-                            <div className="p-3 mb-2 md:mb-4 rounded-full shadow-lg text-gold bg-slate-50 dark:bg-slate-950 border border-gold/30">
+                            <div className="p-3 mb-2 md:mb-4 rounded-full shadow-lg text-gold bg-white dark:bg-slate-950 border border-gold/30">
                                 {SVGIcons[committee.id]}
                             </div>
                             
@@ -645,6 +708,7 @@
             const [view, setView] = useState('home');
             const [activeCommittee, setActiveCommittee] = useState(null);
             const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [isContactOpen, setIsContactOpen] = useState(false);
 
             const handleScrollToCommittees = () => {
                 document.getElementById('committees')?.scrollIntoView({ behavior: 'smooth' });
@@ -657,28 +721,18 @@
                 setIsMenuOpen(false);
             };
 
-            // GERÇEKÇİ KITA ÇİZİMLERİ (Sonsuz Döngü İçin Çiftlenmiş)
             const WorldMapContinents = () => (
                 <svg className="absolute top-0 left-0 w-[200%] h-full text-gold map-bg-scroll" viewBox="0 0 2000 500" fill="none" stroke="currentColor" strokeWidth="1.5" preserveAspectRatio="none">
                     <g>
-                        {/* Kuzey Amerika */}
                         <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" fill="rgba(212, 175, 55, 0.05)" />
-                        {/* Güney Amerika */}
                         <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" fill="rgba(212, 175, 55, 0.05)" />
-                        {/* Avrupa ve Asya */}
                         <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" fill="rgba(212, 175, 55, 0.05)" />
-                        {/* Afrika */}
                         <path d="M450,200 Q550,180 580,250 T500,400 Q450,420 420,320 Q400,250 450,200 Z" fill="rgba(212, 175, 55, 0.05)" />
-                        {/* Avustralya */}
                         <path d="M820,300 Q880,280 920,320 T880,400 Q820,400 800,350 Q780,300 820,300 Z" fill="rgba(212, 175, 55, 0.05)" />
-                        {/* Grönland */}
                         <path d="M350,30 Q420,20 400,60 Q380,80 340,60 Z" fill="rgba(212, 175, 55, 0.05)" />
-                        
-                        {/* Geometrik Grid/Radar çizgileri */}
                         <path d="M 0 125 L 1000 125 M 0 250 L 1000 250 M 0 375 L 1000 375" strokeDasharray="10 10" opacity="0.2"/>
                         <path d="M 250 0 L 250 500 M 500 0 L 500 500 M 750 0 L 750 500" strokeDasharray="10 10" opacity="0.2"/>
                     </g>
-                    {/* Kesintisiz Akan Döngü (İkinci Kopya) */}
                     <g transform="translate(1000, 0)">
                         <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" fill="rgba(212, 175, 55, 0.05)" />
                         <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" fill="rgba(212, 175, 55, 0.05)" />
@@ -694,6 +748,7 @@
 
             return (
                 <div className="relative min-h-screen transition-colors duration-500 bg-slate-200 dark:bg-slate-950 fade-in">
+                    
                     <nav className="fixed w-full z-40 shadow-sm backdrop-blur-md border-b border-gold/20 bg-slate-100/95 dark:bg-slate-950/95">
                         <div className="flex items-center justify-between h-16 max-w-7xl mx-auto px-4 sm:px-6 sm:h-20">
                             <div className="flex items-center gap-2 cursor-pointer sm:gap-3" onClick={() => handleNavClick('home')}>
@@ -713,6 +768,7 @@
                                 </div>
                             </div>
                             
+                            {/* Desktop Nav */}
                             <div className="items-center hidden gap-8 md:flex">
                                 <button onClick={() => handleNavClick('home')} className={`text-sm font-medium tracking-wide uppercase transition-colors line-draw ${view === 'home' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold'}`}>
                                     {data.nav.home}
@@ -723,21 +779,38 @@
                                 <button className="text-sm font-medium tracking-wide uppercase transition-colors line-draw text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold">
                                     {data.nav.apply}
                                 </button>
+                                {/* İletişim Zarf İkonu (Masaüstü) */}
+                                <button onClick={() => setIsContactOpen(true)} className="p-2 ml-4 rounded-full transition-colors text-slate-500 hover:text-gold dark:text-slate-400 dark:hover:text-gold border border-transparent hover:border-gold/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                                    </svg>
+                                </button>
                             </div>
                             
-                            <div className="p-2 cursor-pointer md:hidden text-gold" onClick={toggleMobileMenu}>
-                                {isMenuOpen ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="18" y1="6" x2="6" y2="18" />
-                                        <line x1="6" y1="6" x2="18" y2="18" />
+                            {/* Mobile Icons (Envelope + Menu) */}
+                            <div className="flex items-center gap-2 md:hidden">
+                                {/* İletişim Zarf İkonu (Mobil) */}
+                                <div className="p-2 cursor-pointer text-slate-500 hover:text-gold dark:text-slate-400 transition-colors" onClick={() => setIsContactOpen(true)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                                     </svg>
-                                ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="4" x2="20" y1="12" y2="12" />
-                                        <line x1="4" x2="20" y1="6" y2="6" />
-                                        <line x1="4" x2="20" y1="18" y2="18" />
-                                    </svg>
-                                )}
+                                </div>
+                                <div className="p-2 cursor-pointer text-gold" onClick={toggleMobileMenu}>
+                                    {isMenuOpen ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <line x1="4" x2="20" y1="12" y2="12" />
+                                            <line x1="4" x2="20" y1="6" y2="6" />
+                                            <line x1="4" x2="20" y1="18" y2="18" />
+                                        </svg>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </nav>
@@ -795,20 +868,21 @@
                                 </main>
                             </div>
 
-                            <section className="relative py-12 overflow-hidden transition-colors sm:py-24 border-t border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/80">
-                                <div className="flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6">
+                            <section className="relative py-12 overflow-hidden transition-colors sm:py-24 border-t border-slate-300 dark:border-slate-800 bg-[url('assets/icaruswallpaper2.png')] bg-cover bg-center bg-no-repeat">
+                                <div className="absolute inset-0 bg-slate-100/80 dark:bg-slate-950/80 backdrop-blur-[2px]" />
+                                <div className="relative z-10 flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6">
                                     
-                                    <h2 className="flex items-center justify-center w-full gap-3 mb-6 text-2xl text-center transition-colors sm:text-3xl md:text-4xl sm:gap-4 sm:mb-8 font-serif text-slate-900 dark:text-slate-100">
+                                    <h2 className="flex items-center justify-center w-full gap-3 mb-6 text-2xl text-center transition-colors sm:text-3xl md:text-4xl sm:gap-4 sm:mb-8 font-serif text-slate-900 dark:text-slate-100 drop-shadow-sm">
                                         <img 
                                             src="assets/Istanbul_Aydın_University_logo.svg.png" 
                                             alt="İAÜ Logo" 
-                                            className="w-auto h-8 object-contain sm:h-12 md:h-14" 
+                                            className="w-auto h-8 object-contain sm:h-12 md:h-14 drop-shadow" 
                                             onError={(e) => { e.target.style.display='none'; }} 
                                         />
                                         <span>İstanbul Aydın Üniversitesi</span>
                                     </h2>
                                     
-                                    <div className="w-full mb-6 overflow-hidden rounded shadow-sm aspect-square sm:aspect-[16/9] md:aspect-[21/9] border border-gold/20">
+                                    <div className="w-full mb-6 overflow-hidden rounded shadow-xl aspect-square sm:aspect-[16/9] md:aspect-[21/9] border border-gold/30">
                                         <iframe 
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.587133725575!2d28.79458617655148!3d40.99052062051735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa396db59606d%3A0x6594147beb14e9b4!2zxLBzdGFuYnVsIEF5ZMSxbiDDnG5pdmVyc2l0ZXNp!5e0!3m2!1str!2str!4v1779138319153!5m2!1str!2str" 
                                             className="w-full h-full" 
@@ -820,10 +894,10 @@
                                     </div>
                                     
                                     <div className="flex flex-col justify-center w-full max-w-2xl gap-3 sm:flex-row sm:gap-4">
-                                        <a href="https://maps.google.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-3 text-center text-[10px] tracking-widest transition-all duration-300 shadow-sm hover:shadow-md sm:py-4 sm:text-xs font-mono border text-slate-700 border-slate-300 bg-white hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
+                                        <a href="https://maps.google.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-3 text-center text-[10px] tracking-widest transition-all duration-300 shadow-sm hover:shadow-md sm:py-4 sm:text-xs font-mono border text-slate-700 border-slate-300 bg-white hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold backdrop-blur">
                                             {data.mapGoogle}
                                         </a>
-                                        <a href="http://maps.apple.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-3 text-center text-[10px] tracking-widest transition-all duration-300 shadow-sm hover:shadow-md sm:py-4 sm:text-xs font-mono border text-slate-700 border-slate-300 bg-white hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
+                                        <a href="http://maps.apple.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-3 text-center text-[10px] tracking-widest transition-all duration-300 shadow-sm hover:shadow-md sm:py-4 sm:text-xs font-mono border text-slate-700 border-slate-300 bg-white hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold backdrop-blur">
                                             {data.mapApple}
                                         </a>
                                     </div>
@@ -913,6 +987,12 @@
                             {data.footer}
                         </p>
                     </footer>
+
+                    <ContactModal 
+                        isOpen={isContactOpen} 
+                        onClose={() => setIsContactOpen(false)} 
+                        data={data}
+                    />
 
                     {activeCommittee && (
                         <CommitteeModal 
