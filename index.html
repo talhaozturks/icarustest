@@ -154,8 +154,8 @@
         const localeData = {
             en: {
                 nav: { home: 'Home', team: 'Team', apply: 'Apply' },
-                heroSubtitle: "THE BRINK OF CHAOS",
-                heroTitle: "ICARUS MUN 2026 | Shaping Tomorrow’s Diplomacy",
+                heroSubtitle: "SEPTEMBER 4-5-6",
+                heroTitle: "ICARUS MUN 2026",
                 ctaDelegate: "Individual Apply",
                 ctaDelegation: "Delegation Apply",
                 ctaCommittees: "Explore Committees",
@@ -165,8 +165,8 @@
                 consentWarn: "This site is created for entertainment purposes. Stealing, copying, or altering is strictly prohibited.",
                 consentBtn: "Enter Site",
                 consentCheck: "I have read and agree.",
-                teamTitle: "Executive Board",
-                teamDesc: "The architects behind Icarus MUN 2026.",
+                teamTitle: "The Faces Behind ICARUS",
+                teamDesc: "KADROMUZ",
                 mapGoogle: "Google Maps",
                 mapApple: "Apple Maps",
                 contactTitle: "Contact Us",
@@ -186,8 +186,8 @@
             },
             tr: {
                 nav: { home: 'Ana Sayfa', team: 'Ekip', apply: 'Başvuru' },
-                heroSubtitle: "KAOSUN EŞİĞİ",
-                heroTitle: "ICARUS MUN 2026 | Shaping Tomorrow’s Diplomacy",
+                heroSubtitle: "4-5-6 EYLÜL",
+                heroTitle: "ICARUS MUN 2026",
                 ctaDelegate: "Bireysel Başvuru",
                 ctaDelegation: "Delegasyon Başvurusu",
                 ctaCommittees: "Komiteleri İncele",
@@ -197,8 +197,8 @@
                 consentWarn: "Bu site eğlence amaçlı yapılmıştır. Çalınması, kopyalanması, değiştirilmesi yasaktır.",
                 consentBtn: "Siteye Gir",
                 consentCheck: "Okudum, Onaylıyorum.",
-                teamTitle: "Yönetim Kurulu",
-                teamDesc: "Icarus MUN 2026'nın mimarları.",
+                teamTitle: "The Faces Behind ICARUS",
+                teamDesc: "KADROMUZ",
                 mapGoogle: "Google Haritalar",
                 mapApple: "Apple Haritalar",
                 contactTitle: "İletişim",
@@ -290,7 +290,7 @@
 
         const WorldMapContinents = () => (
             <svg className="absolute top-0 left-0 w-[200%] h-full text-gold map-bg-scroll z-0 pointer-events-none" viewBox="0 0 2000 500" fill="none" stroke="currentColor" strokeWidth="0.75" preserveAspectRatio="none">
-                <g opacity="0.25">
+                <g opacity="0.3">
                     <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" fill="rgba(212, 175, 55, 0.05)" />
                     <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" fill="rgba(212, 175, 55, 0.05)" />
                     <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" fill="rgba(212, 175, 55, 0.05)" />
@@ -301,7 +301,7 @@
                     <path d="M 0 125 L 1000 125 M 0 250 L 1000 250 M 0 375 L 1000 375" strokeDasharray="10 10" opacity="0.3"/>
                     <path d="M 250 0 L 250 500 M 500 0 L 500 500 M 750 0 L 750 500" strokeDasharray="10 10" opacity="0.3"/>
                 </g>
-                <g transform="translate(1000, 0)" opacity="0.25">
+                <g transform="translate(1000, 0)" opacity="0.3">
                     <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" fill="rgba(212, 175, 55, 0.05)" />
                     <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" fill="rgba(212, 175, 55, 0.05)" />
                     <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" fill="rgba(212, 175, 55, 0.05)" />
@@ -345,19 +345,16 @@
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-8 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
                     <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
                     
-                    {/* Telefon UI Tasarımı (Kalın Kenar, Çentik ve Tam Oturan Boyut) */}
                     <div className="relative z-10 w-full max-w-[340px] h-[80vh] max-h-[700px] bg-white dark:bg-slate-900 border-[6px] sm:border-[8px] border-slate-900 dark:border-slate-800 rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col fade-in">
                         
-                        {/* Çentik (Dynamic Island) */}
                         <div className="absolute top-0 inset-x-0 h-5 sm:h-6 flex justify-center z-50">
                             <div className="w-24 sm:w-32 h-full bg-slate-900 dark:bg-slate-800 rounded-b-2xl"></div>
                         </div>
                         
-                        {/* Header */}
                         <div className="flex items-center justify-between p-3 pt-6 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shrink-0">
                             <div className="flex items-center gap-3">
                                 <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-gold/50 flex items-center justify-center">
-                                    <img src="assets/icarus.png" alt="Avatar" className="w-[80%] h-auto object-contain" onError={(e) => { e.target.src='assets/icarus.png'; }}/>
+                                    <img src="assets/icarusarkaplansiz.png" alt="Avatar" className="w-[80%] h-auto object-contain" onError={(e) => { e.target.src='assets/icarus.png'; }}/>
                                 </div>
                                 <span className="font-bold text-sm text-slate-900 dark:text-white tracking-wide">icarusmun26</span>
                             </div>
@@ -366,7 +363,6 @@
                             </button>
                         </div>
                         
-                        {/* Video Content - Ortadaki Play Butonu ve Tıklama ile Kontrol */}
                         <div className="w-full relative flex-1 min-h-0 bg-slate-950 flex items-center justify-center overflow-hidden cursor-pointer" onClick={togglePlay}>
                             <video ref={videoRef} src="assets/video1.mp4" className="w-full h-full object-cover" loop playsInline onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }}></video>
                             
@@ -384,7 +380,6 @@
                             </div>
                         </div>
                         
-                        {/* Actions & Text */}
                         <div className="p-3 sm:p-4 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shrink-0">
                             <div className="flex gap-4 mb-2 sm:mb-3">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-200 hover:text-red-500 cursor-pointer transition-colors"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
@@ -453,10 +448,10 @@
                         <div className="relative flex items-center justify-center w-56 h-56 mb-12">
                             <div className="absolute w-48 h-48 border rounded-full border-gold/40 animate-[spin_10s_linear_infinite]" />
                             <img 
-                                src="assets/icarus.png" 
+                                src="assets/icarusarkaplansiz.png" 
                                 alt="Icarus Logo" 
                                 className="z-10 w-28 h-auto drop-shadow-lg" 
-                                onError={(e) => { e.target.src = 'icarus.png'; }} 
+                                onError={(e) => { e.target.src = 'assets/icarus.png'; }} 
                             />
                         </div>
                         
@@ -588,7 +583,7 @@
             const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
             useEffect(() => {
-                const target = new Date("2026-09-25T00:00:00").getTime();
+                const target = new Date("2026-09-04T00:00:00").getTime();
                 
                 const intervalId = setInterval(() => {
                     const diff = target - new Date().getTime();
@@ -626,7 +621,7 @@
                             </div>
                         ))}
                     </div>
-                    <div className="mt-4 text-xs font-mono text-gold">25.09.2026</div>
+                    <div className="mt-4 text-xs font-mono text-gold">04.09.2026</div>
                 </div>
             );
         };
@@ -766,18 +761,18 @@
                         <div className="relative z-10 flex-1 p-4 overflow-y-auto sm:p-6 md:p-12">
                             <div className="flex flex-col md:flex-row items-center justify-center h-full min-h-max gap-4 sm:gap-8">
                                 {roles.map((role, idx) => (
-                                    <div key={idx} className="relative flex flex-col items-center w-full max-w-[260px] p-6 transition-all duration-300 group border border-slate-300/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md hover:border-gold/50 shadow-sm hover:shadow-md">
+                                    <div key={idx} className="relative flex flex-col items-center w-full max-w-[260px] p-6 transition-all duration-300 group border border-slate-300/80 dark:border-slate-700/80 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-md hover:border-gold/50 shadow-sm hover:shadow-md">
                                         <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent transition-colors group-hover:border-gold" />
                                         <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent transition-colors group-hover:border-gold" />
                                         
-                                        <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 mb-4 overflow-hidden rounded-full border border-gold/30 bg-slate-100 dark:bg-slate-950">
+                                        <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 mb-4 overflow-hidden rounded-full border border-gold/30 bg-white dark:bg-slate-950">
                                             <svg className="w-8 h-8 sm:w-10 sm:h-10 text-slate-400 dark:text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
                                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                                                 <circle cx="12" cy="7" r="4" />
                                             </svg>
                                         </div>
                                         <h4 className="mb-1 text-base sm:text-lg font-serif text-slate-800 dark:text-slate-100">
-                                            TBA
+                                            Talha
                                         </h4>
                                         <p className="text-center text-[9px] sm:text-[10px] tracking-widest uppercase font-mono text-gold">
                                             {role}
@@ -799,14 +794,11 @@
                 <div className="max-w-7xl mx-auto min-h-[90vh] pt-24 md:pt-32 pb-20 px-4 md:px-6 fade-in">
                     <header className="relative mb-12 text-center md:mb-16">
                         <span className="block mb-3 md:mb-4 text-[10px] md:text-xs tracking-[0.3em] uppercase font-mono text-gold">
-                            ICARUS MUN 2026
+                            {data.teamDesc}
                         </span>
                         <h1 className="mb-4 md:mb-6 text-3xl sm:text-4xl md:text-6xl font-serif text-slate-900 dark:text-white">
                             {data.teamTitle}
                         </h1>
-                        <p className="text-sm font-light md:text-base text-slate-600 dark:text-slate-400">
-                            {data.teamDesc}
-                        </p>
                         <div className="w-16 h-[1px] md:w-24 mx-auto mt-6 md:mt-8 bg-gold" />
                     </header>
 
@@ -924,9 +916,9 @@
                                         </svg>
                                     ) : (
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <line x1="4" x2="20" y1="12" y2="12" />
-                                            <line x1="4" x2="20" y1="6" x2="6" />
-                                            <line x1="4" x2="20" y1="18" y2="18" />
+                                            <line x1="3" y1="12" x2="21" y2="12" />
+                                            <line x1="3" y1="6" x2="21" y2="6" />
+                                            <line x1="3" y1="18" x2="21" y2="18" />
                                         </svg>
                                     )}
                                 </div>
@@ -956,9 +948,11 @@
                         <div className="fade-in relative z-10 w-full">
                             <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20">
                                 
+                                <div className="absolute inset-0 z-0 pointer-events-none bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center bg-no-repeat opacity-40 dark:opacity-20" />
+                                
                                 <WorldMapContinents />
 
-                                <main className="relative z-10 flex flex-col items-center justify-center max-w-7xl mx-auto px-4 pt-24 pb-16 text-center sm:pt-32 sm:pb-20 sm:px-6">
+                                <main className="relative z-10 flex flex-col items-center justify-center w-full max-w-7xl mx-auto px-4 pt-24 pb-16 text-center sm:pt-32 sm:pb-20 sm:px-6">
                                     <span className="px-3 py-1 mb-4 text-[9px] sm:text-sm tracking-[0.3em] uppercase rounded-none backdrop-blur-sm sm:mb-6 sm:px-4 font-mono text-gold border border-gold/30 bg-gold/10">
                                         {data.heroSubtitle}
                                     </span>
@@ -966,25 +960,28 @@
                                         {data.heroTitle}
                                     </h1>
                                     
-                                    <p className="max-w-3xl px-2 mb-8 text-[10px] font-light leading-relaxed sm:text-xs md:text-sm sm:mb-12 text-slate-700 dark:text-slate-400">
+                                    <p className="max-w-3xl px-2 mb-8 text-xs font-light leading-relaxed sm:text-sm md:text-base sm:mb-12 text-slate-700 dark:text-slate-400">
                                         {lang === 'en' ? (
-                                            <>Represent your country, defend your ideas, and challenge perspectives in a high-energy Model United Nations experience built for the next generation of decision makers.<br/> No limits. Just voices that shape the world.<br/><strong className="font-bold text-gold text-xs sm:text-base mt-2 inline-block">Are you ready to rise?</strong></>
+                                            <>Represent your country, defend your ideas, and challenge perspectives in a high-energy Model United Nations experience built for the next generation of decision makers.<br/> No limits. Just voices that shape the world.<br/><strong className="font-bold text-gold text-sm sm:text-lg mt-2 inline-block">Are you ready to rise?</strong></>
                                         ) : (
-                                            <>Ülkenizi temsil edin, fikirlerinizi savunun ve yeni nesil karar alıcılar için tasarlanmış yüksek enerjili bir Model Birleşmiş Milletler deneyiminde bakış açılarına meydan okuyun.<br/> Sınır yok. Sadece dünyayı şekillendiren sesler var.<br/><strong className="font-bold text-gold text-xs sm:text-base mt-2 inline-block">Yükselmeye hazır mısınız?</strong></>
+                                            <>Ülkenizi temsil edin, fikirlerinizi savunun ve yeni nesil karar alıcılar için tasarlanmış yüksek enerjili bir Model Birleşmiş Milletler deneyiminde bakış açılarına meydan okuyun.<br/> Sınır yok. Sadece dünyayı şekillendiren sesler var.<br/><strong className="font-bold text-gold text-sm sm:text-lg mt-2 inline-block">Yükselmeye hazır mısınız?</strong></>
                                         )}
                                     </p>
 
-                                    <div className="flex flex-col items-center justify-center w-full gap-4 mx-auto sm:flex-row sm:gap-6 sm:max-w-none">
-                                        <button className="w-full sm:w-auto px-6 py-3 text-[10px] tracking-widest transition-all duration-300 shadow-sm sm:px-8 sm:py-4 sm:text-xs font-mono border text-white border-gold bg-gold hover:bg-gold/80 relative group overflow-hidden">
-                                            <span className="absolute inset-0 w-full h-full bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                                            <span className="relative z-10">{data.ctaDelegate}</span>
-                                        </button>
-                                        <button className="w-full sm:w-auto px-6 py-3 text-[10px] tracking-widest transition-all duration-300 shadow-sm sm:px-8 sm:py-4 sm:text-xs font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950">
-                                            {data.ctaDelegation}
-                                        </button>
-                                        <button onClick={handleScrollToCommittees} className="w-full sm:w-auto px-6 py-3 text-[10px] tracking-widest transition-all duration-300 shadow-sm backdrop-blur-sm hover:shadow-md sm:px-8 sm:py-4 sm:text-xs font-mono border text-slate-700 border-slate-400 bg-white/80 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
-                                            {data.ctaCommittees}
-                                        </button>
+                                    <div className="flex flex-col sm:flex-row justify-center w-full max-w-md sm:max-w-none mx-auto gap-4 sm:gap-6">
+                                        <div className="flex flex-col gap-4 w-full sm:w-auto">
+                                            <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-white border-gold bg-gold hover:bg-gold/80 overflow-hidden">
+                                                <span className="relative z-10">{data.ctaDelegate}</span>
+                                            </button>
+                                            <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950">
+                                                <span className="relative z-10">{data.ctaDelegation}</span>
+                                            </button>
+                                        </div>
+                                        <div className="flex items-start w-full mt-4 sm:w-auto sm:mt-0">
+                                            <button onClick={handleScrollToCommittees} className="w-full h-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm backdrop-blur-sm hover:shadow-md sm:px-8 sm:py-4 sm:text-sm font-mono border text-slate-700 border-slate-400 bg-white/80 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
+                                                {data.ctaCommittees}
+                                            </button>
+                                        </div>
                                     </div>
                                     <Countdown label={data.countdownText} />
                                 </main>
@@ -1121,7 +1118,6 @@
                         data={data}
                     />
 
-                    {/* Düzeltme: Modal yalnızca activeCommittee null olmadığında (bir komite seçildiğinde) render ediliyor */}
                     {activeCommittee && (
                         <CommitteeModal 
                             committee={activeCommittee} 
