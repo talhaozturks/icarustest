@@ -108,8 +108,13 @@
             to { transform: translateX(-50%); } 
         }
 
-        .modal-overlay {
-            backdrop-filter: blur(8px);
+        .map-bg-scroll {
+            animation: scrollMapBg 50s linear infinite;
+        }
+        
+        @keyframes scrollMapBg {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); } 
         }
 
         .theme-toggle-fab {
@@ -508,7 +513,8 @@
             const mailBody = "Merhaba şu konu hakkında bilgi almak istiyorum…";
             const mailtoLink = `mailto:icarusmun.information@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
 
-            return (
+            // ReactDOM Portal ile Modalları her zaman root body'e bağlıyoruz
+            return ReactDOM.createPortal(
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
                     <div className="absolute inset-0" onClick={onClose} />
                     <div className="relative z-10 flex flex-col items-center w-full max-w-md p-8 sm:p-12 overflow-hidden shadow-2xl bg-slate-50 dark:bg-slate-950 border border-gold/40 rounded-xl">
@@ -547,7 +553,8 @@
                             {data.contactBtn}
                         </a>
                     </div>
-                </div>
+                </div>,
+                document.body
             );
         };
 
@@ -563,7 +570,8 @@
             
             const roles = rolesByCommittee[committee.id] || [];
             
-            return (
+            // ReactDOM Portal ile Modalları her zaman root body'e bağlıyoruz
+            return ReactDOM.createPortal(
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
                     <div className="absolute inset-0" onClick={onClose} />
                     
@@ -604,7 +612,7 @@
                         </svg>
 
                         <header className="relative z-10 flex flex-col items-center justify-center h-48 md:h-64 border-b border-gold/20 bg-transparent">
-                            <div className="p-3 mb-2 md:mb-4 rounded-full shadow-lg text-gold bg-slate-50 dark:bg-slate-950 border border-gold/30">
+                            <div className="p-3 mb-2 md:mb-4 rounded-full shadow-lg text-gold bg-white dark:bg-slate-950 border border-gold/30">
                                 {SVGIcons[committee.id]}
                             </div>
                             
@@ -647,7 +655,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             );
         };
 
@@ -716,9 +725,10 @@
             };
 
             return (
-                <div className="relative min-h-screen transition-colors duration-500 bg-slate-200 dark:bg-slate-950 fade-in">
+                <div className="relative min-h-screen transition-colors duration-500 bg-slate-200 dark:bg-slate-950">
                     
-                    <nav className="fixed w-full z-40 shadow-sm backdrop-blur-md border-b border-gold/20 bg-slate-100/95 dark:bg-slate-950/95">
+                    {/* Üst Menü Navbar, fade-in kaldırıldı, viewporta tam sabitlenmesi garantilendi */}
+                    <nav className="fixed top-0 left-0 right-0 z-40 shadow-sm backdrop-blur-md border-b border-gold/20 bg-slate-100/95 dark:bg-slate-950/95">
                         <div className="flex items-center justify-between h-16 max-w-7xl mx-auto px-4 sm:px-6 sm:h-20">
                             <div className="flex items-center gap-2 cursor-pointer sm:gap-3" onClick={() => handleNavClick('home')}>
                                 <img 
@@ -799,9 +809,11 @@
                     )}
 
                     {view === 'team' ? (
-                        <TeamSection data={data} />
+                        <div className="fade-in">
+                            <TeamSection data={data} />
+                        </div>
                     ) : (
-                        <>
+                        <div className="fade-in">
                             <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20">
                                 
                                 <div className="absolute inset-0 z-0 pointer-events-none bg-[url('assets/icarusdunya2.png')] bg-cover bg-center bg-no-repeat opacity-40 dark:opacity-20" />
@@ -946,7 +958,7 @@
                                     </div>
                                 </div>
                             </section>
-                        </>
+                        </div>
                     )}
 
                     <footer className="py-6 text-center transition-colors sm:py-8 border-t border-gold/20 bg-slate-200 dark:bg-slate-900">
@@ -961,12 +973,10 @@
                         data={data}
                     />
 
-                    {activeCommittee && (
-                        <CommitteeModal 
-                            committee={activeCommittee} 
-                            onClose={() => setActiveCommittee(null)} 
-                        />
-                    )}
+                    <CommitteeModal 
+                        committee={activeCommittee} 
+                        onClose={() => setActiveCommittee(null)} 
+                    />
                 </div>
             );
         };
