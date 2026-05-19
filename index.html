@@ -32,7 +32,6 @@
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.5s ease, color 0.5s ease;
-            overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -500,11 +499,11 @@
         const ContactModal = ({ isOpen, onClose, data }) => {
             useEffect(() => {
                 if (isOpen) {
-                    document.body.style.overflow = 'hidden';
+                    document.body.classList.add('overflow-hidden');
                 } else {
-                    document.body.style.overflow = 'auto';
+                    document.body.classList.remove('overflow-hidden');
                 }
-                return () => { document.body.style.overflow = 'auto'; };
+                return () => { document.body.classList.remove('overflow-hidden'); };
             }, [isOpen]);
 
             if (!isOpen) return null;
@@ -513,7 +512,6 @@
             const mailBody = "Merhaba şu konu hakkında bilgi almak istiyorum…";
             const mailtoLink = `mailto:icarusmun.information@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
 
-            // ReactDOM Portal ile Modalları her zaman root body'e bağlıyoruz
             return ReactDOM.createPortal(
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
                     <div className="absolute inset-0" onClick={onClose} />
@@ -560,9 +558,9 @@
 
         const CommitteeModal = ({ committee, onClose }) => {
             useEffect(() => {
-                document.body.style.overflow = 'hidden';
+                document.body.classList.add('overflow-hidden');
                 return () => {
-                    document.body.style.overflow = 'auto'; 
+                    document.body.classList.remove('overflow-hidden'); 
                 };
             }, []);
 
@@ -570,7 +568,6 @@
             
             const roles = rolesByCommittee[committee.id] || [];
             
-            // ReactDOM Portal ile Modalları her zaman root body'e bağlıyoruz
             return ReactDOM.createPortal(
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
                     <div className="absolute inset-0" onClick={onClose} />
@@ -725,9 +722,8 @@
             };
 
             return (
-                <div className="relative min-h-screen transition-colors duration-500 bg-slate-200 dark:bg-slate-950">
+                <div className="relative min-h-screen transition-colors duration-500 overflow-x-hidden bg-slate-200 dark:bg-slate-950 fade-in">
                     
-                    {/* Üst Menü Navbar, fade-in kaldırıldı, viewporta tam sabitlenmesi garantilendi */}
                     <nav className="fixed top-0 left-0 right-0 z-40 shadow-sm backdrop-blur-md border-b border-gold/20 bg-slate-100/95 dark:bg-slate-950/95">
                         <div className="flex items-center justify-between h-16 max-w-7xl mx-auto px-4 sm:px-6 sm:h-20">
                             <div className="flex items-center gap-2 cursor-pointer sm:gap-3" onClick={() => handleNavClick('home')}>
@@ -816,7 +812,8 @@
                         <div className="fade-in">
                             <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20">
                                 
-                                <div className="absolute inset-0 z-0 pointer-events-none bg-[url('assets/icarusdunya2.png')] bg-cover bg-center bg-no-repeat opacity-40 dark:opacity-20" />
+                                {/* Ana Ekran İcarus Yüklenme Arkaplanı */}
+                                <div className="absolute inset-0 z-0 pointer-events-none bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center bg-no-repeat opacity-40 dark:opacity-20" />
 
                                 <main className="relative z-10 flex flex-col items-center justify-center max-w-7xl mx-auto px-4 pt-24 pb-16 text-center sm:pt-32 sm:pb-20 sm:px-6">
                                     <span className="px-3 py-1 mb-4 text-[9px] sm:text-sm tracking-[0.3em] uppercase rounded-none backdrop-blur-sm sm:mb-6 sm:px-4 font-mono text-gold border border-gold/30 bg-gold/10">
@@ -888,27 +885,6 @@
                                     <div className="flex flex-col items-center mb-10 text-center sm:mb-16">
                                         <div className="flex items-center justify-center gap-3 mb-3 sm:gap-5 sm:mb-4">
                                             <div className="relative flex items-center justify-center flex-shrink-0 w-12 h-12 overflow-hidden rounded-full sm:w-16 sm:h-16 md:w-20 md:h-20" style={{ clipPath: 'circle(50% at 50% 50%)' }}>
-                                                
-                                                <svg className="absolute w-[200%] h-full text-gold/40 globe-scroll" viewBox="0 0 1000 500" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <line x1="0" y1="125" x2="1000" y2="125" strokeDasharray="4 4" />
-                                                    <line x1="0" y1="250" x2="1000" y2="250" strokeDasharray="8 4" />
-                                                    <line x1="0" y1="375" x2="1000" y2="375" strokeDasharray="4 4" />
-                                                    <g transform="scale(0.5)">
-                                                        <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" />
-                                                        <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" />
-                                                        <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" />
-                                                        <path d="M450,200 Q550,180 580,250 T500,400 Q450,420 420,320 Q400,250 450,200 Z" />
-                                                        <path d="M820,300 Q880,280 920,320 T880,400 Q820,400 800,350 Q780,300 820,300 Z" />
-                                                    </g>
-                                                    <g transform="translate(500, 0) scale(0.5)">
-                                                        <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" />
-                                                        <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" />
-                                                        <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" />
-                                                        <path d="M450,200 Q550,180 580,250 T500,400 Q450,420 420,320 Q400,250 450,200 Z" />
-                                                        <path d="M820,300 Q880,280 920,320 T880,400 Q820,400 800,350 Q780,300 820,300 Z" />
-                                                    </g>
-                                                </svg>
-
                                                 <img 
                                                     src="assets/icarusarkaplansiz.png" 
                                                     alt="Icarus" 
