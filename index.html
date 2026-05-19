@@ -161,6 +161,7 @@
                 ctaCommittees: "Explore Committees",
                 countdownText: "Time Until Conference",
                 committeesTitle: "Active Committees",
+                clickCommittees: "Click to Explore!",
                 footer: "© 2026 Icarus Model United Nations. All systems online.",
                 consentWarn: "This site is created for entertainment purposes. Stealing, copying, or altering is strictly prohibited.",
                 consentBtn: "Enter Site",
@@ -193,6 +194,7 @@
                 ctaCommittees: "Komiteleri İncele",
                 countdownText: "Konferansa Kalan Süre",
                 committeesTitle: "Aktif Komiteler",
+                clickCommittees: "Komitelere Tıkla!",
                 footer: "© 2026 Icarus Model Birleşmiş Milletler. Tüm sistemler çevrimiçi.",
                 consentWarn: "Bu site eğlence amaçlı yapılmıştır. Çalınması, kopyalanması, değiştirilmesi yasaktır.",
                 consentBtn: "Siteye Gir",
@@ -611,7 +613,7 @@
                     <div className="flex gap-4 md:gap-8 justify-center flex-wrap">
                         {Object.entries(time).map(([unit, val], idx) => (
                             <div key={idx} className="flex flex-col items-center">
-                                <div className="relative flex items-center justify-center w-14 h-14 md:w-20 md:h-20 shadow-sm group border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
+                                <div className="relative flex items-center justify-center w-14 h-14 md:w-20 md:h-20 shadow-sm group border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
                                     <div className="absolute inset-0 opacity-0 transition-opacity bg-gold/5 group-hover:opacity-100" />
                                     {String(val).padStart(2, '0')}
                                 </div>
@@ -777,6 +779,15 @@
                                         <p className="text-center text-[9px] sm:text-[10px] tracking-widest uppercase font-mono text-gold">
                                             {role}
                                         </p>
+                                        
+                                        <a href="https://www.instagram.com/icarusmun26" target="_blank" rel="noopener noreferrer" className="mt-4 px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-full flex items-center gap-2 text-[10px] text-slate-500 hover:text-gold dark:hover:text-gold hover:border-gold dark:hover:border-gold transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                                            </svg>
+                                            @icarusmun26
+                                        </a>
                                     </div>
                                 ))}
                             </div>
@@ -1057,9 +1068,14 @@
                                                 />
                                                 <div className="absolute inset-0 pointer-events-none rounded-full shadow-[inset_0_0_10px_rgba(212,175,55,0.4)] border border-gold/40" />
                                             </div>
-                                            <h2 className="text-2xl text-left sm:text-3xl md:text-5xl font-serif text-slate-900 dark:text-slate-100">
-                                                {data.committeesTitle}
-                                            </h2>
+                                            <div className="flex flex-col items-start">
+                                                <h2 className="text-2xl text-left sm:text-3xl md:text-5xl font-serif text-slate-900 dark:text-slate-100">
+                                                    {data.committeesTitle}
+                                                </h2>
+                                                <span className="text-[10px] sm:text-xs font-mono tracking-widest uppercase text-gold mt-1 sm:mt-2">
+                                                    {data.clickCommittees}
+                                                </span>
+                                            </div>
                                         </div>
                                         <div className="w-16 mx-auto sm:w-32 h-[1px] bg-gold" />
                                     </div>
@@ -1118,6 +1134,7 @@
                         data={data}
                     />
 
+                    {/* Düzeltme: Modal yalnızca activeCommittee null olmadığında (bir komite seçildiğinde) render ediliyor */}
                     {activeCommittee && (
                         <CommitteeModal 
                             committee={activeCommittee} 
