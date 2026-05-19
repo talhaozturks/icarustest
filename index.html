@@ -435,113 +435,6 @@
             );
         };
 
-        const Countdown = ({ label }) => {
-            const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-            useEffect(() => {
-                const target = new Date("2026-09-04T00:00:00").getTime();
-                
-                const intervalId = setInterval(() => {
-                    const diff = target - new Date().getTime();
-
-                    if (diff > 0) {
-                        setTime({
-                            days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-                            hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                            minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-                            seconds: Math.floor((diff % (1000 * 60)) / 1000)
-                        });
-                    } else {
-                        clearInterval(intervalId);
-                    }
-                }, 1000);
-
-                return () => clearInterval(intervalId);
-            }, []);
-
-            return (
-                <div className="flex flex-col items-center mt-12 w-full">
-                    <div className="mb-4 text-[10px] tracking-widest uppercase font-mono text-slate-500 dark:text-slate-400">
-                        {label}
-                    </div>
-                    <div className="flex gap-4 md:gap-8 justify-center flex-wrap">
-                        {Object.entries(time).map(([unit, val], idx) => (
-                            <div key={idx} className="flex flex-col items-center">
-                                <div className="relative flex items-center justify-center w-14 h-14 md:w-20 md:h-20 shadow-sm group border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
-                                    <div className="absolute inset-0 opacity-0 transition-opacity bg-gold/5 group-hover:opacity-100" />
-                                    {String(val).padStart(2, '0')}
-                                </div>
-                                <span className="mt-2 text-[9px] md:text-[10px] uppercase font-mono text-slate-500">
-                                    {unit}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="mt-4 text-xs font-mono text-gold">04.09.2026</div>
-                </div>
-            );
-        };
-
-        const ContactModal = ({ isOpen, onClose, data }) => {
-            useEffect(() => {
-                if (isOpen) {
-                    document.body.classList.add('modal-open');
-                } else {
-                    document.body.classList.remove('modal-open');
-                }
-                return () => { document.body.classList.remove('modal-open'); };
-            }, [isOpen]);
-
-            if (!isOpen) return null;
-
-            const mailSubject = "IcarusMUN Bilgi Talebi";
-            const mailBody = "Merhaba şu konu hakkında bilgi almak istiyorum…";
-            const mailtoLink = `mailto:icarusmun.information@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
-
-            return ReactDOM.createPortal(
-                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
-                    <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
-                    <div className="relative z-10 flex flex-col items-center w-full max-w-md p-8 sm:p-12 overflow-hidden shadow-2xl bg-white dark:bg-slate-950 border border-gold/40 rounded-xl">
-                        
-                        <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full transition-colors bg-slate-100/50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-800 text-slate-500 hover:text-gold">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M18 6 6 18" />
-                                <path d="m6 6 12 12" />
-                            </svg>
-                        </button>
-                        
-                        <div className="p-4 mb-4 rounded-full shadow-lg text-gold bg-slate-50 dark:bg-slate-900 border border-gold/30">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                            </svg>
-                        </div>
-                        
-                        <h2 className="mb-4 text-2xl sm:text-3xl font-serif text-slate-900 dark:text-white text-center">
-                            {data.contactTitle}
-                        </h2>
-                        
-                        <div className="w-16 h-[1px] bg-gold mb-6" />
-                        
-                        <p className="mb-2 text-xs tracking-widest font-mono text-slate-500 dark:text-slate-400">
-                            {data.contactEmail}
-                        </p>
-                        <p className="mb-8 text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-200 break-all">
-                            icarusmun.information@gmail.com
-                        </p>
-
-                        <a 
-                            href={mailtoLink} 
-                            className="w-full text-center px-6 py-4 text-xs tracking-widest transition-all duration-300 shadow-sm sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950"
-                        >
-                            {data.contactBtn}
-                        </a>
-                    </div>
-                </div>,
-                document.body
-            );
-        };
-
         const CommitteeModal = ({ committee, onClose }) => {
             useEffect(() => {
                 document.body.classList.add('modal-open');
@@ -615,21 +508,15 @@
                         </header>
 
                         <div className="relative z-10 flex-1 p-4 overflow-y-auto sm:p-6 md:p-12">
-                            <div className="flex flex-wrap items-start justify-center h-full min-h-max gap-8 sm:gap-12">
+                            <div className="flex flex-wrap items-center justify-center h-full min-h-max gap-8 sm:gap-12">
                                 {members.map((member, idx) => (
                                     <div key={idx} className="relative flex flex-col items-center w-full max-w-[240px] transition-all duration-300 group">
                                         <img 
                                             src={member.image} 
                                             alt={member.name} 
-                                            className="w-full h-auto object-contain drop-shadow-xl mb-4 hover:scale-105 transition-transform duration-500"
+                                            className="w-full h-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500"
                                             onError={(e) => { e.target.src='assets/icarus.png'; }}
                                         />
-                                        <h4 className="mb-1 text-base sm:text-lg font-serif text-slate-800 dark:text-slate-100 text-center">
-                                            {member.name}
-                                        </h4>
-                                        <p className="text-center text-[9px] sm:text-[10px] tracking-widest uppercase font-mono text-gold">
-                                            {member.role}
-                                        </p>
                                     </div>
                                 ))}
                             </div>
@@ -815,46 +702,110 @@
             );
         };
 
-        const TeamSection = ({ data }) => {
-            const members = Array(4).fill({ name: "talha", role: "talha" });
+        const Countdown = ({ label }) => {
+            const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+            useEffect(() => {
+                const target = new Date("2026-09-04T00:00:00").getTime();
+                
+                const intervalId = setInterval(() => {
+                    const diff = target - new Date().getTime();
+
+                    if (diff > 0) {
+                        setTime({
+                            days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+                            hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                            minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+                            seconds: Math.floor((diff % (1000 * 60)) / 1000)
+                        });
+                    } else {
+                        clearInterval(intervalId);
+                    }
+                }, 1000);
+
+                return () => clearInterval(intervalId);
+            }, []);
 
             return (
-                <div className="max-w-7xl mx-auto min-h-[90vh] pt-24 md:pt-32 pb-20 px-4 md:px-6 fade-in">
-                    <header className="relative mb-12 text-center md:mb-16">
-                        <span className="block mb-3 md:mb-4 text-[10px] md:text-xs tracking-[0.3em] uppercase font-mono text-gold">
-                            {data.teamDesc}
-                        </span>
-                        <h1 className="mb-4 md:mb-6 text-3xl sm:text-4xl md:text-6xl font-serif text-slate-900 dark:text-white">
-                            {data.teamTitle}
-                        </h1>
-                        <div className="w-16 h-[1px] md:w-24 mx-auto mt-6 md:mt-8 bg-gold" />
-                    </header>
-
-                    <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 md:gap-8">
-                        {members.map((member, index) => (
-                            <div key={index} className="relative flex flex-col items-center p-6 shadow-sm transition-all duration-300 group hover:shadow-md border border-slate-300 dark:border-slate-800 hover:border-gold/50 bg-white dark:bg-slate-900/50">
-                                <div className="absolute inset-0 opacity-10 transition-opacity bg-grid-pattern group-hover:opacity-30" />
-                                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-transparent transition-colors group-hover:border-gold" />
-                                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-transparent transition-colors group-hover:border-gold" />
-                                
-                                <div className="relative z-10 w-24 h-24 p-1 mb-4 transition-colors rounded-full md:w-32 md:h-32 md:mb-6 border-2 border-gold/20 group-hover:border-gold">
-                                    <div className="flex items-center justify-center w-full h-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-                                        <svg className="w-12 h-12 md:w-16 md:h-16 text-slate-400 dark:text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                                            <circle cx="12" cy="7" r="4" />
-                                        </svg>
-                                    </div>
+                <div className="flex flex-col items-center mt-12 w-full">
+                    <div className="mb-4 text-[10px] tracking-widest uppercase font-mono text-slate-500 dark:text-slate-400">
+                        {label}
+                    </div>
+                    <div className="flex gap-4 md:gap-8 justify-center flex-wrap">
+                        {Object.entries(time).map(([unit, val], idx) => (
+                            <div key={idx} className="flex flex-col items-center">
+                                <div className="relative flex items-center justify-center w-14 h-14 md:w-20 md:h-20 shadow-sm group border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
+                                    <div className="absolute inset-0 opacity-0 transition-opacity bg-gold/5 group-hover:opacity-100" />
+                                    {String(val).padStart(2, '0')}
                                 </div>
-                                <h3 className="relative z-10 mb-1 text-lg md:text-xl font-serif text-slate-800 dark:text-slate-100 md:mb-2">
-                                    {member.name}
-                                </h3>
-                                <p className="relative z-10 text-center text-[9px] md:text-[10px] tracking-widest uppercase font-mono text-gold">
-                                    {member.role}
-                                </p>
+                                <span className="mt-2 text-[9px] md:text-[10px] uppercase font-mono text-slate-500">
+                                    {unit}
+                                </span>
                             </div>
                         ))}
                     </div>
+                    <div className="mt-4 text-xs font-mono text-gold">04.09.2026</div>
                 </div>
+            );
+        };
+
+        const ContactModal = ({ isOpen, onClose, data }) => {
+            useEffect(() => {
+                if (isOpen) {
+                    document.body.classList.add('modal-open');
+                } else {
+                    document.body.classList.remove('modal-open');
+                }
+                return () => { document.body.classList.remove('modal-open'); };
+            }, [isOpen]);
+
+            if (!isOpen) return null;
+
+            const mailSubject = "IcarusMUN Bilgi Talebi";
+            const mailBody = "Merhaba şu konu hakkında bilgi almak istiyorum…";
+            const mailtoLink = `mailto:icarusmun.information@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+            return ReactDOM.createPortal(
+                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
+                    <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
+                    <div className="relative z-10 flex flex-col items-center w-full max-w-md p-8 sm:p-12 overflow-hidden shadow-2xl bg-white dark:bg-slate-950 border border-gold/40 rounded-xl">
+                        
+                        <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full transition-colors bg-slate-100/50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-800 text-slate-500 hover:text-gold">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M18 6 6 18" />
+                                <path d="m6 6 12 12" />
+                            </svg>
+                        </button>
+                        
+                        <div className="p-4 mb-4 rounded-full shadow-lg text-gold bg-slate-50 dark:bg-slate-900 border border-gold/30">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                        </div>
+                        
+                        <h2 className="mb-4 text-2xl sm:text-3xl font-serif text-slate-900 dark:text-white text-center">
+                            {data.contactTitle}
+                        </h2>
+                        
+                        <div className="w-16 h-[1px] bg-gold mb-6" />
+                        
+                        <p className="mb-2 text-xs tracking-widest font-mono text-slate-500 dark:text-slate-400">
+                            {data.contactEmail}
+                        </p>
+                        <p className="mb-8 text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-200 break-all">
+                            icarusmun.information@gmail.com
+                        </p>
+
+                        <a 
+                            href={mailtoLink} 
+                            className="w-full text-center px-6 py-4 text-xs tracking-widest transition-all duration-300 shadow-sm sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950"
+                        >
+                            {data.contactBtn}
+                        </a>
+                    </div>
+                </div>,
+                document.body
             );
         };
 
