@@ -11,25 +11,17 @@
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#D4AF37',
-                    }
-                }
-            }
+            theme: { extend: { colors: { gold: '#D4AF37' } } }
         }
     </script>
     
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
-        /* Scroll kilitlenmesini kökten çözen temiz body yapısı */
         html, body {
             margin: 0;
             padding: 0;
@@ -43,7 +35,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Modal açıkken sayfanın kaymasını engellemek için güvenli yöntem */
         body.modal-open {
             overflow: hidden !important;
         }
@@ -52,7 +43,6 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Yüksek kaliteli saf CSS Arka Plan Deseni */
         .bg-grid-pattern {
             background-size: 40px 40px;
             background-image: 
@@ -61,10 +51,7 @@
             background-position: center center;
         }
 
-        .line-draw {
-            position: relative;
-        }
-        
+        .line-draw { position: relative; }
         .line-draw::after {
             content: '';
             position: absolute;
@@ -75,56 +62,29 @@
             background-color: #D4AF37;
             transition: width 0.3s ease-in-out;
         }
-        
-        .line-draw:hover::after {
-            width: 100%;
-        }
+        .line-draw:hover::after { width: 100%; }
 
-        .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: transparent; 
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #D4AF37; 
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
 
-        html.dark body {
-            background-color: #020617; 
-            color: #f8fafc;
-        }
+        html.dark body { background-color: #020617; color: #f8fafc; }
+        html.light body { background-color: #f8fafc; color: #1e293b; }
         
-        html.light body {
-            background-color: #f8fafc; 
-            color: #1e293b;
-        }
-        
-        .globe-scroll {
-            animation: scrollGlobe 25s linear infinite;
-        }
-        
+        .globe-scroll { animation: scrollGlobe 25s linear infinite; }
         @keyframes scrollGlobe {
             from { transform: translateX(0); }
             to { transform: translateX(-50%); } 
         }
 
-        .map-bg-scroll {
-            animation: scrollMapBg 60s linear infinite;
-        }
-        
+        .map-bg-scroll { animation: scrollMapBg 60s linear infinite; }
         @keyframes scrollMapBg {
             from { transform: translateX(0); }
             to { transform: translateX(-50%); } 
@@ -161,7 +121,7 @@
                 ctaCommittees: "Explore Committees",
                 countdownText: "Time Until Conference",
                 committeesTitle: "Active Committees",
-                clickCommittees: "Click to Explore!",
+                clickInfo: "Click for info!",
                 footer: "© 2026 Icarus Model United Nations. All systems online.",
                 consentWarn: "This site is created for entertainment purposes. Stealing, copying, or altering is strictly prohibited.",
                 consentBtn: "Enter Site",
@@ -174,15 +134,15 @@
                 contactEmail: "EMAIL",
                 contactBtn: "SEND EMAIL",
                 committees: [
-                    { id: 'nato', name: 'NATO', agenda: "Türkiye's Missile Defense Crisis & Security Implications", desc: "Navigate the complex geopolitical implications of Türkiye's defense choices." },
-                    { id: 'fjcc', name: 'F-JCC', agenda: "Avatar: The Last Airbender - 100 Year War", desc: "Draft strategies in a war-torn world of elemental bending." },
-                    { id: 'jcc', name: 'JCC', agenda: "Game of Thrones: House of the Dragon", desc: "A brutal dance of dragons and political machinations." },
-                    { id: 'hjcc', name: 'H-JCC', agenda: "The Transnistrian War", desc: "Manage the volatile fallout and separatist movements in Eastern Europe." },
-                    { id: 'hcc', name: 'HCC: RDR2', agenda: "The Van der Linde Gang", desc: "Survive the dying days of the Wild West as outlaws facing changing times." },
-                    { id: 'senate', name: 'US SENATE', agenda: "Addressing Marginalization in a Polarized US", desc: "Tackle domestic systemic issues and bridge the expanding legislative divide." },
-                    { id: 'untac', name: 'UNTAC', agenda: "Rebuilding Stability & Preparing General Elections", desc: "Execute the monumental task of peacekeeping and institutional rebuilding." },
-                    { id: 'disec', name: 'DISEC', agenda: "Ongoing Crises in the Horn of Africa", desc: "Formulate disarmament strategies to address escalating armed conflicts." },
-                    { id: 'unhrc', name: 'UNHRC', agenda: "Israel-Palestine Conflict", desc: "Analyze human rights violations and draft resolutions for sustainable peace." }
+                    { id: 'nato', desc: "Navigate the complex geopolitical implications of Türkiye's defense choices." },
+                    { id: 'fjcc', desc: "Draft strategies in a war-torn world of elemental bending." },
+                    { id: 'jcc', desc: "A brutal dance of dragons and political machinations." },
+                    { id: 'hjcc', desc: "Manage the volatile fallout and separatist movements in Eastern Europe." },
+                    { id: 'hcc', desc: "Survive the dying days of the Wild West as outlaws facing changing times." },
+                    { id: 'senate', desc: "Tackle domestic systemic issues and bridge the expanding legislative divide." },
+                    { id: 'untac', desc: "Execute the monumental task of peacekeeping and institutional rebuilding." },
+                    { id: 'disec', desc: "Formulate disarmament strategies to address escalating armed conflicts." },
+                    { id: 'unhrc', desc: "Analyze human rights violations and draft resolutions for sustainable peace." }
                 ]
             },
             tr: {
@@ -194,7 +154,7 @@
                 ctaCommittees: "Komiteleri İncele",
                 countdownText: "Konferansa Kalan Süre",
                 committeesTitle: "Aktif Komiteler",
-                clickCommittees: "Komitelere Tıkla!",
+                clickInfo: "Bilgi için tıkla!",
                 footer: "© 2026 Icarus Model Birleşmiş Milletler. Tüm sistemler çevrimiçi.",
                 consentWarn: "Bu site eğlence amaçlı yapılmıştır. Çalınması, kopyalanması, değiştirilmesi yasaktır.",
                 consentBtn: "Siteye Gir",
@@ -207,21 +167,32 @@
                 contactEmail: "E-POSTA",
                 contactBtn: "E-POSTA GÖNDER",
                 committees: [
-                    { id: 'nato', name: 'NATO', agenda: "Türkiye'nin Füze Savunma Krizi ve Güvenlik Etkileri", desc: "Türkiye'nin savunma tercihlerinin karmaşık jeopolitik sonuçlarını yönetin." },
-                    { id: 'fjcc', name: 'F-JCC', agenda: "Avatar: Son Havabükücü - 100 Yıl Savaşı", desc: "Element bükücülerin savaşın eşiğinde olduğu bir dünyada stratejiler oluşturun." },
-                    { id: 'jcc', name: 'JCC', agenda: "Game of Thrones: House of the Dragon", desc: "Ejderhaların dansı ve acımasız siyasi entrikalar. Demir Taht için mücadele edin." },
-                    { id: 'hjcc', name: 'H-JCC', agenda: "Transdinyester Savaşı", desc: "Doğu Avrupa'da 90'ların başındaki kaos ortamında ayrılıkçı hareketleri yönetin." },
-                    { id: 'hcc', name: 'HCC: RDR2', agenda: "Van der Linde Çetesi", desc: "Vahşi Batı'nın son günlerinde hayatta kalın. Değişen zamanlara karşı acımasız kararlar alın." },
-                    { id: 'senate', name: 'ABD SENATOSU', agenda: "Kutuplaşmış ABD'de Marjinalleşmenin Ele Alınması", desc: "Yüksek derecede kutuplaşmış siyasi iklimde, iç sistemik sorunları çözün." },
-                    { id: 'untac', name: 'UNTAC', agenda: "İstikrarın Yeniden İnşası ve Genel Seçimlere Hazırlık", desc: "Çatışma sonrası Kamboçya'da barışı koruma ve kurumları yeniden inşa etme görevini üstlenin." },
-                    { id: 'disec', name: 'DISEC', agenda: "Afrika Boynuzu'ndaki Devam Eden Krizler", desc: "Silahlı çatışmaları ele almak için uluslararası güvenlik stratejileri formüle edin." },
-                    { id: 'unhrc', name: 'UNHRC', agenda: "İsrail-Filistin Çatışması", desc: "Karmaşık tarihi sorunları yönlendirin ve bölgede sürdürülebilir barış için kararlar tasarlayın." }
+                    { id: 'nato', desc: "Türkiye'nin savunma tercihlerinin karmaşık jeopolitik sonuçlarını yönetin." },
+                    { id: 'fjcc', desc: "Element bükücülerin savaşın eşiğinde olduğu bir dünyada stratejiler oluşturun." },
+                    { id: 'jcc', desc: "Ejderhaların dansı ve acımasız siyasi entrikalar. Demir Taht için mücadele edin." },
+                    { id: 'hjcc', desc: "Doğu Avrupa'da 90'ların başındaki kaos ortamında ayrılıkçı hareketleri yönetin." },
+                    { id: 'hcc', desc: "Vahşi Batı'nın son günlerinde hayatta kalın. Değişen zamanlara karşı acımasız kararlar alın." },
+                    { id: 'senate', desc: "Yüksek derecede kutuplaşmış siyasi iklimde, iç sistemik sorunları çözün." },
+                    { id: 'untac', desc: "Çatışma sonrası Kamboçya'da barışı koruma ve kurumları yeniden inşa etme görevini üstlenin." },
+                    { id: 'disec', desc: "Silahlı çatışmaları ele almak için uluslararası güvenlik stratejileri formüle edin." },
+                    { id: 'unhrc', desc: "Karmaşık tarihi sorunları yönlendirin ve bölgede sürdürülebilir barış için kararlar tasarlayın." }
                 ]
             }
         };
 
-        // UI içermeyen saf PNG ve isim/rol haritalaması
-        const membersByCommittee = {
+        const staticAssets = {
+            nato: "assets/icarus_nato.png",
+            fjcc: "assets/icarus_f-jcc.png",
+            jcc: "assets/icarus_jcc.png",
+            hjcc: "assets/icarus_h-jcc.png",
+            hcc: "assets/icarus_hcc.png",
+            senate: "assets/icarus_us_senate.png",
+            untac: "assets/icarus_untac.png",
+            disec: "assets/icarus_disec.png",
+            unhrc: "assets/icarus_unhrc.png"
+        };
+
+        const rosterData = {
             nato: [
                 { name: "Arif Erkan", role: "Co-Under Secretary General", image: "assets/icarus_nato_co-under-arif-erkan.png" },
                 { name: "Demir Atay", role: "Co-Under Secretary General", image: "assets/icarus_nato_co-under-demir-atay.png" }
@@ -261,65 +232,7 @@
             ]
         };
 
-        const SVGIcons = {
-            nato: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <path d="M12 2 L15 9 L22 12 L15 15 L12 22 L9 15 L2 12 L9 9 Z"/>
-                    <circle cx="12" cy="12" r="3"/>
-                </svg>
-            ),
-            fjcc: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <path d="M12 3 L12 21 M12 3 L7 9 M12 3 L17 9"/>
-                    <circle cx="12" cy="12" r="10" strokeDasharray="4 4"/>
-                </svg>
-            ), 
-            jcc: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <path d="M4 20 h16 L18 8 L15 12 L12 4 L9 12 L6 8 Z"/>
-                    <path d="M12 20 V12"/>
-                </svg>
-            ), 
-            hjcc: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <path d="M12 3 L15 9 L21 9 L16 13 L18 20 L12 16 L6 20 L8 13 L3 9 L9 9 Z"/>
-                    <path d="M2 12 Q 7 8 12 12 T 22 12" strokeDasharray="2 2"/>
-                </svg>
-            ), 
-            hcc: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <path d="M3 16 Q12 22 21 16"/>
-                    <path d="M6 16 V10 C6 5 18 5 18 10 V16"/>
-                    <path d="M6 14 H18" strokeWidth="1"/>
-                </svg>
-            ), 
-            senate: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <path d="M12 3 V6 M8 9 C8 4 16 4 16 9 M5 12 H19 M3 21 H21 M8 12 V21 M12 12 V21 M16 12 V21"/>
-                </svg>
-            ), 
-            untac: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <rect x="6" y="10" width="12" height="12" rx="1"/>
-                    <path d="M12 10 V4 M9 7 l3-3 3 3"/>
-                    <path d="M4 14 h16"/>
-                </svg>
-            ), 
-            disec: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <circle cx="12" cy="12" r="9" strokeWidth="1"/>
-                    <circle cx="12" cy="12" r="4"/>
-                    <path d="M12 3 V21 M3 12 H21 M6 6 L18 18 M6 18 L18 6" strokeDasharray="2 2"/>
-                </svg>
-            ), 
-            unhrc: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
-                    <path d="M4 20 L20 4 M16 4 C16 4 14 6 16 8 C18 6 20 4 20 4 Z M12 8 C12 8 10 10 12 12 C14 10 16 8 16 8 Z M8 12 C8 12 6 14 8 16 C10 14 12 12 12 12 Z M4 16 C4 16 2 18 4 20 C6 18 8 16 8 16 Z"/>
-                </svg>
-            ) 
-        };
-
-        const WorldMapContinents = () => (
+        const AnimatedMap = () => (
             <svg className="absolute top-0 left-0 w-[200%] h-full text-gold map-bg-scroll z-0 pointer-events-none" viewBox="0 0 2000 500" fill="none" stroke="currentColor" strokeWidth="0.75" preserveAspectRatio="none">
                 <g opacity="0.3">
                     <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" fill="rgba(212, 175, 55, 0.05)" />
@@ -328,7 +241,6 @@
                     <path d="M450,200 Q550,180 580,250 T500,400 Q450,420 420,320 Q400,250 450,200 Z" fill="rgba(212, 175, 55, 0.05)" />
                     <path d="M820,300 Q880,280 920,320 T880,400 Q820,400 800,350 Q780,300 820,300 Z" fill="rgba(212, 175, 55, 0.05)" />
                     <path d="M350,30 Q420,20 400,60 Q380,80 340,60 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    
                     <path d="M 0 125 L 1000 125 M 0 250 L 1000 250 M 0 375 L 1000 375" strokeDasharray="10 10" opacity="0.3"/>
                     <path d="M 250 0 L 250 500 M 500 0 L 500 500 M 750 0 L 750 500" strokeDasharray="10 10" opacity="0.3"/>
                 </g>
@@ -345,87 +257,60 @@
             </svg>
         );
 
-        const InstaPopupModal = ({ isOpen, onClose }) => {
+        const ReelsPopup = ({ isOpen, onClose }) => {
             const videoRef = useRef(null);
             const [isPlaying, setIsPlaying] = useState(false);
 
             useEffect(() => {
-                if (isOpen) {
-                    document.body.classList.add('modal-open');
-                } else {
-                    document.body.classList.remove('modal-open');
-                    setIsPlaying(false);
-                }
-                return () => { document.body.classList.remove('modal-open'); };
+                document.body.classList.toggle('modal-open', isOpen);
+                if (!isOpen) setIsPlaying(false);
             }, [isOpen]);
 
             if (!isOpen) return null;
 
             const togglePlay = () => {
-                if (videoRef.current) {
-                    if (isPlaying) {
-                        videoRef.current.pause();
-                    } else {
-                        videoRef.current.play();
-                    }
-                    setIsPlaying(!isPlaying);
-                }
+                if (!videoRef.current) return;
+                isPlaying ? videoRef.current.pause() : videoRef.current.play();
+                setIsPlaying(!isPlaying);
             };
 
             return ReactDOM.createPortal(
-                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-8 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
+                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 py-8 fade-in bg-slate-950/80 backdrop-blur-sm">
                     <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
-                    
-                    <div className="relative z-10 w-full max-w-[340px] h-[80vh] max-h-[700px] bg-white dark:bg-slate-900 border-[6px] sm:border-[8px] border-slate-900 dark:border-slate-800 rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col fade-in">
-                        
-                        <div className="absolute top-0 inset-x-0 h-5 sm:h-6 flex justify-center z-50">
-                            <div className="w-24 sm:w-32 h-full bg-slate-900 dark:bg-slate-800 rounded-b-2xl"></div>
+                    <div className="relative z-10 w-full max-w-[340px] h-[80vh] max-h-[700px] bg-white dark:bg-slate-900 border-[8px] border-slate-900 dark:border-slate-800 rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden">
+                        <div className="absolute top-0 inset-x-0 h-6 flex justify-center z-50">
+                            <div className="w-32 h-full bg-slate-900 dark:bg-slate-800 rounded-b-2xl"></div>
                         </div>
                         
-                        <div className="flex items-center justify-between p-3 pt-6 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shrink-0">
+                        <div className="flex items-center justify-between p-3 pt-6 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 shrink-0">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-gold/50 flex items-center justify-center">
-                                    <img src="assets/icarusarkaplansiz.png" alt="Avatar" className="w-[80%] h-auto object-contain" onError={(e) => { e.target.src='assets/icarus.png'; }}/>
+                                <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 border border-gold/50 flex items-center justify-center p-1">
+                                    <img src="assets/icarusarkaplansiz.png" alt="Avatar" className="w-full h-auto object-contain" />
                                 </div>
-                                <span className="font-bold text-sm text-slate-900 dark:text-white tracking-wide">icarusmun26</span>
+                                <span className="font-bold text-sm text-slate-900 dark:text-white">icarusmun26</span>
                             </div>
-                            <button onClick={onClose} className="text-slate-400 hover:text-gold transition-colors p-1">
+                            <button onClick={onClose} className="text-slate-400 hover:text-gold p-1">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                             </button>
                         </div>
                         
-                        <div className="w-full relative flex-1 min-h-0 bg-slate-950 flex items-center justify-center overflow-hidden cursor-pointer" onClick={togglePlay}>
-                            <video ref={videoRef} src="assets/video1.mp4" className="w-full h-full object-cover" loop playsInline onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }}></video>
-                            
+                        <div className="w-full relative flex-1 min-h-0 bg-slate-950 flex items-center justify-center cursor-pointer" onClick={togglePlay}>
+                            <video ref={videoRef} src="assets/video1.mp4" className="w-full h-full object-cover" loop playsInline></video>
                             {!isPlaying && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity z-20">
-                                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/40 shadow-lg">
-                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="ml-1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/40 z-20">
+                                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/40">
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="5 3 19 12 5 21 5 3" /></svg>
                                     </div>
                                 </div>
                             )}
-
-                            <div className="hidden absolute inset-0 flex flex-col items-center justify-center text-slate-500 font-mono text-xs">
-                                <svg className="w-12 h-12 mb-2 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
-                                <span>Video Yüklenemedi</span>
-                            </div>
                         </div>
                         
-                        <div className="p-3 sm:p-4 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shrink-0">
-                            <div className="flex gap-4 mb-2 sm:mb-3">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-200 hover:text-red-500 cursor-pointer transition-colors"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-200 hover:text-slate-400 cursor-pointer transition-colors"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-200 hover:text-slate-400 cursor-pointer transition-colors"><polygon points="22 2 15 22 11 13 2 9 22 2" /><line x1="22" y1="2" x2="11" y2="13" /></svg>
+                        <div className="p-4 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shrink-0">
+                            <div className="flex gap-4 mb-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-200"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-800 dark:text-slate-200"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
                             </div>
-                            <p className="text-xs sm:text-sm font-medium mb-3 text-slate-800 dark:text-slate-200">
-                                Yeni içeriklerden haberdar ol!
-                            </p>
-                            <a 
-                                href="https://www.instagram.com/icarusmun26" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="block w-full py-2 sm:py-2.5 rounded-lg text-center text-xs tracking-widest font-bold border border-gold text-white bg-gold hover:bg-gold/80 transition-colors"
-                            >
+                            <a href="https://www.instagram.com/icarusmun26" target="_blank" className="block w-full py-2.5 rounded-lg text-center text-xs tracking-widest font-bold text-white bg-gold hover:bg-gold/90 transition-colors">
                                 SAYFAYA GİT
                             </a>
                         </div>
@@ -437,86 +322,32 @@
 
         const CommitteeModal = ({ committee, onClose }) => {
             useEffect(() => {
-                document.body.classList.add('modal-open');
-                return () => {
-                    document.body.classList.remove('modal-open'); 
-                };
-            }, []);
+                document.body.classList.toggle('modal-open', !!committee);
+                return () => document.body.classList.remove('modal-open');
+            }, [committee]);
 
             if (!committee) return null;
-            
-            const members = membersByCommittee[committee.id] || [];
+            const staffList = rosterData[committee.id] || [];
             
             return ReactDOM.createPortal(
-                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
+                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in bg-slate-950/80 backdrop-blur-sm">
                     <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
                     
-                    <div className="relative z-10 flex flex-col w-full max-w-4xl h-[85vh] sm:h-[80vh] overflow-hidden shadow-2xl bg-white dark:bg-slate-950 border border-gold/40 rounded-xl">
-                        
-                        <svg className="absolute inset-0 z-0 w-full h-full object-cover text-slate-800 dark:text-slate-200 opacity-[0.15] dark:opacity-30 pointer-events-none" viewBox="0 0 800 600" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="0" y1="0" x2="200" y2="150" />
-                            <line x1="800" y1="0" x2="600" y2="150" />
-                            <line x1="0" y1="600" x2="200" y2="450" />
-                            <line x1="800" y1="600" x2="600" y2="450" />
-                            <rect x="200" y="150" width="400" height="300" />
-                            <rect x="240" y="200" width="320" height="120" rx="4" />
-                            <rect x="245" y="205" width="310" height="110" rx="2" />
-                            <rect x="240" y="320" width="320" height="5" />
-                            <circle cx="400" cy="175" r="12" />
-                            <line x1="400" y1="175" x2="400" y2="168" />
-                            <line x1="400" y1="175" x2="405" y2="175" />
-                            <path d="M 40 160 L 140 180 L 140 380 L 40 420 Z" />
-                            <path d="M 90 170 L 90 400" />
-                            <path d="M 40 290 L 140 290" />
-                            <path d="M 40 160 Q 90 80 140 180" />
-                            <path d="M 20 155 L 140 175" />
-                            <path d="M 660 180 L 760 160 L 760 420 L 660 380 Z" />
-                            <path d="M 710 170 L 710 400" />
-                            <path d="M 670 200 L 700 195 L 700 280 L 670 280 Z" />
-                            <path d="M 720 190 L 750 185 L 750 290 L 720 285 Z" />
-                            <circle cx="705" cy="295" r="3" />
-                            <rect x="300" y="380" width="200" height="70" />
-                            <rect x="310" y="390" width="180" height="60" />
-                            <path d="M 150 480 L 350 480 L 320 530 L 100 530 Z" />
-                            <path d="M 450 480 L 650 480 L 700 530 L 480 530 Z" />
-                            <path d="M 100 530 L 100 600 M 320 530 L 320 600" />
-                            <path d="M 480 530 L 480 600 M 700 530 L 700 600" />
-                            <rect x="250" y="40" width="80" height="15" />
-                            <line x1="290" y1="0" x2="290" y2="40" />
-                            <rect x="470" y="40" width="80" height="15" />
-                            <line x1="510" y1="0" x2="510" y2="40" />
-                        </svg>
-
-                        <header className="relative z-10 flex flex-col items-center justify-center h-48 md:h-64 border-b border-gold/20 bg-transparent">
-                            <div className="p-3 mb-2 md:mb-4 rounded-full shadow-lg text-gold bg-white dark:bg-slate-950 border border-gold/30">
-                                {SVGIcons[committee.id]}
+                    <div className="relative z-10 flex flex-col w-full max-w-5xl h-[85vh] sm:h-[80vh] bg-white dark:bg-slate-950 border border-gold/40 rounded-xl overflow-hidden shadow-2xl">
+                        <header className="relative z-20 flex flex-col items-center pt-8 pb-4 bg-slate-50 dark:bg-slate-900 border-b border-gold/20">
+                            <div className="w-full max-w-md px-6 flex justify-center">
+                                <img src={staticAssets[committee.id]} alt="Committee Logo" className="w-48 sm:w-64 object-contain drop-shadow-md" />
                             </div>
-                            
-                            <h2 className="px-2 mb-1 md:mb-2 text-center text-2xl sm:text-3xl md:text-4xl font-serif text-slate-900 dark:text-white drop-shadow-sm">
-                                {committee.name}
-                            </h2>
-                            <p className="px-4 text-center text-[10px] sm:text-xs tracking-widest uppercase font-mono text-gold drop-shadow-sm">
-                                {committee.agenda}
-                            </p>
-                            
-                            <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full backdrop-blur-md transition-colors bg-white/50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-800 text-slate-500 hover:text-gold">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M18 6 6 18" />
-                                    <path d="m6 6 12 12" />
-                                </svg>
+                            <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-500 hover:text-gold transition-colors">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                             </button>
                         </header>
 
-                        <div className="relative z-10 flex-1 p-4 overflow-y-auto sm:p-6 md:p-12">
-                            <div className="flex flex-wrap items-center justify-center h-full min-h-max gap-8 sm:gap-12">
-                                {members.map((member, idx) => (
-                                    <div key={idx} className="relative flex flex-col items-center w-full max-w-[240px] transition-all duration-300 group">
-                                        <img 
-                                            src={member.image} 
-                                            alt={member.name} 
-                                            className="w-full h-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500"
-                                            onError={(e) => { e.target.src='assets/icarus.png'; }}
-                                        />
+                        <div className="relative z-10 flex-1 p-6 md:p-12 overflow-y-auto bg-slate-50/50 dark:bg-slate-950">
+                            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                                {staffList.map((staff, idx) => (
+                                    <div key={idx} className="w-full max-w-[280px]">
+                                        <img src={staff.image} alt="Staff" className="w-full h-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500" />
                                     </div>
                                 ))}
                             </div>
@@ -527,236 +358,125 @@
             );
         };
 
-        const LoadingScreen = ({ onComplete }) => {
-            const [textIndex, setTextIndex] = useState(0);
+        const Loader = ({ onComplete }) => {
             const [progress, setProgress] = useState(0);
-            
-            const systemLogs = [
-                "Simulation Ready.", 
-                "Diplomatic Network Established.", 
-                "ICARUS Systems Activated."
-            ];
 
             useEffect(() => {
-                const DURATION = 3500; 
-                const INTERVAL = 50; 
-                const step = 100 / (DURATION / INTERVAL);
-
-                const progressTimer = setInterval(() => {
-                    setProgress(prev => {
-                        if (prev >= 100) {
-                            clearInterval(progressTimer);
-                            return 100;
-                        }
-                        return prev + step;
-                    });
-                }, INTERVAL);
-
-                const timer1 = setTimeout(() => setTextIndex(1), 1200);
-                const timer2 = setTimeout(() => setTextIndex(2), 2400);
-                const completeTimer = setTimeout(() => onComplete(), 3500);
-
-                return () => {
-                    clearInterval(progressTimer);
-                    clearTimeout(timer1);
-                    clearTimeout(timer2);
-                    clearTimeout(completeTimer);
-                };
-            }, [onComplete]);
+                const step = 100 / (3500 / 50);
+                const timer = setInterval(() => {
+                    setProgress(p => (p >= 100 ? 100 : p + step));
+                }, 50);
+                
+                setTimeout(onComplete, 3500);
+                return () => clearInterval(timer);
+            }, []);
 
             return (
-                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center transition-colors duration-500 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center bg-no-repeat">
-                    <div className="absolute inset-0 bg-slate-100/70 dark:bg-slate-950/80 backdrop-blur-sm" />
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center transition-colors bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center">
+                    <div className="absolute inset-0 bg-slate-100/80 dark:bg-slate-950/80 backdrop-blur-sm" />
                     <div className="relative z-10 w-full max-w-md px-6 flex flex-col items-center fade-in">
-                        <div className="relative flex items-center justify-center w-56 h-56 mb-12">
-                            <div className="absolute w-48 h-48 border rounded-full border-gold/40 animate-[spin_10s_linear_infinite]" />
-                            <img 
-                                src="assets/icarusarkaplansiz.png" 
-                                alt="Icarus Logo" 
-                                className="z-10 w-28 h-auto drop-shadow-lg" 
-                                onError={(e) => { e.target.src = 'assets/icarus.png'; }} 
-                            />
-                        </div>
+                        <div className="w-48 h-48 border rounded-full border-gold/40 animate-[spin_10s_linear_infinite] absolute" />
+                        <img src="assets/icarusarkaplansiz.png" alt="Icarus" className="z-10 w-28 drop-shadow-lg mb-12" />
                         
-                        <div className="relative w-full h-[2px] mb-6 bg-slate-300 dark:bg-slate-800">
-                            <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-gold" />
-                            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b border-l border-gold" />
-                            <div className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-gold" />
-                            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-gold" />
-                            <div 
-                                className="h-full bg-gold transition-all duration-75 ease-out shadow-[0_0_10px_rgba(212,175,55,0.6)]" 
-                                style={{ width: `${progress}%` }} 
-                            />
+                        <div className="w-full h-[2px] mb-4 bg-slate-300 dark:bg-slate-800 relative">
+                            <div className="h-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.6)]" style={{ width: `${progress}%` }} />
                         </div>
-                        
-                        <div className="w-full h-8 text-center text-xs md:text-sm font-mono tracking-widest uppercase text-slate-800 dark:text-slate-300 font-bold drop-shadow-md">
-                            <span>> {systemLogs[textIndex]}</span>
-                            <span className="text-gold animate-pulse">_</span>
+                        <div className="text-xs font-mono uppercase text-slate-800 dark:text-slate-300 font-bold">
+                            Loading <span className="text-gold animate-pulse">_</span>
                         </div>
                     </div>
                 </div>
             );
         };
 
-        const ConsentScreen = ({ onAccept, data }) => {
-            const [hasConsented, setHasConsented] = useState(false);
+        const TermsModal = ({ onAccept, t }) => {
+            const [checked, setChecked] = useState(false);
             
             return (
                 <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-slate-50 dark:bg-slate-950 bg-grid-pattern fade-in">
-                    <div className="relative w-full max-w-md p-8 m-4 shadow-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-gold" />
-                        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-gold" />
-                        
+                    <div className="w-full max-w-md p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl relative">
                         <div className="flex justify-center mb-6 text-gold">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                                <path d="m9 12 2 2 4-4" />
-                            </svg>
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" /><path d="m9 12 2 2 4-4" /></svg>
                         </div>
+                        <p className="mb-6 text-sm text-center leading-relaxed text-slate-700 dark:text-slate-300">{t.consentWarn}</p>
                         
-                        <p className="mb-8 text-sm text-center leading-relaxed font-mono text-slate-700 dark:text-slate-300">
-                            {data.consentWarn}
-                        </p>
-
-                        <a href="https://instagram.com/talha.ozturks" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 mb-8 text-sm font-mono text-gold hover:text-gold/80 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                            </svg>
-                            @talha.ozturks
-                        </a>
-
-                        <label className="flex items-center justify-center gap-3 mb-8 cursor-pointer group">
-                            <div className={`flex items-center justify-center w-5 h-5 border transition-colors ${hasConsented ? 'border-gold bg-gold/10' : 'border-slate-400 dark:border-slate-600 group-hover:border-gold'}`}>
-                                {hasConsented && (
-                                    <svg className="w-3 h-3 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                                        <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                )}
-                            </div>
-                            <span className="text-sm font-medium select-none text-slate-600 dark:text-slate-400">
-                                {data.consentCheck}
-                            </span>
-                            <input type="checkbox" className="hidden" checked={hasConsented} onChange={() => setHasConsented(!hasConsented)} />
+                        <label className="flex items-center justify-center gap-3 mb-8 cursor-pointer">
+                            <input type="checkbox" className="w-4 h-4 accent-gold" checked={checked} onChange={() => setChecked(!checked)} />
+                            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{t.consentCheck}</span>
                         </label>
 
                         <button 
-                            disabled={!hasConsented}
+                            disabled={!checked}
                             onClick={onAccept}
-                            className={`w-full py-3 text-sm tracking-widest font-mono border transition-all duration-300 
-                                ${hasConsented 
-                                    ? 'border-gold text-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-900 cursor-pointer' 
-                                    : 'border-slate-400 dark:border-slate-700 text-slate-500 dark:text-slate-600 cursor-not-allowed opacity-50'}`}
+                            className={`w-full py-3 text-sm tracking-widest font-mono border transition-all 
+                                ${checked ? 'border-gold text-gold bg-gold/10 hover:bg-gold hover:text-slate-900' : 'border-slate-300 dark:border-slate-700 text-slate-400 opacity-50'}`}
                         >
-                            {data.consentBtn}
+                            {t.consentBtn}
                         </button>
                     </div>
                 </div>
             );
         };
 
-        const LanguageScreen = ({ onSelect }) => {
-            return (
-                <div className="fixed inset-0 z-40 flex items-center justify-center px-4 bg-slate-50 dark:bg-slate-950 bg-grid-pattern transition-colors duration-500">
-                    <div className="flex flex-col items-center w-full max-w-2xl fade-in">
-                        <div className="mb-12 text-center">
-                            <h2 className="mb-2 text-2xl md:text-3xl font-light tracking-[0.2em] font-serif text-slate-800 dark:text-slate-200">
-                                Please select your language.
-                            </h2>
-                            <div className="w-24 h-[1px] mx-auto bg-gold/50" />
-                        </div>
-                        
-                        <div className="flex flex-col sm:flex-row justify-center w-full gap-8">
-                            <button onClick={() => onSelect('en')} className="relative flex flex-col items-center w-full sm:w-52 p-8 shadow-sm hover:shadow-md transition-all duration-300 group border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80">
-                                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent transition-colors group-hover:border-gold" />
-                                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent transition-colors group-hover:border-gold" />
-                                <svg className="w-24 h-16 mb-4 opacity-80 transition-opacity drop-shadow-sm group-hover:opacity-100" viewBox="0 0 60 30">
-                                    <clipPath id="uk-flag-clip-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
-                                    <clipPath id="uk-flag-clip-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath>
-                                    <g clipPath="url(#uk-flag-clip-s)">
-                                        <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-                                        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
-                                        <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#uk-flag-clip-t)" stroke="#C8102E" strokeWidth="4"/>
-                                        <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
-                                        <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
-                                    </g>
-                                </svg>
-                                <span className="text-sm tracking-widest font-mono transition-colors text-slate-500 dark:text-slate-400 group-hover:text-gold">ENGLISH</span>
-                            </button>
-                            
-                            <button onClick={() => onSelect('tr')} className="relative flex flex-col items-center w-full sm:w-52 p-8 shadow-sm hover:shadow-md transition-all duration-300 group border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80">
-                                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-transparent transition-colors group-hover:border-gold" />
-                                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-transparent transition-colors group-hover:border-gold" />
-                                <svg className="w-24 h-16 mb-4 opacity-80 transition-opacity drop-shadow-sm group-hover:opacity-100" viewBox="0 0 120 80">
-                                    <rect width="120" height="80" fill="#E30A17"/>
-                                    <circle cx="42.5" cy="40" r="20" fill="#fff"/>
-                                    <circle cx="47.5" cy="40" r="16" fill="#E30A17"/>
-                                    <path d="M 68 32.5 L 70.5 39 L 77.5 39 L 71.5 43.5 L 73.5 50.5 L 68 46 L 62.5 50.5 L 64.5 43.5 L 58.5 39 L 65.5 39 Z" fill="#fff" transform="rotate(-15, 68, 41.5)"/>
-                                </svg>
-                                <span className="text-sm tracking-widest font-mono transition-colors text-slate-500 dark:text-slate-400 group-hover:text-gold">TÜRKÇE</span>
-                            </button>
-                        </div>
+        const LangSelector = ({ onSelect }) => (
+            <div className="fixed inset-0 z-40 flex items-center justify-center px-4 bg-slate-50 dark:bg-slate-950 bg-grid-pattern transition-colors">
+                <div className="flex flex-col items-center w-full max-w-2xl fade-in">
+                    <div className="mb-12 text-center">
+                        <h2 className="mb-4 text-2xl md:text-3xl font-light tracking-widest font-serif text-slate-800 dark:text-slate-200">Select Language</h2>
+                        <div className="w-20 h-[1px] mx-auto bg-gold/50" />
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-6">
+                        <button onClick={() => onSelect('en')} className="w-52 p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80 transition-colors group">
+                            <span className="text-sm tracking-widest font-mono text-slate-500 dark:text-slate-400 group-hover:text-gold">ENGLISH</span>
+                        </button>
+                        <button onClick={() => onSelect('tr')} className="w-52 p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80 transition-colors group">
+                            <span className="text-sm tracking-widest font-mono text-slate-500 dark:text-slate-400 group-hover:text-gold">TÜRKÇE</span>
+                        </button>
                     </div>
                 </div>
-            );
-        };
+            </div>
+        );
 
         const Countdown = ({ label }) => {
-            const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+            const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
             useEffect(() => {
                 const target = new Date("2026-09-04T00:00:00").getTime();
-                
-                const intervalId = setInterval(() => {
-                    const diff = target - new Date().getTime();
-
+                const timer = setInterval(() => {
+                    const diff = target - Date.now();
                     if (diff > 0) {
                         setTime({
-                            days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-                            hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                            minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-                            seconds: Math.floor((diff % (1000 * 60)) / 1000)
+                            d: Math.floor(diff / (1000 * 60 * 60 * 24)),
+                            h: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                            m: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+                            s: Math.floor((diff % (1000 * 60)) / 1000)
                         });
-                    } else {
-                        clearInterval(intervalId);
-                    }
+                    } else clearInterval(timer);
                 }, 1000);
-
-                return () => clearInterval(intervalId);
+                return () => clearInterval(timer);
             }, []);
 
             return (
                 <div className="flex flex-col items-center mt-12 w-full">
-                    <div className="mb-4 text-[10px] tracking-widest uppercase font-mono text-slate-500 dark:text-slate-400">
-                        {label}
-                    </div>
-                    <div className="flex gap-4 md:gap-8 justify-center flex-wrap">
-                        {Object.entries(time).map(([unit, val], idx) => (
-                            <div key={idx} className="flex flex-col items-center">
-                                <div className="relative flex items-center justify-center w-14 h-14 md:w-20 md:h-20 shadow-sm group border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
-                                    <div className="absolute inset-0 opacity-0 transition-opacity bg-gold/5 group-hover:opacity-100" />
-                                    {String(val).padStart(2, '0')}
+                    <div className="mb-4 text-[10px] tracking-widest uppercase font-mono text-slate-500 dark:text-slate-400">{label}</div>
+                    <div className="flex gap-4 justify-center">
+                        {Object.entries(time).map(([u, v], i) => (
+                            <div key={i} className="flex flex-col items-center">
+                                <div className="flex items-center justify-center w-14 h-14 md:w-20 md:h-20 border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
+                                    {String(v).padStart(2, '0')}
                                 </div>
-                                <span className="mt-2 text-[9px] md:text-[10px] uppercase font-mono text-slate-500">
-                                    {unit}
-                                </span>
+                                <span className="mt-2 text-[10px] uppercase font-mono text-slate-500">{u}</span>
                             </div>
                         ))}
                     </div>
-                    <div className="mt-4 text-xs font-mono text-gold">04.09.2026</div>
                 </div>
             );
         };
 
         const ContactModal = ({ isOpen, onClose, data }) => {
             useEffect(() => {
-                if (isOpen) {
-                    document.body.classList.add('modal-open');
-                } else {
-                    document.body.classList.remove('modal-open');
-                }
-                return () => { document.body.classList.remove('modal-open'); };
+                document.body.classList.toggle('modal-open', isOpen);
+                return () => document.body.classList.remove('modal-open');
             }, [isOpen]);
 
             if (!isOpen) return null;
@@ -766,41 +486,23 @@
             const mailtoLink = `mailto:icarusmun.information@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
 
             return ReactDOM.createPortal(
-                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in" style={{ backgroundColor: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(8px)' }}>
+                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in bg-slate-950/80 backdrop-blur-sm">
                     <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
                     <div className="relative z-10 flex flex-col items-center w-full max-w-md p-8 sm:p-12 overflow-hidden shadow-2xl bg-white dark:bg-slate-950 border border-gold/40 rounded-xl">
-                        
-                        <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full transition-colors bg-slate-100/50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-800 text-slate-500 hover:text-gold">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M18 6 6 18" />
-                                <path d="m6 6 12 12" />
-                            </svg>
+                        <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full bg-slate-100/50 dark:bg-slate-900/50 text-slate-500 hover:text-gold transition-colors">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                         </button>
                         
                         <div className="p-4 mb-4 rounded-full shadow-lg text-gold bg-slate-50 dark:bg-slate-900 border border-gold/30">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                            </svg>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         </div>
                         
-                        <h2 className="mb-4 text-2xl sm:text-3xl font-serif text-slate-900 dark:text-white text-center">
-                            {data.contactTitle}
-                        </h2>
-                        
+                        <h2 className="mb-4 text-2xl sm:text-3xl font-serif text-slate-900 dark:text-white text-center">{data.contactTitle}</h2>
                         <div className="w-16 h-[1px] bg-gold mb-6" />
-                        
-                        <p className="mb-2 text-xs tracking-widest font-mono text-slate-500 dark:text-slate-400">
-                            {data.contactEmail}
-                        </p>
-                        <p className="mb-8 text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-200 break-all">
-                            icarusmun.information@gmail.com
-                        </p>
+                        <p className="mb-2 text-xs tracking-widest font-mono text-slate-500 dark:text-slate-400">{data.contactEmail}</p>
+                        <p className="mb-8 text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-200 break-all">icarusmun.information@gmail.com</p>
 
-                        <a 
-                            href={mailtoLink} 
-                            className="w-full text-center px-6 py-4 text-xs tracking-widest transition-all duration-300 shadow-sm sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950"
-                        >
+                        <a href={mailtoLink} className="w-full text-center px-6 py-4 text-xs tracking-widest transition-all duration-300 shadow-sm sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950">
                             {data.contactBtn}
                         </a>
                     </div>
@@ -810,272 +512,111 @@
         };
 
         const MainApp = ({ lang }) => {
-            const data = localeData[lang];
+            const t = localeData[lang];
             const [view, setView] = useState('home');
-            const [activeCommittee, setActiveCommittee] = useState(null);
-            const [isMenuOpen, setIsMenuOpen] = useState(false);
-            const [isContactOpen, setIsContactOpen] = useState(false);
+            const [activeCom, setActiveCom] = useState(null);
+            const [menuOpen, setMenuOpen] = useState(false);
             const [showInstaPopup, setShowInstaPopup] = useState(true);
-
-            const handleScrollToCommittees = () => {
-                const element = document.getElementById('committees');
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            };
-
-            const toggleMobileMenu = () => setIsMenuOpen(!isMenuOpen);
-
-            const handleNavClick = (targetView) => {
-                setView(targetView);
-                setIsMenuOpen(false);
-            };
+            const [isContactOpen, setIsContactOpen] = useState(false);
 
             return (
-                <div className="relative w-full min-h-screen overflow-x-hidden transition-colors duration-500 bg-slate-50 dark:bg-slate-950">
-                    
-                    <div className="fixed inset-0 z-[45] pointer-events-none flex justify-center opacity-30 dark:opacity-20">
-                        <div className="w-full max-w-7xl h-full flex justify-between px-4 sm:px-6">
-                            <div className="w-[1px] h-full border-l border-dashed border-gold/60"></div>
-                            <div className="w-[1px] h-full border-l border-dashed border-gold/60 hidden md:block"></div>
-                            <div className="w-[1px] h-full border-l border-dashed border-gold/60 hidden lg:block"></div>
-                            <div className="w-[1px] h-full border-r border-dashed border-gold/60"></div>
-                        </div>
-                    </div>
-
-                    <nav className="fixed top-0 left-0 right-0 z-40 shadow-sm backdrop-blur-md border-b border-gold/20 bg-white/95 dark:bg-slate-950/95">
-                        <div className="flex items-center justify-between h-16 max-w-7xl mx-auto px-4 sm:px-6 sm:h-20">
-                            <div className="flex items-center gap-2 cursor-pointer sm:gap-3" onClick={() => handleNavClick('home')}>
-                                <img 
-                                    src="assets/icarusarkaplansiz.png" 
-                                    alt="Logo" 
-                                    className="w-auto h-8 drop-shadow sm:h-12" 
-                                    onError={(e) => { e.target.src='assets/icarus.png'; }}
-                                />
+                <div className="relative w-full min-h-screen transition-colors duration-500 bg-slate-50 dark:bg-slate-950">
+                    <nav className="fixed top-0 inset-x-0 z-40 bg-white/95 dark:bg-slate-950/95 backdrop-blur border-b border-gold/20">
+                        <div className="flex items-center justify-between h-16 md:h-20 max-w-7xl mx-auto px-4 sm:px-6">
+                            <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('home')}>
+                                <img src="assets/icarusarkaplansiz.png" alt="Logo" className="h-8 md:h-12" />
                                 <div className="flex flex-col">
-                                    <span className="text-sm font-bold tracking-wider leading-tight sm:text-lg font-serif text-gold">
-                                        ICARUS
-                                    </span>
-                                    <span className="text-[7px] tracking-widest leading-tight sm:text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                                        MUN 2026
-                                    </span>
+                                    <span className="text-sm md:text-lg font-bold font-serif text-gold tracking-widest">ICARUS</span>
+                                    <span className="text-[10px] font-mono text-slate-500">MUN 2026</span>
                                 </div>
                             </div>
                             
-                            <div className="items-center hidden gap-8 md:flex">
-                                <button onClick={() => handleNavClick('home')} className={`text-sm font-medium tracking-wide uppercase transition-colors line-draw ${view === 'home' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold'}`}>
-                                    {data.nav.home}
-                                </button>
-                                <button onClick={() => handleNavClick('team')} className={`text-sm font-medium tracking-wide uppercase transition-colors line-draw ${view === 'team' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold'}`}>
-                                    {data.nav.team}
-                                </button>
-                                <button className="text-sm font-medium tracking-wide uppercase transition-colors line-draw text-slate-600 dark:text-slate-300 hover:text-gold dark:hover:text-gold">
-                                    {data.nav.apply}
-                                </button>
+                            <div className="hidden md:flex gap-8 items-center">
+                                <button onClick={() => setView('home')} className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition">{t.nav.home}</button>
+                                <button onClick={() => setView('team')} className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition">{t.nav.team}</button>
+                                <button className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition">{t.nav.apply}</button>
                                 <button onClick={() => setIsContactOpen(true)} className="p-2 ml-4 rounded-full transition-colors text-slate-500 hover:text-gold dark:text-slate-400 dark:hover:text-gold border border-transparent hover:border-gold/30">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect width="20" height="16" x="2" y="4" rx="2"/>
-                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                                    </svg>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                                 </button>
                             </div>
-                            
+
                             <div className="flex items-center gap-2 md:hidden">
                                 <div className="p-2 cursor-pointer text-slate-500 hover:text-gold dark:text-slate-400 transition-colors" onClick={() => setIsContactOpen(true)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect width="20" height="16" x="2" y="4" rx="2"/>
-                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                </div>
+                                <button className="p-2 text-gold" onClick={() => setMenuOpen(!menuOpen)}>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" />
                                     </svg>
-                                </div>
-                                <div className="p-2 cursor-pointer text-gold" onClick={toggleMobileMenu}>
-                                    {isMenuOpen ? (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <line x1="18" y1="6" x2="6" y2="18" />
-                                            <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg>
-                                    ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <line x1="4" x2="20" y1="12" y2="12" />
-                                            <line x1="4" x2="20" y1="6" x2="6" />
-                                            <line x1="4" x2="20" y1="18" y2="18" />
-                                        </svg>
-                                    )}
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </nav>
 
-                    {isMenuOpen && (
-                        <div className="fixed top-16 left-0 z-30 flex flex-col w-full p-4 gap-4 shadow-lg backdrop-blur-md fade-in sm:top-20 md:hidden border-b border-gold/20 bg-white/95 dark:bg-slate-950/95">
-                            <button onClick={() => handleNavClick('home')} className={`py-2 text-sm font-medium text-left tracking-wide uppercase ${view === 'home' ? 'text-gold' : 'text-slate-600 dark:text-slate-300'}`}>
-                                {data.nav.home}
-                            </button>
-                            <button onClick={() => handleNavClick('team')} className={`py-2 text-sm font-medium text-left tracking-wide uppercase ${view === 'team' ? 'text-gold' : 'text-slate-600 dark:text-slate-300'}`}>
-                                {data.nav.team}
-                            </button>
-                            <button onClick={() => setIsMenuOpen(false)} className="py-2 text-sm font-medium text-left tracking-wide uppercase text-slate-600 dark:text-slate-300">
-                                {data.nav.apply}
-                            </button>
+                    {menuOpen && (
+                        <div className="fixed top-16 left-0 w-full bg-white/95 dark:bg-slate-950/95 z-30 flex flex-col p-4 border-b border-gold/20">
+                            <button onClick={() => { setView('home'); setMenuOpen(false); }} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.home}</button>
+                            <button onClick={() => { setView('team'); setMenuOpen(false); }} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.team}</button>
                         </div>
                     )}
 
                     {view === 'team' ? (
-                        <div className="fade-in relative z-10 w-full">
-                            <TeamSection data={data} />
+                        <div className="max-w-7xl mx-auto pt-28 pb-16 px-6 fade-in">
+                            <div className="text-center mb-16">
+                                <p className="text-xs font-mono text-gold tracking-[0.3em] mb-2">{t.teamDesc}</p>
+                                <h1 className="text-4xl md:text-5xl font-serif text-slate-900 dark:text-white">{t.teamTitle}</h1>
+                                <div className="w-16 h-[1px] bg-gold mx-auto mt-6" />
+                            </div>
+                            <div className="flex justify-center text-slate-500">Ekip üyeleri yakında eklenecektir.</div>
                         </div>
                     ) : (
                         <div className="fade-in relative z-10 w-full">
                             <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20">
-                                
-                                <div className="absolute inset-0 z-0 pointer-events-none bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center bg-no-repeat opacity-40 dark:opacity-20" />
-                                
-                                <WorldMapContinents />
+                                <div className="absolute inset-0 z-0 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center opacity-30 dark:opacity-20" />
+                                <AnimatedMap />
 
-                                <main className="relative z-10 flex flex-col items-center justify-center w-full max-w-7xl mx-auto px-4 pt-24 pb-16 text-center sm:pt-32 sm:pb-20 sm:px-6">
-                                    <span className="px-3 py-1 mb-4 text-[9px] sm:text-sm tracking-[0.3em] uppercase rounded-none backdrop-blur-sm sm:mb-6 sm:px-4 font-mono text-gold border border-gold/30 bg-gold/10">
-                                        {data.heroSubtitle}
+                                <main className="relative z-10 flex flex-col items-center text-center w-full max-w-4xl mx-auto px-6 pt-32 pb-20">
+                                    <span className="px-4 py-1 mb-6 text-xs tracking-[0.3em] font-mono text-gold bg-gold/10 border border-gold/30">
+                                        {t.heroSubtitle}
                                     </span>
-                                    <h1 className="mb-4 text-3xl font-bold tracking-tight leading-tight transition-colors sm:text-5xl md:text-6xl lg:text-7xl sm:mb-8 font-serif text-slate-900 dark:text-white drop-shadow-sm max-w-5xl">
-                                        {data.heroTitle}
+                                    <h1 className="mb-6 text-5xl sm:text-7xl font-bold font-serif text-slate-900 dark:text-white drop-shadow-sm">
+                                        {t.heroTitle}
                                     </h1>
-                                    
-                                    <p className="max-w-3xl px-2 mb-8 text-xs font-light leading-relaxed sm:text-sm md:text-base sm:mb-12 text-slate-700 dark:text-slate-400">
-                                        {lang === 'en' ? (
-                                            <>Represent your country, defend your ideas, and challenge perspectives in a high-energy Model United Nations experience built for the next generation of decision makers.<br/> No limits. Just voices that shape the world.<br/><strong className="font-bold text-gold text-sm sm:text-lg mt-2 inline-block">Are you ready to rise?</strong></>
-                                        ) : (
-                                            <>Ülkenizi temsil edin, fikirlerinizi savunun ve yeni nesil karar alıcılar için tasarlanmış yüksek enerjili bir Model Birleşmiş Milletler deneyiminde bakış açılarına meydan okuyun.<br/> Sınır yok. Sadece dünyayı şekillendiren sesler var.<br/><strong className="font-bold text-gold text-sm sm:text-lg mt-2 inline-block">Yükselmeye hazır mısınız?</strong></>
-                                        )}
+                                    <p className="mb-10 text-sm md:text-base text-slate-700 dark:text-slate-400">
+                                        {lang === 'en' ? 
+                                            <>Represent your country, defend your ideas, and challenge perspectives in a high-energy Model United Nations experience built for the next generation of decision makers.<br/><br/><strong className="text-gold">Are you ready to rise?</strong></> : 
+                                            <>Ülkenizi temsil edin, fikirlerinizi savunun ve yeni nesil karar alıcılar için tasarlanmış yüksek enerjili bir Model Birleşmiş Milletler deneyiminde bakış açılarına meydan okuyun.<br/><br/><strong className="text-gold">Yükselmeye hazır mısınız?</strong></>
+                                        }
                                     </p>
 
-                                    <div className="flex flex-col sm:flex-row justify-center w-full max-w-md sm:max-w-none mx-auto gap-4 sm:gap-6">
-                                        <div className="flex flex-col gap-4 w-full sm:w-auto">
-                                            <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-white border-gold bg-gold hover:bg-gold/80 overflow-hidden">
-                                                <span className="relative z-10">{data.ctaDelegate}</span>
-                                            </button>
-                                            <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950">
-                                                <span className="relative z-10">{data.ctaDelegation}</span>
-                                            </button>
-                                        </div>
-                                        <div className="flex items-start w-full mt-4 sm:w-auto sm:mt-0">
-                                            <button onClick={handleScrollToCommittees} className="w-full h-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm backdrop-blur-sm hover:shadow-md sm:px-8 sm:py-4 sm:text-sm font-mono border text-slate-700 border-slate-400 bg-white/80 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
-                                                {data.ctaCommittees}
-                                            </button>
-                                        </div>
+                                    <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                                        <button className="px-8 py-4 text-xs font-mono tracking-widest text-white bg-gold hover:bg-gold/80 transition-colors">
+                                            {t.ctaDelegate}
+                                        </button>
+                                        <button className="px-8 py-4 text-xs font-mono tracking-widest text-gold border border-gold hover:bg-gold/10 transition-colors">
+                                            {t.ctaDelegation}
+                                        </button>
                                     </div>
-                                    <Countdown label={data.countdownText} />
+                                    <Countdown label={t.countdownText} />
                                 </main>
                             </div>
 
-                            <section className="relative py-12 overflow-hidden transition-colors sm:py-24 border-t border-slate-300 dark:border-slate-800 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center bg-no-repeat">
-                                <div className="absolute inset-0 bg-slate-100/80 dark:bg-slate-950/80 backdrop-blur-[2px]" />
-                                <div className="relative z-10 flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6">
-                                    
-                                    <h2 className="flex items-center justify-center w-full gap-3 mb-6 text-2xl text-center transition-colors sm:text-3xl md:text-4xl sm:gap-4 sm:mb-8 font-serif text-slate-900 dark:text-slate-100 drop-shadow-sm">
-                                        <img 
-                                            src="assets/Istanbul_Aydın_University_logo.svg.png" 
-                                            alt="İAÜ Logo" 
-                                            className="w-auto h-8 object-contain sm:h-12 md:h-14 drop-shadow" 
-                                            onError={(e) => { e.target.style.display='none'; }} 
-                                        />
-                                        <span>İstanbul Aydın Üniversitesi</span>
-                                    </h2>
-                                    
-                                    <div className="w-full mb-6 overflow-hidden rounded shadow-xl aspect-square sm:aspect-[16/9] md:aspect-[21/9] border border-gold/30">
-                                        <iframe 
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.587133725575!2d28.79458617655148!3d40.99052062051735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa396db59606d%3A0x6594147beb14e9b4!2zxLBzdGFuYnVsIEF5ZMSxbiDDnG5pdmVyc2l0ZXNp!5e0!3m2!1str!2str!4v1779138319153!5m2!1str!2str" 
-                                            className="w-full h-full" 
-                                            style={{border:0}} 
-                                            allowFullScreen={true} 
-                                            loading="lazy" 
-                                            referrerPolicy="no-referrer-when-downgrade"
-                                        />
-                                    </div>
-                                    
-                                    <div className="flex flex-col justify-center w-full max-w-2xl gap-3 sm:flex-row sm:gap-4">
-                                        <a href="https://maps.google.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-3 text-center text-[10px] tracking-widest transition-all duration-300 shadow-sm hover:shadow-md sm:py-4 sm:text-xs font-mono border text-slate-700 border-slate-300 bg-white hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold backdrop-blur">
-                                            {data.mapGoogle}
-                                        </a>
-                                        <a href="http://maps.apple.com/?q=İstanbul+Aydın+Üniversitesi" target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-3 text-center text-[10px] tracking-widest transition-all duration-300 shadow-sm hover:shadow-md sm:py-4 sm:text-xs font-mono border text-slate-700 border-slate-300 bg-white hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold backdrop-blur">
-                                            {data.mapApple}
-                                        </a>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <section id="committees" className="py-16 transition-colors sm:py-24 border-t border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 relative z-10 w-full overflow-hidden">
-                                <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                                    <div className="flex flex-col items-center mb-10 text-center sm:mb-16">
-                                        <div className="flex items-center justify-center gap-3 mb-3 sm:gap-5 sm:mb-4">
-                                            <div className="relative flex items-center justify-center flex-shrink-0 w-12 h-12 overflow-hidden rounded-full sm:w-16 sm:h-16 md:w-20 md:h-20" style={{ clipPath: 'circle(50% at 50% 50%)' }}>
-                                                
-                                                <svg className="absolute w-[200%] h-full text-gold/40 globe-scroll" viewBox="0 0 1000 500" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <line x1="0" y1="125" x2="1000" y2="125" strokeDasharray="4 4" />
-                                                    <line x1="0" y1="250" x2="1000" y2="250" strokeDasharray="8 4" />
-                                                    <line x1="0" y1="375" x2="1000" y2="375" strokeDasharray="4 4" />
-                                                    <g transform="scale(0.5)">
-                                                        <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" />
-                                                        <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" />
-                                                        <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" />
-                                                        <path d="M450,200 Q550,180 580,250 T500,400 Q450,420 420,320 Q400,250 450,200 Z" />
-                                                        <path d="M820,300 Q880,280 920,320 T880,400 Q820,400 800,350 Q780,300 820,300 Z" />
-                                                    </g>
-                                                    <g transform="translate(500, 0) scale(0.5)">
-                                                        <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" />
-                                                        <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" />
-                                                        <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" />
-                                                        <path d="M450,200 Q550,180 580,250 T500,400 Q450,420 420,320 Q400,250 450,200 Z" />
-                                                        <path d="M820,300 Q880,280 920,320 T880,400 Q820,400 800,350 Q780,300 820,300 Z" />
-                                                    </g>
-                                                </svg>
-
-                                                <img 
-                                                    src="assets/icarusarkaplansiz.png" 
-                                                    alt="Icarus" 
-                                                    className="absolute z-10 w-[60%] h-auto drop-shadow-md dark:brightness-150" 
-                                                    onError={(e) => { e.target.src='assets/icarus.png'; }} 
-                                                />
-                                                <div className="absolute inset-0 pointer-events-none rounded-full shadow-[inset_0_0_10px_rgba(212,175,55,0.4)] border border-gold/40" />
-                                            </div>
-                                            <div className="flex flex-col items-start">
-                                                <h2 className="text-2xl text-left sm:text-3xl md:text-5xl font-serif text-slate-900 dark:text-slate-100">
-                                                    {data.committeesTitle}
-                                                </h2>
-                                                <span className="text-[10px] sm:text-xs font-mono tracking-widest uppercase text-gold mt-1 sm:mt-2">
-                                                    {data.clickCommittees}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="w-16 mx-auto sm:w-32 h-[1px] bg-gold" />
+                            <section className="py-20 bg-slate-100/50 dark:bg-slate-900/20 border-t border-slate-200 dark:border-slate-800">
+                                <div className="max-w-6xl mx-auto px-6">
+                                    <div className="text-center mb-12">
+                                        <h2 className="text-3xl md:text-4xl font-serif text-slate-900 dark:text-white mb-2">{t.committeesTitle}</h2>
+                                        <div className="w-16 h-[1px] bg-gold mx-auto" />
                                     </div>
 
-                                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 sm:gap-8">
-                                        {data.committees.map((com, index) => (
-                                            <div 
-                                                key={index} 
-                                                onClick={() => setActiveCommittee(com)} 
-                                                className="relative flex flex-col h-full p-5 overflow-hidden transition-all duration-300 cursor-pointer shadow-sm group hover:shadow-md sm:p-8 border border-slate-300 dark:border-slate-800 hover:border-gold/50 bg-white dark:bg-slate-900/50"
-                                            >
-                                                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent transition-colors group-hover:border-gold" />
-                                                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent transition-colors group-hover:border-gold" />
-                                                <div className="absolute inset-0 opacity-10 transition-opacity bg-grid-pattern group-hover:opacity-30" />
-                                                
-                                                <div className="relative z-10 flex flex-col h-full">
-                                                    <div className="flex items-center justify-center w-10 h-10 mb-4 transition-transform duration-500 rounded-sm sm:mb-6 sm:w-16 sm:h-16 text-gold bg-gold/10 group-hover:scale-110">
-                                                        {SVGIcons[com.id]}
-                                                    </div>
-                                                    <h3 className="mb-1 text-lg sm:text-2xl sm:mb-2 font-serif text-slate-800 dark:text-slate-100">
-                                                        {com.name}
-                                                    </h3>
-                                                    <div className="mb-3 text-[9px] min-h-[24px] tracking-widest uppercase sm:text-[11px] sm:mb-4 sm:min-h-[32px] font-mono text-gold">
-                                                        {com.agenda}
-                                                    </div>
-                                                    <p className="flex-grow text-xs leading-relaxed sm:text-sm text-slate-600 dark:text-slate-400">
-                                                        {com.desc}
-                                                    </p>
-                                                    <div className="flex items-center justify-between pt-3 mt-4 text-[9px] transition-colors sm:mt-6 sm:pt-6 sm:text-xs font-mono text-slate-500 dark:text-slate-400 group-hover:text-gold border-t border-slate-300 dark:border-slate-800">
-                                                        <span>SYS.C{index + 1}</span>
-                                                        <span>&rarr; EXPLORE</span>
-                                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {t.committees.map((com, i) => (
+                                            <div key={i} onClick={() => setActiveCom(com)} className="flex items-center p-6 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer hover:border-gold/50 transition-colors group">
+                                                <div className="w-1/3 pr-4 flex justify-center">
+                                                    <img src={staticAssets[com.id]} className="w-full max-w-[120px] object-contain group-hover:scale-105 transition-transform" />
+                                                </div>
+                                                <div className="w-2/3 border-l border-slate-200 dark:border-slate-800 pl-6 flex flex-col justify-between h-full">
+                                                    <p className="text-sm text-slate-600 dark:text-slate-400">{com.desc}</p>
+                                                    <span className="text-[10px] text-gold font-mono mt-4 uppercase group-hover:underline">{t.clickInfo} &rarr;</span>
                                                 </div>
                                             </div>
                                         ))}
@@ -1085,109 +626,46 @@
                         </div>
                     )}
 
-                    <footer className="py-6 text-center transition-colors sm:py-8 border-t border-gold/20 bg-white dark:bg-slate-900">
-                        <p className="px-4 text-[8px] tracking-widest uppercase sm:text-[10px] md:text-xs font-mono text-slate-500 dark:text-slate-400">
-                            {data.footer}
-                        </p>
+                    <footer className="py-8 text-center bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+                        <p className="text-[10px] font-mono text-slate-500 uppercase">{t.footer}</p>
                     </footer>
 
-                    <InstaPopupModal
-                        isOpen={showInstaPopup}
-                        onClose={() => setShowInstaPopup(false)}
-                    />
-
-                    <ContactModal 
-                        isOpen={isContactOpen} 
-                        onClose={() => setIsContactOpen(false)} 
-                        data={data}
-                    />
-
-                    {/* Düzeltme: Modal yalnızca activeCommittee null olmadığında (bir komite seçildiğinde) render ediliyor */}
-                    {activeCommittee && (
-                        <CommitteeModal 
-                            committee={activeCommittee} 
-                            onClose={() => setActiveCommittee(null)} 
-                        />
-                    )}
+                    <ReelsPopup isOpen={showInstaPopup} onClose={() => setShowInstaPopup(false)} />
+                    <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} data={t} />
+                    {activeCom && <CommitteeModal committee={activeCom} onClose={() => setActiveCom(null)} />}
                 </div>
             );
         };
 
-        const ApplicationRoot = () => {
+        const MainRoot = () => {
             const [stage, setStage] = useState('LOADING');
-            const [language, setLanguage] = useState('en');
-            const [theme, setTheme] = useState('light');
-
-            const toggleTheme = () => setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
-
-            // BU KOD EKRAN KİLİTLENMESİNİ TAMAMEN SIFIRLAR VE İLK AÇILIŞTA GÜVENLİ HALE GETİRİR
-            useEffect(() => {
-                document.body.classList.remove('modal-open');
-                document.documentElement.style.overflow = '';
-                document.body.style.overflow = '';
-            }, []);
+            const [lang, setLang] = useState('en');
+            const [dark, setDark] = useState(false);
 
             useEffect(() => {
-                const rootElement = document.documentElement;
-                if (theme === 'dark') {
-                    rootElement.classList.add('dark');
-                    rootElement.classList.remove('light');
-                } else {
-                    rootElement.classList.remove('dark');
-                    rootElement.classList.add('light');
-                }
-            }, [theme]);
-
-            const renderStage = () => {
-                switch (stage) {
-                    case 'LOADING':
-                        return <LoadingScreen onComplete={() => setStage('CONSENT')} />;
-                    case 'CONSENT':
-                        return <ConsentScreen data={localeData[language]} onAccept={() => setStage('LANG')} />;
-                    case 'LANG':
-                        return <LanguageScreen onSelect={(lang) => { setLanguage(lang); setStage('MAIN'); }} />;
-                    case 'MAIN':
-                        return <MainApp lang={language} />;
-                    default:
-                        return null;
-                }
-            };
-
-            const isAppReady = ['MAIN', 'LANG', 'CONSENT'].includes(stage);
+                document.documentElement.classList.toggle('dark', dark);
+                document.documentElement.classList.toggle('light', !dark);
+            }, [dark]);
 
             return (
                 <>
-                    {renderStage()}
-                    
-                    {isAppReady && (
-                        <button 
-                            onClick={toggleTheme} 
-                            className="flex items-center justify-center w-12 h-12 transition-all duration-300 rounded-full shadow-xl theme-toggle-fab md:w-14 md:h-14 group bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:shadow-gold/30 hover:border-gold/50 hover:scale-110"
-                        >
-                            <div className="relative flex items-center justify-center w-5 h-5 md:w-6 md:h-6">
-                                <svg className={`absolute inset-0 transition-all duration-500 ease-in-out transform ${theme === 'light' ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'} text-slate-600 group-hover:text-gold`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                                </svg>
-                                <svg className={`absolute inset-0 transition-all duration-500 ease-in-out transform ${theme === 'dark' ? 'rotate-0 opacity-100 scale-100' : 'rotate-90 opacity-0 scale-50'} text-gold`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="12" cy="12" r="4" />
-                                    <path d="M12 2v2" />
-                                    <path d="M12 20v2" />
-                                    <path d="m4.93 4.93 1.41 1.41" />
-                                    <path d="m17.66 17.66 1.41 1.41" />
-                                    <path d="M2 12h2" />
-                                    <path d="M20 12h2" />
-                                    <path d="m6.34 17.66-1.41 1.41" />
-                                    <path d="m19.07 4.93-1.41 1.41" />
-                                </svg>
-                            </div>
+                    {stage === 'LOADING' && <Loader onComplete={() => setStage('CONSENT')} />}
+                    {stage === 'CONSENT' && <TermsModal data={localeData[lang]} t={localeData[lang]} onAccept={() => setStage('LANG')} />}
+                    {stage === 'LANG' && <LangSelector onSelect={(l) => { setLang(l); setStage('MAIN'); }} />}
+                    {stage === 'MAIN' && <MainApp lang={lang} />}
+
+                    {stage !== 'LOADING' && (
+                        <button onClick={() => setDark(!dark)} className="fixed bottom-6 right-6 p-4 rounded-full shadow-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 z-[999]">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-600 dark:text-gold">
+                                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                            </svg>
                         </button>
                     )}
                 </>
             );
         };
 
-        const rootNode = document.getElementById('root');
-        ReactDOM.createRoot(rootNode).render(<ApplicationRoot />);
+        ReactDOM.createRoot(document.getElementById('root')).render(<MainRoot />);
     </script>
 </body>
 </html>
