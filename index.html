@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Icarus MUN 2026 | Talha tarafından. (DENEME SÜRÜMÜ)</title>
-    
+    <title>Icarus MUN 2026 | Talha tarafından. NİSAN SENİ SEVİYORUM</title>
     <link rel="icon" type="image/png" href="assets/icarus.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,11 +12,9 @@
             theme: { extend: { colors: { gold: '#D4AF37' } } }
         }
     </script>
-    
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -89,20 +85,6 @@
             from { transform: translateX(0); }
             to { transform: translateX(-50%); } 
         }
-
-        .theme-toggle-fab {
-            position: fixed !important;
-            bottom: 2rem !important;
-            right: 2rem !important;
-            z-index: 999999 !important;
-        }
-        
-        @media (max-width: 640px) {
-            .theme-toggle-fab {
-                bottom: 1.5rem !important;
-                right: 1.5rem !important;
-            }
-        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
@@ -134,15 +116,51 @@
                 contactEmail: "EMAIL",
                 contactBtn: "SEND EMAIL",
                 committees: [
-                    { id: 'nato', desc: "Navigate the complex geopolitical implications of Türkiye's defense choices." },
-                    { id: 'fjcc', desc: "Draft strategies in a war-torn world of elemental bending." },
-                    { id: 'jcc', desc: "A brutal dance of dragons and political machinations." },
-                    { id: 'hjcc', desc: "Manage the volatile fallout and separatist movements in Eastern Europe." },
-                    { id: 'hcc', desc: "Survive the dying days of the Wild West as outlaws facing changing times." },
-                    { id: 'senate', desc: "Tackle domestic systemic issues and bridge the expanding legislative divide." },
-                    { id: 'untac', desc: "Execute the monumental task of peacekeeping and institutional rebuilding." },
-                    { id: 'disec', desc: "Formulate disarmament strategies to address escalating armed conflicts." },
-                    { id: 'unhrc', desc: "Analyze human rights violations and draft resolutions for sustainable peace." }
+                    { 
+                        id: 'nato', 
+                        desc: "Navigate the complex geopolitical implications of Türkiye's defense choices.",
+                        details: "The security environment in today’s world presents new challenges to NATO. As geopolitical tensions escalate and missile technology advances, Turkey’s role in the alliance has become critical. Delegates will engage in crucial discussions on collective defense, regional stability, and alliance solidarity to find effective solutions."
+                    },
+                    { 
+                        id: 'fjcc', 
+                        desc: "Draft strategies in a war-torn world of elemental bending.",
+                        details: "The world is not balanced. A century of war has turned nations into weapons. This FJCC throws you directly into the chaos of the Hundred Year War. You are an active player inside a war still escalating. Hard power matters, but so does manipulation and timing. This is about power, survival, and what you’re willing to sacrifice to win."
+                    },
+                    { 
+                        id: 'jcc', 
+                        desc: "A brutal dance of dragons and political machinations.",
+                        details: "Succession is disputed, loyalties are thin, and dragons turn every calculation into a risk. You are part of a volatile court where choices reshape the balance instantly. This JCC takes you into the heart of the Dance of the Dragons. Influence is built through timing, positioning, and how well you manage perception."
+                    },
+                    { 
+                        id: 'hjcc', 
+                        desc: "Manage the volatile fallout and separatist movements in Eastern Europe.",
+                        details: "The War of Transnistria was an armed conflict between newly independent Moldova and the separatist region of Transnistria during the Soviet Union's collapse. Delegates will be assigned to different sides and take critical actions regarding this frozen conflict zone. Prepare for a war that will change the order of Europe!"
+                    },
+                    { 
+                        id: 'hcc', 
+                        desc: "Survive the dying days of the Wild West as outlaws facing changing times.",
+                        details: "The year is 1899. The lawless frontiers of the wild west are being tamed by the cold reach of civilization and federal authority. Following the disastrous Blackwater Heist, Pinkertons and bounty hunters are closing in on the Van der Linde Gang. As the sun sets on the Wild West, your decisions will shape the history of America."
+                    },
+                    { 
+                        id: 'senate', 
+                        desc: "Tackle domestic systemic issues and bridge the expanding legislative divide.",
+                        details: "The American Senate has been the great server of society since its creation. But now, the people are divided by their political views on migration and societal issues. Could the senators find effective, just, and peaceful solutions to current events and discrimination while upholding their political beliefs?"
+                    },
+                    { 
+                        id: 'untac', 
+                        desc: "Execute the monumental task of peacekeeping and institutional rebuilding.",
+                        details: "Following decades of conflict, UNTAC was established to restore peace and rebuild a nation. Mandated to maintain security and oversee key aspects of governance, it played a crucial role in guiding Cambodia through a delicate transition period, marking a historic step toward representative governance."
+                    },
+                    { 
+                        id: 'disec', 
+                        desc: "Formulate disarmament strategies to address escalating armed conflicts.",
+                        details: "The Horn of Africa remains a key item on the international agenda due to its multi-layered crises and geopolitical tensions. This committee will comprehensively address the global implications of the region’s conflicts, humanitarian situation, and security dynamics, aiming to formulate robust disarmament strategies."
+                    },
+                    { 
+                        id: 'unhrc', 
+                        desc: "Analyze human rights violations and draft resolutions for sustainable peace.",
+                        details: "This committee addresses the humanitarian dimension of the Israel-Palestine conflict. Discussions will center around the implementation of international humanitarian law, access to aid, protection of essential infrastructure, and accountability for violations. Delegates must propose practical solutions to safeguard civilian lives."
+                    }
                 ]
             },
             tr: {
@@ -167,15 +185,51 @@
                 contactEmail: "E-POSTA",
                 contactBtn: "E-POSTA GÖNDER",
                 committees: [
-                    { id: 'nato', desc: "Türkiye'nin savunma tercihlerinin karmaşık jeopolitik sonuçlarını yönetin." },
-                    { id: 'fjcc', desc: "Element bükücülerin savaşın eşiğinde olduğu bir dünyada stratejiler oluşturun." },
-                    { id: 'jcc', desc: "Ejderhaların dansı ve acımasız siyasi entrikalar. Demir Taht için mücadele edin." },
-                    { id: 'hjcc', desc: "Doğu Avrupa'da 90'ların başındaki kaos ortamında ayrılıkçı hareketleri yönetin." },
-                    { id: 'hcc', desc: "Vahşi Batı'nın son günlerinde hayatta kalın. Değişen zamanlara karşı acımasız kararlar alın." },
-                    { id: 'senate', desc: "Yüksek derecede kutuplaşmış siyasi iklimde, iç sistemik sorunları çözün." },
-                    { id: 'untac', desc: "Çatışma sonrası Kamboçya'da barışı koruma ve kurumları yeniden inşa etme görevini üstlenin." },
-                    { id: 'disec', desc: "Silahlı çatışmaları ele almak için uluslararası güvenlik stratejileri formüle edin." },
-                    { id: 'unhrc', desc: "Karmaşık tarihi sorunları yönlendirin ve bölgede sürdürülebilir barış için kararlar tasarlayın." }
+                    { 
+                        id: 'nato', 
+                        desc: "Türkiye'nin savunma tercihlerinin karmaşık jeopolitik sonuçlarını yönetin.",
+                        details: "Günümüz güvenlik ortamı NATO'ya yeni zorluklar sunuyor. Jeopolitik gerilimler tırmanırken ve füze teknolojisi hızla ilerlerken, Türkiye'nin ittifaktaki rolü her zamankinden daha kritik hale geldi. Delegeler, kolektif savunma ve bölgesel istikrar üzerine çözümler arayacak."
+                    },
+                    { 
+                        id: 'fjcc', 
+                        desc: "Element bükücülerin savaşın eşiğinde olduğu bir dünyada stratejiler oluşturun.",
+                        details: "Dünya dengede değil. Yüzyıllık savaş, ulusları silaha dönüştürdü. Bu komite sizi Yüz Yıl Savaşı'nın kaosunun tam ortasına atıyor. Sert güç önemli, ancak manipülasyon ve zamanlama da öyle. Bu, henüz bir barış hikayesi değil; güç, hayatta kalma ve kazanmak için neleri feda edebileceğinizin hikayesi."
+                    },
+                    { 
+                        id: 'jcc', 
+                        desc: "Ejderhaların dansı ve acımasız siyasi entrikalar. Demir Taht için mücadele edin.",
+                        details: "Veraset tartışmalı, sadakat zayıf ve ejderhalar her hesabı bir riske dönüştürüyor. Seçimlerin dengeyi anında yeniden şekillendirdiği değişken bir sarayın parçasısınız. Bu komite sizi Ejderhaların Dansı'nın kalbine götürüyor. Hayatta kalmak için zamanlamayı ve algıyı mükemmel yönetmelisiniz."
+                    },
+                    { 
+                        id: 'hjcc', 
+                        desc: "Doğu Avrupa'da 90'ların başındaki kaos ortamında ayrılıkçı hareketleri yönetin.",
+                        details: "Transdinyester Savaşı, yeni bağımsız olan Moldova ile ayrılıkçı Transdinyester bölgesi arasında yaşanan silahlı bir çatışmaydı. Delegeler farklı taraflara atanacak ve bu donmuş çatışma bölgesiyle ilgili kritik eylemlerde bulunacak. Avrupa'nın düzenini değiştirecek bu savaşa hazır olun!"
+                    },
+                    { 
+                        id: 'hcc', 
+                        desc: "Vahşi Batı'nın son günlerinde hayatta kalın. Değişen zamanlara karşı acımasız kararlar alın.",
+                        details: "Yıl 1899. Vahşi batının kanunsuz sınırları medeniyetin soğuk eliyle ehlileştiriliyor. Felaketle sonuçlanan Blackwater Soygunu'nun ardından Pinkerton'lar Van der Linde Çetesi'nin peşinde. Vahşi Batı'da güneş batarken, kararlarınız Amerika'nın tarihini şekillendirecek."
+                    },
+                    { 
+                        id: 'senate', 
+                        desc: "Yüksek derecede kutuplaşmış siyasi iklimde, iç sistemik sorunları çözün.",
+                        details: "Amerikan Senatosu kuruluşundan bu yana topluma hizmet etmiştir. Ancak bugün halk, göç ve toplumsal konulardaki siyasi görüşleriyle kutuplaşmış durumda. Senatörler, kendi siyasi inançlarını korurken güncel olaylara ve ayrımcılığa etkili, adil ve barışçıl çözümler bulabilecek mi?"
+                    },
+                    { 
+                        id: 'untac', 
+                        desc: "Çatışma sonrası Kamboçya'da barışı koruma ve kurumları yeniden inşa etme görevini üstlenin.",
+                        details: "Onyıllar süren çatışmaların ardından UNTAC, barışı tesis etmek ve ulusu yeniden inşa etmek için kuruldu. Güvenliği sağlamak ve yönetimi denetlemekle görevlendirilen komite, Kamboçya'yı hassas bir geçiş döneminden geçirerek temsili yönetime doğru tarihi bir adıma öncülük edecek."
+                    },
+                    { 
+                        id: 'disec', 
+                        desc: "Silahlı çatışmaları ele almak için uluslararası güvenlik stratejileri formüle edin.",
+                        details: "Afrika Boynuzu, çok katmanlı krizleri ve jeopolitik gerilimleri nedeniyle uluslararası gündemin kilit maddelerinden biri olmaya devam ediyor. Komite, sağlam silahsızlanma stratejileri formüle etmeyi amaçlayarak bölgedeki çatışmaların, insani durumun ve güvenlik dinamiklerinin küresel etkilerini kapsamlı bir şekilde ele alacaktır."
+                    },
+                    { 
+                        id: 'unhrc', 
+                        desc: "Karmaşık tarihi sorunları yönlendirin ve bölgede sürdürülebilir barış için kararlar tasarlayın.",
+                        details: "Bu komite, İsrail-Filistin çatışmasının insani boyutunu ele alıyor. Tartışmalar, uluslararası insancıl hukukun uygulanması, yardımlara erişim, temel altyapının korunması ve ihlallerin hesap verebilirliği etrafında şekillenecek. Delegelerin, sivil hayatları korumak için pratik çözümler sunması beklenmektedir."
+                    }
                 ]
             }
         };
@@ -194,41 +248,41 @@
 
         const rosterData = {
             nato: [
-                { name: "Arif Erkan", role: "Co-Under Secretary General", image: "assets/icarus_nato_co-under-arif-erkan.png" },
-                { name: "Demir Atay", role: "Co-Under Secretary General", image: "assets/icarus_nato_co-under-demir-atay.png" }
+                { image: "assets/icarus_nato_co-under-arif-erkan.png" },
+                { image: "assets/icarus_nato_co-under-demir-atay.png" }
             ],
             fjcc: [
-                { name: "Elif Beyza Tüfekçi", role: "Under Secretary General", image: "assets/icarus_f-jcc_under-secretary_elif_beyza_tufekci.png" },
-                { name: "Enes Yiğit Cebeci", role: "Academic Assistant", image: "assets/icarus_f-jcc_academic-assistant_enes-yigit-cebeci.png" },
-                { name: "Mustafa Said Keşli", role: "Academic Assistant", image: "assets/icarus_f-jcc_academic-assistant_mustafa-said-kesli.png" }
+                { image: "assets/icarus_f-jcc_under-secretary_elif_beyza_tufekci.png" },
+                { image: "assets/icarus_f-jcc_academic-assistant_enes-yigit-cebeci.png" },
+                { image: "assets/icarus_f-jcc_academic-assistant_mustafa-said-kesli.png" }
             ],
             jcc: [
-                { name: "Taha Doruk Kavaz", role: "Under Secretary General", image: "assets/icarus_jcc_under-secretary_taha-doruk-kavaz.png" },
-                { name: "Ahmet Fatih Karaman", role: "Academic Assistant", image: "assets/icarus_jcc_academic-assistant_ahmet-fatih-karaman.png" },
-                { name: "Emir Mücteba Özsığınan", role: "Academic Assistant", image: "assets/icarus_jcc_academic-assistant_emir-mucteba-ozsiginan.png" }
+                { image: "assets/icarus_jcc_under-secretary_taha-doruk-kavaz.png" },
+                { image: "assets/icarus_jcc_academic-assistant_ahmet-fatih-karaman.png" },
+                { image: "assets/icarus_jcc_academic-assistant_emir-mucteba-ozsiginan.png" }
             ],
             hjcc: [
-                { name: "Yahya Okçu", role: "Under Secretary General", image: "assets/icarus_h-jcc_under-secretary_yahya-okcu.png" },
-                { name: "Yusuf Yarsı", role: "Academic Assistant", image: "assets/icarus_h-jcc_academic-assistant_yusuf-yarsi.png" }
+                { image: "assets/icarus_h-jcc_under-secretary_yahya-okcu.png" },
+                { image: "assets/icarus_h-jcc_academic-assistant_yusuf-yarsi.png" }
             ],
             hcc: [
-                { name: "Hasan İyigün", role: "Under Secretary General", image: "assets/icarus_hcc_under-secretary_hasan-iyigun.png" },
-                { name: "Kerem Yiğit Ateşoğlu", role: "Academic Assistant", image: "assets/icarus_hcc_academic-assistant_kerem-yigit-atesoglu.png" }
+                { image: "assets/icarus_hcc_under-secretary_hasan-iyigun.png" },
+                { image: "assets/icarus_hcc_academic-assistant_kerem-yigit-atesoglu.png" }
             ],
             senate: [
-                { name: "Elif Asya Tulpar", role: "Under Secretary General", image: "assets/icarus_us_senate_under-secretary_elif-asya-tulpar.png" },
-                { name: "Halime Ravza Fidan", role: "Academic Assistant", image: "assets/icarus_us_senate_academic-assistant_halime-ravza-fidan.png" }
+                { image: "assets/icarus_us_senate_under-secretary_elif-asya-tulpar.png" },
+                { image: "assets/icarus_us_senate_academic-assistant_halime-ravza-fidan.png" }
             ],
             untac: [
-                { name: "Zümra Çolak", role: "Under Secretary General", image: "assets/icarus_untac_under-secretary_zumra-colak.png" },
-                { name: "Mina Gül Efe", role: "Academic Assistant", image: "assets/icarus_untac_academic-assistant_mina-gul-efe.png" }
+                { image: "assets/icarus_untac_under-secretary_zumra-colak.png" },
+                { image: "assets/icarus_untac_academic-assistant_mina-gul-efe.png" }
             ],
             disec: [
-                { name: "Oğuz Kaan Baykal", role: "Under Secretary General", image: "assets/icarus_disec_under-secretary_oguz-kaan-baykal.png" },
-                { name: "Ulaş Koca", role: "Academic Assistant", image: "assets/icarus_disec_academic-assistant_ulas-koca.png" }
+                { image: "assets/icarus_disec_under-secretary_oguz-kaan-baykal.png" },
+                { image: "assets/icarus_disec_academic-assistant_ulas-koca.png" }
             ],
             unhrc: [
-                { name: "Sinem Şen & Berranur Aydoğdu", role: "USG & Academic Assistant", image: "assets/icarus_unhrc_under-secretary-academic-assistant-sinem-sen-berranur-aydogdu.png" }
+                { image: "assets/icarus_unhrc_under-secretary-academic-assistant-sinem-sen-berranur-aydogdu.png" }
             ]
         };
 
@@ -333,7 +387,7 @@
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in bg-slate-950/80 backdrop-blur-sm">
                     <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
                     
-                    <div className="relative z-10 flex flex-col w-full max-w-5xl h-[85vh] sm:h-[80vh] bg-white dark:bg-slate-950 border border-gold/40 rounded-xl overflow-hidden shadow-2xl">
+                    <div className="relative z-10 flex flex-col w-full max-w-5xl h-[85vh] sm:h-[80vh] bg-slate-50 dark:bg-slate-950 border border-gold/40 rounded-xl overflow-hidden shadow-2xl">
                         
                         <svg className="absolute inset-0 z-0 w-full h-full object-cover text-slate-800 dark:text-slate-200 opacity-[0.15] dark:opacity-30 pointer-events-none" viewBox="0 0 800 600" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="0" y1="0" x2="200" y2="150" />
@@ -369,23 +423,32 @@
                             <line x1="510" y1="0" x2="510" y2="40" />
                         </svg>
 
-                        <header className="relative z-20 flex items-center justify-between p-6 bg-slate-50/90 dark:bg-slate-900/90 border-b border-gold/20 backdrop-blur-md">
-                            <div className="flex items-center">
-                                <img src={staticAssets[committee.id]} alt="Committee Logo" className="w-32 sm:w-40 object-contain drop-shadow-md" onError={(e) => { e.target.src='assets/icarus.png'; }} />
-                            </div>
-                            <button onClick={onClose} className="p-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-500 hover:text-gold transition-colors shrink-0">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                            </button>
-                        </header>
+                        <button onClick={onClose} className="absolute top-4 right-4 p-2 z-50 rounded-full bg-white/50 dark:bg-slate-900/50 text-slate-500 hover:text-gold transition-colors">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                        </button>
 
-                        <div className="relative z-10 flex-1 p-6 md:p-12 overflow-y-auto">
-                            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-                                {staffList.map((staff, idx) => (
-                                    <div key={idx} className="w-full max-w-[280px]">
-                                        <img src={staff.image} alt="Staff" className="w-full h-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src='assets/icarus.png'; }} />
-                                    </div>
-                                ))}
+                        <div className="relative z-10 flex flex-col md:flex-row p-6 md:p-12 h-full overflow-y-auto">
+                            
+                            <div className="w-full md:w-1/3 flex justify-center md:justify-start items-start mb-8 md:mb-0 shrink-0">
+                                <img src={staticAssets[committee.id]} alt="Committee Logo" className="w-32 sm:w-48 object-contain drop-shadow-md" onError={(e) => { e.target.src='assets/icarus.png'; }} />
                             </div>
+
+                            <div className="w-full md:w-2/3 flex flex-col md:pl-8">
+                                <div className="mb-10 text-center md:text-left">
+                                    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-light">{committee.details}</p>
+                                </div>
+                                
+                                <div className="w-full h-[1px] bg-gold/30 mb-8" />
+
+                                <div className="flex flex-wrap justify-center md:justify-start items-center gap-6">
+                                    {staffList.map((staff, idx) => (
+                                        <div key={idx} className="w-full max-w-[200px] sm:max-w-[240px]">
+                                            <img src={staff.image} alt="Staff" className="w-full h-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src='assets/icarus.png'; }} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>,
@@ -502,11 +565,10 @@
                     <div className="flex gap-4 md:gap-8 justify-center lg:justify-start flex-wrap">
                         {Object.entries(time).map(([u, v], i) => (
                             <div key={i} className="flex flex-col items-center">
-                                <div className="relative flex items-center justify-center w-14 h-14 md:w-20 md:h-20 shadow-sm group border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
-                                    <div className="absolute inset-0 opacity-0 transition-opacity bg-gold/5 group-hover:opacity-100" />
+                                <div className="flex items-center justify-center w-14 h-14 md:w-20 md:h-20 border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 font-serif text-2xl md:text-4xl text-gold">
                                     {String(v).padStart(2, '0')}
                                 </div>
-                                <span className="mt-2 text-[9px] md:text-[10px] uppercase font-mono text-slate-500">{u}</span>
+                                <span className="mt-2 text-[10px] uppercase font-mono text-slate-500">{u}</span>
                             </div>
                         ))}
                     </div>
@@ -626,40 +688,29 @@
                                 <div className="absolute inset-0 z-0 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center opacity-30 dark:opacity-20" />
                                 <AnimatedMap />
 
-                                <main className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl mx-auto px-4 pt-24 pb-16 sm:pt-32 sm:pb-20 sm:px-6 gap-12 lg:gap-16">
-                                    <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
-                                        <span className="px-3 py-1 mb-4 text-[9px] sm:text-sm tracking-[0.3em] uppercase rounded-none backdrop-blur-sm sm:mb-6 font-mono text-gold border border-gold/30 bg-gold/10">
-                                            {t.heroSubtitle}
-                                        </span>
-                                        <h1 className="mb-4 text-3xl font-bold tracking-tight leading-tight transition-colors sm:text-5xl md:text-6xl lg:text-7xl sm:mb-8 font-serif text-slate-900 dark:text-white drop-shadow-sm max-w-2xl">
-                                            {t.heroTitle}
-                                        </h1>
-                                        
-                                        <p className="max-w-2xl mb-8 text-xs font-light leading-relaxed sm:text-sm md:text-base sm:mb-12 text-slate-700 dark:text-slate-400">
-                                            {lang === 'en' ? (
-                                                <>Represent your country, defend your ideas, and challenge perspectives in a high-energy Model United Nations experience built for the next generation of decision makers.<br/> No limits. Just voices that shape the world.<br/><strong className="font-bold text-gold text-sm sm:text-lg mt-2 inline-block">Are you ready to rise?</strong></>
-                                            ) : (
-                                                <>Ülkenizi temsil edin, fikirlerinizi savunun ve yeni nesil karar alıcılar için tasarlanmış yüksek enerjili bir Model Birleşmiş Milletler deneyiminde bakış açılarına meydan okuyun.<br/> Sınır yok. Sadece dünyayı şekillendiren sesler var.<br/><strong className="font-bold text-gold text-sm sm:text-lg mt-2 inline-block">Yükselmeye hazır mısınız?</strong></>
-                                            )}
-                                        </p>
+                                <main className="relative z-10 flex flex-col items-center text-center w-full max-w-4xl mx-auto px-6 pt-32 pb-20">
+                                    <span className="px-4 py-1 mb-6 text-xs tracking-[0.3em] font-mono text-gold bg-gold/10 border border-gold/30">
+                                        {t.heroSubtitle}
+                                    </span>
+                                    <h1 className="mb-6 text-5xl sm:text-7xl font-bold font-serif text-slate-900 dark:text-white drop-shadow-sm">
+                                        {t.heroTitle}
+                                    </h1>
+                                    <p className="mb-10 text-sm md:text-base text-slate-700 dark:text-slate-400">
+                                        {lang === 'en' ? 
+                                            <>Represent your country, defend your ideas, and challenge perspectives in a high-energy Model United Nations experience built for the next generation of decision makers.<br/><br/><strong className="text-gold">Are you ready to rise?</strong></> : 
+                                            <>Ülkenizi temsil edin, fikirlerinizi savunun ve yeni nesil karar alıcılar için tasarlanmış yüksek enerjili bir Model Birleşmiş Milletler deneyiminde bakış açılarına meydan okuyun.<br/><br/><strong className="text-gold">Yükselmeye hazır mısınız?</strong></>
+                                        }
+                                    </p>
 
-                                        <div className="flex flex-col sm:flex-row justify-center lg:justify-start w-full max-w-md sm:max-w-none gap-4 sm:gap-6">
-                                            <div className="flex flex-col gap-4 w-full sm:w-auto">
-                                                <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-white border-gold bg-gold hover:bg-gold/80 overflow-hidden">
-                                                    <span className="relative z-10">{t.ctaDelegate}</span>
-                                                </button>
-                                                <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950">
-                                                    <span className="relative z-10">{t.ctaDelegation}</span>
-                                                </button>
-                                            </div>
-                                            <div className="flex items-start w-full mt-4 sm:w-auto sm:mt-0">
-                                                <button onClick={handleScrollToCommittees} className="w-full h-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm backdrop-blur-sm hover:shadow-md sm:px-8 sm:py-4 sm:text-sm font-mono border text-slate-700 border-slate-400 bg-white/80 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
-                                                    {t.ctaCommittees}
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <Countdown label={t.countdownText} />
+                                    <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                                        <button className="px-8 py-4 text-xs font-mono tracking-widest text-white bg-gold hover:bg-gold/80 transition-colors">
+                                            {t.ctaDelegate}
+                                        </button>
+                                        <button className="px-8 py-4 text-xs font-mono tracking-widest text-gold border border-gold hover:bg-gold/10 transition-colors">
+                                            {t.ctaDelegation}
+                                        </button>
                                     </div>
+                                    <Countdown label={t.countdownText} />
                                 </main>
                             </div>
 
