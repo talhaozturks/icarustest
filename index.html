@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Icarus MUN 2026 | Test sürümü</title>
+    <title>Icarus MUN 2026 | TEST SÜRÜMÜ</title>
     
     <link rel="icon" type="image/png" href="assets/icarus.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -633,17 +633,60 @@
             );
         };
 
-        const TeamSection = ({ data }) => {
-            const members = Array(4).fill({ name: "talha", role: "talha" });
+        const TeamSection = ({ t }) => {
+            const teamMembers = [
+                { name: "Orkun Güleç", role: "Secretary General", insta: "orkun12960", img: "assets/orkun_gulec.png" },
+                { name: "Asude Baran", role: "Co-Head of PR", insta: "s.asudebaran", img: "assets/asude_baran.png" },
+                { name: "Zeynep Lale Turgay", role: "Co-Head of PR", insta: "zzeyneplale", img: "assets/zeynep_lale_turgay.png" },
+                { name: "Evin Aşam", role: "Co-Head of Logistics", insta: "evinasam_", img: "assets/evin_asam.png" },
+                { name: "Şevval Aşam", role: "Co-Head of Logistics", insta: "", img: "assets/sevval_asam.png" },
+                { name: "Muhammet Ali Bolu", role: "Observer", insta: "_slmbnmamii", img: "assets/muhammet_ali_bolu.png" },
+                { name: "Deniz Ela Şen", role: "Head of Press", insta: "denizelasnn", img: "assets/deniz_ela_sen.png" },
+                { name: "Hilal Aylin Kayran", role: "Head of Security", insta: "Hilalayln", img: "assets/hilal_aylin_kayran.png" }
+            ];
 
             return (
                 <div className="max-w-7xl mx-auto min-h-[90vh] pt-28 pb-16 px-6 fade-in">
                     <div className="text-center mb-16">
-                        <p className="text-xs font-mono text-gold tracking-[0.3em] mb-2">{data.teamDesc}</p>
-                        <h1 className="text-4xl md:text-5xl font-serif text-slate-900 dark:text-white">{data.teamTitle}</h1>
+                        <p className="text-xs font-mono text-gold tracking-[0.3em] mb-2">{t.teamDesc}</p>
+                        <h1 className="text-4xl md:text-5xl font-serif text-slate-900 dark:text-white">{t.teamTitle}</h1>
                         <div className="w-16 h-[1px] bg-gold mx-auto mt-6" />
                     </div>
-                    <div className="flex justify-center text-slate-500">Ekip üyeleri yakında eklenecektir.</div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                        {teamMembers.map((member, idx) => (
+                            <div key={idx} className="flex items-center justify-between p-4 sm:p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm hover:shadow-md hover:border-gold/50 transition-all duration-300 group">
+                                <div className="flex items-center gap-4 sm:gap-6">
+                                    <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-full border-2 border-gold/30 p-1 overflow-hidden bg-slate-50 dark:bg-slate-800 group-hover:border-gold transition-colors">
+                                        <img src={member.img} alt={member.name} className="w-full h-full object-cover rounded-full" onError={(e) => { e.target.src='assets/icarusarkaplansiz.png'; e.target.classList.add('object-contain', 'p-2'); }} />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <h3 className="text-lg sm:text-xl font-serif font-bold text-slate-900 dark:text-white">{member.name}</h3>
+                                        <span className="text-[10px] sm:text-xs font-mono text-gold uppercase tracking-wider mt-1">{member.role}</span>
+                                    </div>
+                                </div>
+                                {member.insta ? (
+                                    <a href={`https://instagram.com/${member.insta}`} target="_blank" rel="noopener noreferrer" className="shrink-0 flex items-center justify-center p-3 sm:px-5 sm:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-gold hover:text-white text-slate-600 dark:text-slate-300 rounded-lg transition-colors border border-transparent hover:border-gold/50">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sm:mr-2">
+                                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                                        </svg>
+                                        <span className="hidden sm:inline text-xs font-bold tracking-wider font-mono">SAYFAYA GİT</span>
+                                    </a>
+                                ) : (
+                                    <div className="shrink-0 flex items-center justify-center p-3 sm:px-5 sm:py-2.5 bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-600 rounded-lg border border-slate-200 dark:border-slate-800 cursor-not-allowed" title="Instagram hesabı bulunmuyor">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sm:mr-2 opacity-50">
+                                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                                        </svg>
+                                        <span className="hidden sm:inline text-xs font-bold tracking-wider font-mono opacity-50">-</span>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             );
         };
@@ -752,7 +795,7 @@
                     )}
 
                     {view === 'team' ? (
-                        <TeamSection data={t} />
+                        <TeamSection t={t} />
                     ) : view === 'sponsors' ? (
                         <SponsorsView t={t} />
                     ) : view === 'forum' ? (
