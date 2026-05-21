@@ -108,9 +108,6 @@
                 countdownText: "Time Remaining",
                 committeesTitle: "Active Committees",
                 clickInfo: "Click for info!",
-                consentWarn: "This site was created by Talha for entertainment purposes. Stealing, copying, or altering is strictly prohibited.",
-                consentBtn: "Enter Site",
-                consentCheck: "I have read and agree.",
                 teamTitle: "The Faces Behind ICARUS",
                 teamDesc: "KADROMUZ",
                 sponsorsTitle: "OUR PARTNERS",
@@ -189,9 +186,6 @@
                 countdownText: "Kalan Süre",
                 committeesTitle: "Aktif Komiteler",
                 clickInfo: "Bilgi için tıkla!",
-                consentWarn: "Bu site Talha tarafından eğlence amaçlı hazırlanmıştır. Çalınması, kopyalanması veya değiştirilmesi kesinlikle yasaktır.",
-                consentBtn: "Siteye Gir",
-                consentCheck: "Okudum, Onaylıyorum.",
                 teamTitle: "The Faces Behind ICARUS",
                 teamDesc: "KADROMUZ",
                 sponsorsTitle: "DESTEKÇİLERİMİZ",
@@ -481,44 +475,9 @@
                             <div className="h-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.6)]" style={{ width: `${progress}%`, transition: 'width 75ms ease-out' }} />
                         </div>
                         
-                    </div>
-                </div>
-            );
-        };
-
-        const TermsModal = ({ onAccept, t }) => {
-            const [checked, setChecked] = useState(false);
-            
-            return (
-                <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-slate-50 dark:bg-slate-950 bg-grid-pattern fade-in">
-                    <div className="w-full max-w-md p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl relative flex flex-col items-center">
-                        <div className="flex justify-center mb-6 text-gold">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" /><path d="m9 12 2 2 4-4" /></svg>
+                        <div className="mt-2 flex justify-center w-full opacity-80">
+                            <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-5 sm:h-6 w-auto object-contain drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
                         </div>
-                        <p className="mb-6 text-sm text-center leading-relaxed text-slate-700 dark:text-slate-300">{t.consentWarn}</p>
-                        
-                        <label className="flex items-center justify-center gap-3 mb-6 cursor-pointer">
-                            <input type="checkbox" className="w-4 h-4 accent-gold" checked={checked} onChange={() => setChecked(!checked)} />
-                            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{t.consentCheck}</span>
-                        </label>
-
-                        <button 
-                            disabled={!checked}
-                            onClick={onAccept}
-                            className={`w-full py-3 mb-6 text-sm tracking-widest font-mono border transition-all 
-                                ${checked ? 'border-gold text-gold bg-gold/10 hover:bg-gold hover:text-slate-900' : 'border-slate-300 dark:border-slate-700 text-slate-400 opacity-50'}`}
-                        >
-                            {t.consentBtn}
-                        </button>
-                        
-                        <a href="https://instagram.com/talha.ozturks" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full py-2.5 text-xs tracking-widest font-mono border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-gold dark:hover:text-gold hover:border-gold dark:hover:border-gold transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                            </svg>
-                            @talha.ozturks
-                        </a>
                     </div>
                 </div>
             );
@@ -887,10 +846,8 @@
                         </div>
                     )}
 
-                    <footer className="py-8 text-center bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-                        <p className="text-sm md:text-base font-signature text-slate-500 dark:text-slate-400">
-                            Bilal Talha ÖZTÜRK tarafından <span className="text-slate-900 dark:text-white mx-1 text-base">🖤</span> ile hazırlandı.
-                        </p>
+                    <footer className="py-8 flex justify-center items-center bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+                        <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-5 sm:h-6 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
                     </footer>
 
                     <ReelsPopup isOpen={showInstaPopup} onClose={() => setShowInstaPopup(false)} />
@@ -913,8 +870,7 @@
 
             return (
                 <>
-                    {stage === 'LOADING' && <Loader onComplete={() => setStage('CONSENT')} />}
-                    {stage === 'CONSENT' && <TermsModal data={localeData[lang]} t={localeData[lang]} onAccept={() => setStage('LANG')} />}
+                    {stage === 'LOADING' && <Loader onComplete={() => setStage('LANG')} />}
                     {stage === 'LANG' && <LangSelector onSelect={(l) => { setLang(l); setStage('MAIN'); }} />}
                     {stage === 'MAIN' && <MainApp lang={lang} />}
 
