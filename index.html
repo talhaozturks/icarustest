@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Icarus MUN 2026 | Nisan'ı Seviyorum</title>
+    <title>Icarus MUN 2026 | Nisan'ı Seviyorum.</title>
     
     <link rel="icon" type="image/png" href="assets/icarus.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -475,8 +475,8 @@
                             <div className="h-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.6)]" style={{ width: `${progress}%`, transition: 'width 75ms ease-out' }} />
                         </div>
                         
-                        <div className="mt-2 flex justify-center w-full opacity-80">
-                            <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-10 sm:h-14 md:h-16 w-auto object-contain drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
+                        <div className="mt-4 flex justify-center w-full opacity-80">
+                            <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-20 sm:h-28 md:h-32 w-auto object-contain drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
                         </div>
                     </div>
                 </div>
@@ -847,7 +847,7 @@
                     )}
 
                     <footer className="py-8 flex justify-center items-center bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-                        <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-10 sm:h-14 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
+                        <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-20 sm:h-28 md:h-32 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
                     </footer>
 
                     <ReelsPopup isOpen={showInstaPopup} onClose={() => setShowInstaPopup(false)} />
@@ -885,7 +885,8 @@
             );
         };
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<MainRoot />);
+        const rootNode = document.getElementById('root');
+        ReactDOM.createRoot(rootNode).render(<MainRoot />);
     </script>
 </body>
 </html>
