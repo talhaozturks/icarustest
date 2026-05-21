@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Icarus MUN 2026 | NİSANI SEVİYORUM</title>
-    
+    <title>Icarus MUN 2026 | Nisan'ı seviyorum.</title>
     <link rel="icon" type="image/png" href="assets/icarus.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,11 +12,9 @@
             theme: { extend: { colors: { gold: '#D4AF37' } } }
         }
     </script>
-    
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -89,20 +85,6 @@
             from { transform: translateX(0); }
             to { transform: translateX(-50%); } 
         }
-
-        .theme-toggle-fab {
-            position: fixed !important;
-            bottom: 2rem !important;
-            right: 2rem !important;
-            z-index: 999999 !important;
-        }
-        
-        @media (max-width: 640px) {
-            .theme-toggle-fab {
-                bottom: 1.5rem !important;
-                right: 1.5rem !important;
-            }
-        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
@@ -116,8 +98,7 @@
                 nav: { home: 'Home', team: 'Team', apply: 'Apply' },
                 heroSubtitle: "SEPTEMBER 4-5-6",
                 heroTitle: "ICARUS MUN 2026",
-                ctaDelegate: "Individual Apply",
-                ctaDelegation: "Delegation Apply",
+                singleApplyBtn: "APPLY NOW",
                 ctaCommittees: "Explore Committees",
                 countdownText: "Time Until Conference",
                 committeesTitle: "Active Committees",
@@ -133,6 +114,15 @@
                 contactTitle: "Contact Us",
                 contactEmail: "EMAIL",
                 contactBtn: "SEND EMAIL",
+                applyModalTitle: "Application Options",
+                indivApply: "Individual Application",
+                delegApply: "Delegation Application",
+                visApply: "Visitor",
+                indivPrice: "600 TL",
+                delegPrice: "550 TL (Per Person)",
+                visPrice: "300 TL",
+                delegNote: "A minimum of 5 people is required for delegation.",
+                applyBtn: "APPLY",
                 committees: [
                     { 
                         id: 'nato', 
@@ -185,8 +175,7 @@
                 nav: { home: 'Ana Sayfa', team: 'Ekip', apply: 'Başvuru' },
                 heroSubtitle: "4-5-6 EYLÜL",
                 heroTitle: "ICARUS MUN 2026",
-                ctaDelegate: "Bireysel Başvuru",
-                ctaDelegation: "Delegasyon Başvurusu",
+                singleApplyBtn: "HEMEN BAŞVUR",
                 ctaCommittees: "Komiteleri İncele",
                 countdownText: "Konferansa Kalan Süre",
                 committeesTitle: "Aktif Komiteler",
@@ -202,6 +191,15 @@
                 contactTitle: "İletişim",
                 contactEmail: "E-POSTA",
                 contactBtn: "E-POSTA GÖNDER",
+                applyModalTitle: "Başvuru Seçenekleri",
+                indivApply: "Bireysel Başvuru",
+                delegApply: "Delegasyon Başvurusu",
+                visApply: "Ziyaretçi",
+                indivPrice: "600 TL",
+                delegPrice: "550 TL (Kişi Başı)",
+                visPrice: "300 TL",
+                delegNote: "En az 5 kişilik delegasyon gereklidir.",
+                applyBtn: "BAŞVUR",
                 committees: [
                     { 
                         id: 'nato', 
@@ -494,16 +492,17 @@
                     <div className="absolute inset-0 bg-slate-100/80 dark:bg-slate-950/80 backdrop-blur-sm" />
                     <div className="relative z-10 w-full max-w-md px-6 flex flex-col items-center fade-in">
                         
-                        <div className="relative flex items-center justify-center w-56 h-56 mb-12">
+                        <div className="relative flex items-center justify-center w-56 h-56 mb-10">
                             <div className="absolute w-48 h-48 border rounded-full border-gold/40 animate-[spin_10s_linear_infinite]" />
                             <img src="assets/icarusarkaplansiz.png" alt="Icarus Logo" className="z-10 w-28 h-auto drop-shadow-lg" onError={(e) => { e.target.src = 'assets/icarus.png'; }} />
                         </div>
                         
-                        <div className="w-full h-[2px] mb-4 bg-slate-300 dark:bg-slate-800 relative">
+                        <div className="w-full h-[2px] mb-6 bg-slate-300 dark:bg-slate-800 relative">
                             <div className="h-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.6)]" style={{ width: `${progress}%`, transition: 'width 75ms ease-out' }} />
                         </div>
-                        <div className="text-xs font-mono uppercase text-slate-800 dark:text-slate-300 font-bold">
-                            Loading <span className="text-gold animate-pulse">_</span>
+                        
+                        <div className="text-sm md:text-base font-serif italic text-gold drop-shadow-md tracking-wider">
+                            Bilal Talha ÖZTÜRK tarafından oluşturuldu.
                         </div>
                     </div>
                 </div>
@@ -535,7 +534,6 @@
                             {t.consentBtn}
                         </button>
                         
-                        {/* Talha buton dizaynı */}
                         <a href="https://instagram.com/talha.ozturks" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full py-2.5 text-xs tracking-widest font-mono border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-gold dark:hover:text-gold hover:border-gold dark:hover:border-gold transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
@@ -644,6 +642,87 @@
             );
         };
 
+        const ApplyModal = ({ isOpen, onClose, t }) => {
+            useEffect(() => {
+                document.body.classList.toggle('modal-open', isOpen);
+                return () => document.body.classList.remove('modal-open');
+            }, [isOpen]);
+
+            if (!isOpen) return null;
+
+            return ReactDOM.createPortal(
+                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in bg-slate-950/80 backdrop-blur-sm">
+                    <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
+                    <div className="relative z-10 w-full max-w-5xl bg-white dark:bg-slate-950 border border-gold/40 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+                        <div className="flex items-center justify-between p-6 border-b border-gold/20 bg-slate-50/90 dark:bg-slate-900/90 backdrop-blur-md">
+                            <h2 className="text-2xl md:text-3xl font-serif text-slate-900 dark:text-white">{t.applyModalTitle}</h2>
+                            <button onClick={onClose} className="p-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-500 hover:text-gold transition-colors">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                            </button>
+                        </div>
+                        
+                        <div className="p-6 md:p-10 overflow-y-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                
+                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-gold/50 transition-colors rounded-lg group text-center shadow-sm hover:shadow-md">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-16 h-16 text-gold mb-6 group-hover:scale-110 transition-transform">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">{t.indivApply}</h3>
+                                    <p className="text-lg font-mono text-gold mb-6">{t.indivPrice}</p>
+                                    <div className="flex-1" />
+                                    <button className="w-full py-3 text-xs tracking-widest font-mono text-white bg-gold hover:bg-gold/80 transition-colors rounded shadow-sm">{t.applyBtn}</button>
+                                </div>
+
+                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-gold/50 transition-colors rounded-lg group text-center shadow-sm hover:shadow-md">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-16 h-16 text-gold mb-6 group-hover:scale-110 transition-transform">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                    </svg>
+                                    <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">{t.delegApply}</h3>
+                                    <p className="text-lg font-mono text-gold mb-2">{t.delegPrice}</p>
+                                    <p className="text-[10px] text-slate-500 mb-6 px-2">{t.delegNote}</p>
+                                    <div className="flex-1" />
+                                    <button className="w-full py-3 text-xs tracking-widest font-mono text-white bg-gold hover:bg-gold/80 transition-colors rounded shadow-sm">{t.applyBtn}</button>
+                                </div>
+
+                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-slate-400 dark:hover:border-slate-500 transition-colors rounded-lg group text-center shadow-sm hover:shadow-md">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-16 h-16 text-slate-400 dark:text-slate-500 mb-6 group-hover:scale-110 transition-transform">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">{t.visApply}</h3>
+                                    <p className="text-lg font-mono text-slate-500 dark:text-slate-400 mb-6">{t.visPrice}</p>
+                                    <div className="flex-1" />
+                                    <button className="w-full py-3 text-xs tracking-widest font-mono text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors rounded">{t.applyBtn}</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>,
+                document.body
+            );
+        };
+
+        const TeamSection = ({ data }) => {
+            const members = Array(4).fill({ name: "talha", role: "talha" });
+
+            return (
+                <div className="max-w-7xl mx-auto min-h-[90vh] pt-28 pb-16 px-6 fade-in">
+                    <div className="text-center mb-16">
+                        <p className="text-xs font-mono text-gold tracking-[0.3em] mb-2">{data.teamDesc}</p>
+                        <h1 className="text-4xl md:text-5xl font-serif text-slate-900 dark:text-white">{data.teamTitle}</h1>
+                        <div className="w-16 h-[1px] bg-gold mx-auto mt-6" />
+                    </div>
+                    <div className="flex justify-center text-slate-500">Ekip üyeleri yakında eklenecektir.</div>
+                </div>
+            );
+        };
+
         const MainApp = ({ lang }) => {
             const t = localeData[lang];
             const [view, setView] = useState('home');
@@ -651,6 +730,7 @@
             const [menuOpen, setMenuOpen] = useState(false);
             const [showInstaPopup, setShowInstaPopup] = useState(true);
             const [isContactOpen, setIsContactOpen] = useState(false);
+            const [isApplyOpen, setIsApplyOpen] = useState(false);
 
             const handleScrollToCommittees = () => {
                 const element = document.getElementById('committees');
@@ -674,7 +754,7 @@
                             <div className="hidden md:flex gap-8 items-center">
                                 <button onClick={() => setView('home')} className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition line-draw">{t.nav.home}</button>
                                 <button onClick={() => setView('team')} className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition line-draw">{t.nav.team}</button>
-                                <button className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition line-draw">{t.nav.apply}</button>
+                                <button onClick={() => setIsApplyOpen(true)} className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition line-draw">{t.nav.apply}</button>
                                 <button onClick={() => setIsContactOpen(true)} className="p-2 ml-4 rounded-full transition-colors text-slate-500 hover:text-gold dark:text-slate-400 dark:hover:text-gold border border-transparent hover:border-gold/30">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                                 </button>
@@ -699,19 +779,12 @@
                         <div className="fixed top-16 left-0 w-full bg-white/95 dark:bg-slate-950/95 z-30 flex flex-col p-4 border-b border-gold/20 backdrop-blur-md">
                             <button onClick={() => { setView('home'); setMenuOpen(false); }} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.home}</button>
                             <button onClick={() => { setView('team'); setMenuOpen(false); }} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.team}</button>
-                            <button onClick={() => setMenuOpen(false)} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.apply}</button>
+                            <button onClick={() => { setIsApplyOpen(true); setMenuOpen(false); }} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.apply}</button>
                         </div>
                     )}
 
                     {view === 'team' ? (
-                        <div className="max-w-7xl mx-auto pt-28 pb-16 px-6 fade-in">
-                            <div className="text-center mb-16">
-                                <p className="text-xs font-mono text-gold tracking-[0.3em] mb-2">{t.teamDesc}</p>
-                                <h1 className="text-4xl md:text-5xl font-serif text-slate-900 dark:text-white">{t.teamTitle}</h1>
-                                <div className="w-16 h-[1px] bg-gold mx-auto mt-6" />
-                            </div>
-                            <div className="flex justify-center text-slate-500">Ekip üyeleri yakında eklenecektir.</div>
-                        </div>
+                        <TeamSection data={t} />
                     ) : (
                         <div className="fade-in relative z-10 w-full">
                             <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20">
@@ -736,16 +809,13 @@
                                         </p>
 
                                         <div className="flex flex-col sm:flex-row justify-center lg:justify-start w-full max-w-md sm:max-w-none gap-4 sm:gap-6">
-                                            <div className="flex flex-col gap-4 w-full sm:w-auto">
-                                                <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-white border-gold bg-gold hover:bg-gold/80 overflow-hidden">
-                                                    <span className="relative z-10">{t.ctaDelegate}</span>
-                                                </button>
-                                                <button className="relative w-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:px-8 sm:py-4 sm:text-sm font-mono border text-gold border-gold bg-gold/10 hover:bg-gold hover:text-white dark:hover:text-slate-950">
-                                                    <span className="relative z-10">{t.ctaDelegation}</span>
+                                            <div className="w-full sm:w-auto">
+                                                <button onClick={() => setIsApplyOpen(true)} className="relative w-full px-8 py-4 text-xs tracking-widest transition-all duration-300 shadow-sm group sm:text-sm font-mono border text-white border-gold bg-gold hover:bg-gold/80 overflow-hidden">
+                                                    <span className="relative z-10">{t.singleApplyBtn}</span>
                                                 </button>
                                             </div>
-                                            <div className="flex items-start w-full mt-4 sm:w-auto sm:mt-0">
-                                                <button onClick={handleScrollToCommittees} className="w-full h-full px-6 py-3 text-xs tracking-widest transition-all duration-300 shadow-sm backdrop-blur-sm hover:shadow-md sm:px-8 sm:py-4 sm:text-sm font-mono border text-slate-700 border-slate-400 bg-white/80 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
+                                            <div className="w-full sm:w-auto mt-4 sm:mt-0">
+                                                <button onClick={handleScrollToCommittees} className="w-full h-full px-8 py-4 text-xs tracking-widest transition-all duration-300 shadow-sm backdrop-blur-sm hover:shadow-md sm:text-sm font-mono border text-slate-700 border-slate-400 bg-white/80 hover:border-gold/50 hover:text-gold dark:bg-slate-900/50 dark:border-slate-700 dark:text-slate-300 dark:hover:text-gold">
                                                     {t.ctaCommittees}
                                                 </button>
                                             </div>
@@ -809,6 +879,7 @@
 
                     <ReelsPopup isOpen={showInstaPopup} onClose={() => setShowInstaPopup(false)} />
                     <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} data={t} />
+                    <ApplyModal isOpen={isApplyOpen} onClose={() => setIsApplyOpen(false)} t={t} />
                     {activeCom && <CommitteeModal committee={activeCom} onClose={() => setActiveCom(null)} />}
                 </div>
             );
@@ -842,7 +913,8 @@
             );
         };
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<MainRoot />);
+        const rootNode = document.getElementById('root');
+        ReactDOM.createRoot(rootNode).render(<MainRoot />);
     </script>
 </body>
 </html>
