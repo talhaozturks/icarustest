@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Icarus MUN 2026 | Nisan'ı Seviyorum.</title>
+    <title>Icarus MUN 2026</title>
     <link rel="icon" type="image/png" href="assets/icarus.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -16,7 +16,7 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap');
 
         html, body {
             margin: 0;
@@ -37,6 +37,10 @@
 
         .font-serif {
             font-family: 'Playfair Display', serif;
+        }
+
+        .font-signature {
+            font-family: 'Caveat', cursive;
         }
 
         .bg-grid-pattern {
@@ -103,7 +107,6 @@
                 countdownText: "Time Remaining",
                 committeesTitle: "Active Committees",
                 clickInfo: "Click for info!",
-                footer: "© 2026 Icarus Model United Nations. All systems online.",
                 consentWarn: "This site was created by Talha for entertainment purposes. Stealing, copying, or altering is strictly prohibited.",
                 consentBtn: "Enter Site",
                 consentCheck: "I have read and agree.",
@@ -185,7 +188,6 @@
                 countdownText: "Kalan Süre",
                 committeesTitle: "Aktif Komiteler",
                 clickInfo: "Bilgi için tıkla!",
-                footer: "© 2026 Icarus Model Birleşmiş Milletler. Tüm sistemler çevrimiçi.",
                 consentWarn: "Bu site Talha tarafından eğlence amaçlı hazırlanmıştır. Çalınması, kopyalanması veya değiştirilmesi kesinlikle yasaktır.",
                 consentBtn: "Siteye Gir",
                 consentCheck: "Okudum, Onaylıyorum.",
@@ -475,13 +477,10 @@
                             <img src="assets/icarusarkaplansiz.png" alt="Icarus Logo" className="z-10 w-28 h-auto drop-shadow-lg" onError={(e) => { e.target.src = 'assets/icarus.png'; }} />
                         </div>
                         
-                        <div className="w-full h-[2px] mb-6 bg-slate-300 dark:bg-slate-800 relative">
+                        <div className="w-full h-[2px] bg-slate-300 dark:bg-slate-800 relative">
                             <div className="h-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.6)]" style={{ width: `${progress}%`, transition: 'width 75ms ease-out' }} />
                         </div>
                         
-                        <div className="mt-2 text-xs sm:text-sm font-serif italic text-gold/90 drop-shadow-md tracking-[0.15em] opacity-80">
-                            Bilal Talha ÖZTÜRK <span className="mx-1 text-[10px] text-slate-400 font-sans font-normal">x</span> ICARUS
-                        </div>
                     </div>
                 </div>
             );
@@ -859,8 +858,8 @@
                                         <span>İstanbul Aydın Üniversitesi</span>
                                     </h2>
                                     
-                                    <div className="w-full mb-6 overflow-hidden rounded shadow-xl aspect-square sm:aspect-[16/9] md:aspect-[21/9] border border-gold/30">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.587133725575!2d28.79458617655148!3d40.99052062051735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa396db59606d%3A0x6594147beb14e9b4!2zxLBzdGFuYnVsIEF5ZMSxbiDDnG5pdmVyc2l0ZXNp!5e0!3m2!1str!2str!4v1779138319153!5m2!1str!2str" className="w-full h-full" style={{border:0}} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                                    <div className="relative w-full mb-6 overflow-hidden rounded shadow-xl aspect-square sm:aspect-[16/9] md:aspect-[21/9] border border-gold/30">
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.587133725575!2d28.79458617655148!3d40.99052062051735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa396db59606d%3A0x6594147beb14e9b4!2zxLBzdGFuYnVsIEF5ZMSxbiDDnG5pdmVyc2l0ZXNp!5e0!3m2!1str!2str!4v1779138319153!5m2!1str!2str" className="absolute top-0 left-0 w-full h-full" style={{border:0}} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
                                     </div>
                                     
                                     <div className="flex flex-col justify-center w-full max-w-2xl gap-3 sm:flex-row sm:gap-4">
@@ -900,7 +899,9 @@
                     )}
 
                     <footer className="py-8 text-center bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-                        <p className="text-[10px] font-mono text-slate-500 uppercase">{t.footer}</p>
+                        <p className="text-sm md:text-base font-signature text-slate-500 dark:text-slate-400">
+                            Bilal Talha ÖZTÜRK tarafından <span className="text-slate-900 dark:text-white mx-1 text-base">🖤</span> ile hazırlandı.
+                        </p>
                     </footer>
 
                     <ReelsPopup isOpen={showInstaPopup} onClose={() => setShowInstaPopup(false)} />
