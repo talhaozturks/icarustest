@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Icarus MUN 2026 | Test SÜRÜMÜ</title>
+    <title>Icarus MUN 2026 | TEST SÜRÜMÜ</title>
     
     <link rel="icon" type="image/png" href="assets/icarus.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -108,6 +108,7 @@
                 countdownText: "Time Remaining",
                 committeesTitle: "Active Committees",
                 clickInfo: "Click for info!",
+                footer: "© 2026 IcarusMUN. All rights reserved.",
                 teamTitle: "The Faces Behind ICARUS",
                 teamDesc: "KADROMUZ",
                 sponsorsTitle: "OUR PARTNERS",
@@ -186,6 +187,7 @@
                 countdownText: "Kalan Süre",
                 committeesTitle: "Aktif Komiteler",
                 clickInfo: "Bilgi için tıkla!",
+                footer: "© 2026 IcarusMUN. Tüm hakları saklıdır.",
                 teamTitle: "The Faces Behind ICARUS",
                 teamDesc: "KADROMUZ",
                 sponsorsTitle: "DESTEKÇİLERİMİZ",
@@ -467,7 +469,7 @@
                     <div className="relative z-10 w-full max-w-md px-6 flex flex-col items-center fade-in">
                         
                         <div className="relative flex items-center justify-center mb-12">
-                            <img src="assets/icarusarkaplansiz.png" alt="Icarus Logo" className="z-10 w-32 h-auto drop-shadow-2xl animate-pulse" onError={(e) => { e.target.src = 'assets/icarus.png'; }} />
+                            <img src="assets/icarusarkaplansiz.png" alt="Icarus Logo" className="z-10 w-32 h-auto drop-shadow-2xl animate-pulse" onError={(e) => { e.target.style.display='none'; }} />
                         </div>
                         
                         <div className="w-full h-[2px] mb-6 bg-slate-300 dark:bg-slate-800 relative overflow-hidden rounded-full">
@@ -475,7 +477,7 @@
                         </div>
                         
                         <div className="mt-4 flex justify-center w-full opacity-80">
-                            <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-24 sm:h-36 md:h-40 w-auto object-contain drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
+                            <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-28 sm:h-44 md:h-48 w-auto object-contain drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
                         </div>
                     </div>
                 </div>
@@ -888,8 +890,9 @@
                         </div>
                     )}
 
-                    <footer className="py-8 flex justify-center items-center bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-                        <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-20 sm:h-28 md:h-32 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
+                    <footer className="py-10 flex flex-col justify-center items-center gap-5 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+                        <img src="assets/imzatalhaozturk.png" alt="Signature" className="h-24 sm:h-32 md:h-40 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity drop-shadow-sm" onError={(e) => { e.target.style.display='none'; }} />
+                        <p className="text-[10px] md:text-xs font-mono text-slate-500 tracking-widest uppercase">{t.footer}</p>
                     </footer>
 
                     <ReelsPopup isOpen={showInstaPopup} onClose={() => setShowInstaPopup(false)} />
