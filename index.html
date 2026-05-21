@@ -100,7 +100,7 @@
 
         const localeData = {
             en: {
-                nav: { home: 'Home', team: 'Team', sponsors: 'Sponsors', forum: 'ICARUSFORUM', apply: 'Apply' },
+                nav: { home: 'Home', about: 'About Us', team: 'Team', sponsors: 'Sponsors', gallery: 'Gallery', apply: 'Apply' },
                 heroSubtitle: "SEPTEMBER 4-5-6",
                 heroTitle: "ICARUS MUN 2026",
                 singleApplyBtn: "APPLY NOW",
@@ -109,13 +109,18 @@
                 committeesTitle: "Active Committees",
                 clickInfo: "Click for info!",
                 footer: "© 2026 IcarusMUN. All rights reserved.",
+                aboutTitle: "ABOUT US",
+                aboutDesc: "OUR PURPOSE & ASPIRATIONS",
+                aboutMissionTitle: "OUR MISSION",
+                aboutMissionText: "We started Icarus MUN with a simple idea: to create a space where young minds can actually feel the weight of global decisions. It's not just about wearing suits and making speeches for us. It's about stepping into the shoes of world leaders, understanding complex crises from completely different perspectives, and realizing that your voice can truly make a difference.",
+                aboutVisionTitle: "OUR VISION",
+                aboutVisionText: "We want to see the delegates of today become the leaders of tomorrow. Our dream is that the debates you have and the friendships you build here at Icarus will stay with you long after the closing ceremony. We envision a future shaped by people who aren't afraid to speak up, collaborate, and tackle the world's toughest problems head-on.",
                 teamTitle: "The Faces Behind ICARUS",
                 teamDesc: "KADROMUZ",
                 sponsorsTitle: "OUR PARTNERS",
                 sponsorsDesc: "Sponsors will be added soon.",
-                forumDesc: "COMMITTEE DISCUSSIONS & RESOLUTIONS",
-                login: "LOGIN",
-                joinDiscussion: "ENTER",
+                galleryTitle: "GALLERY",
+                galleryDesc: "MOMENTS FROM ICARUS",
                 mapGoogle: "Google Maps",
                 mapApple: "Apple Maps",
                 contactTitle: "Contact Us",
@@ -534,6 +539,63 @@
             );
         };
 
+        const AboutView = ({ t }) => (
+            <div className="max-w-7xl mx-auto min-h-[90vh] pt-28 pb-16 px-6 fade-in">
+                <div className="text-center mb-16">
+                    <p className="text-xs font-mono text-gold tracking-[0.3em] mb-2">{t.aboutDesc}</p>
+                    <h1 className="text-4xl md:text-5xl font-serif text-slate-900 dark:text-white">{t.aboutTitle}</h1>
+                    <div className="w-16 h-[1px] bg-gold mx-auto mt-6" />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+                    <div className="p-8 md:p-10 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl shadow-sm hover:border-gold/50 transition-colors group">
+                        <div className="mb-6">
+                            <h2 className="text-2xl font-serif text-slate-900 dark:text-white">{t.aboutMissionTitle}</h2>
+                            <div className="w-12 h-[2px] bg-gold mt-4" />
+                        </div>
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-light text-base md:text-lg">
+                            {t.aboutMissionText}
+                        </p>
+                    </div>
+                    
+                    <div className="p-8 md:p-10 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl shadow-sm hover:border-gold/50 transition-colors group">
+                        <div className="mb-6">
+                            <h2 className="text-2xl font-serif text-slate-900 dark:text-white">{t.aboutVisionTitle}</h2>
+                            <div className="w-12 h-[2px] bg-gold mt-4" />
+                        </div>
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-light text-base md:text-lg">
+                            {t.aboutVisionText}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const GalleryView = ({ t }) => (
+            <div className="max-w-7xl mx-auto min-h-[90vh] pt-28 pb-16 px-4 sm:px-6 fade-in">
+                <div className="text-center mb-16">
+                    <p className="text-xs font-mono text-gold tracking-[0.3em] mb-2">{t.galleryDesc}</p>
+                    <h1 className="text-4xl md:text-5xl font-serif text-slate-900 dark:text-white">{t.galleryTitle}</h1>
+                    <div className="w-16 h-[1px] bg-gold mx-auto mt-6" />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex items-center gap-3 p-4 border-b border-slate-100 dark:border-slate-800">
+                            <img src="assets/icarus_orkun_gulec_fotograf.png" alt="Orkun Güleç" className="w-10 h-10 rounded-full object-cover border border-gold/30" onError={(e) => { e.target.src='assets/orkun_gulec.png'; e.target.onerror = () => { e.target.src='assets/icarus.png'; } }} />
+                            <div className="flex flex-col">
+                                <span className="text-sm font-semibold text-slate-900 dark:text-white">Uploaded by Orkun Güleç</span>
+                                <span className="text-[10px] text-slate-500 font-mono">22.05.2026</span>
+                            </div>
+                        </div>
+                        <div className="w-full aspect-square bg-slate-50 dark:bg-slate-950/50 flex items-center justify-center p-6">
+                            <img src="assets/icarus.png" alt="Gallery Image" className="w-full h-full object-contain drop-shadow-lg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
         const TeamSection = ({ t }) => {
             const teamMembers = [
                 { name: "Orkun Güleç", role: "Secretary General", insta: "orkun12960", img: "assets/orkun_gulec.png" },
@@ -604,34 +666,6 @@
             </div>
         );
 
-        const ForumView = ({ t }) => (
-            <div className="max-w-7xl mx-auto min-h-[90vh] pt-28 pb-16 px-4 sm:px-6 fade-in">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 border-b border-gold/20 pb-6 gap-4">
-                    <div>
-                        <h1 className="text-3xl md:text-4xl font-serif text-slate-900 dark:text-white">{t.nav.forum}</h1>
-                        <p className="text-xs font-mono text-gold mt-2 tracking-widest">{t.forumDesc}</p>
-                    </div>
-                    <button className="px-5 py-2.5 text-xs font-mono tracking-widest text-white bg-gold hover:bg-gold/80 transition-colors shadow-sm rounded-sm">
-                        {t.login}
-                    </button>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-4">
-                    {t.committees.map((com, idx) => (
-                        <div key={idx} className="p-5 sm:p-6 border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 hover:border-gold/50 transition-all duration-300 cursor-pointer group flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 backdrop-blur-sm">
-                            <div>
-                                <h3 className="text-lg font-serif text-slate-900 dark:text-white group-hover:text-gold transition-colors">{com.id.toUpperCase()}</h3>
-                                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 line-clamp-2">{com.details}</p>
-                            </div>
-                            <div className="text-[10px] font-mono text-gold shrink-0 border border-gold/30 px-3 py-2 bg-gold/5 group-hover:bg-gold/10 transition-colors uppercase tracking-widest">
-                                {t.joinDiscussion} &rarr;
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
-
         const MainApp = ({ lang }) => {
             const t = localeData[lang];
             const [view, setView] = useState('home');
@@ -661,10 +695,11 @@
                             </div>
                             
                             <div className="hidden md:flex gap-8 items-center">
-                                <button onClick={() => setView('home')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'home' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.home}</button>
-                                <button onClick={() => setView('team')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'team' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.team}</button>
-                                <button onClick={() => setView('sponsors')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'sponsors' ? 'text-gold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.sponsors}</button>
-                                <button onClick={() => setView('forum')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'forum' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.forum}</button>
+                                <button onClick={() => setView('home')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'home' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.home}</button>
+                                <button onClick={() => setView('about')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'about' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.about}</button>
+                                <button onClick={() => setView('team')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'team' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.team}</button>
+                                <button onClick={() => setView('sponsors')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'sponsors' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.sponsors}</button>
+                                <button onClick={() => setView('gallery')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'gallery' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.gallery}</button>
                                 <button onClick={() => setIsApplyOpen(true)} className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition line-draw">{t.nav.apply}</button>
                                 <button onClick={() => setIsContactOpen(true)} className="p-2 ml-4 rounded-full transition-colors text-slate-500 hover:text-gold dark:text-slate-400 dark:hover:text-gold border border-transparent hover:border-gold/30">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -689,9 +724,10 @@
                     {menuOpen && (
                         <div className="fixed top-16 left-0 w-full bg-white/95 dark:bg-slate-950/95 z-30 flex flex-col p-4 border-b border-gold/20 backdrop-blur-md">
                             <button onClick={() => { setView('home'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'home' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.home}</button>
+                            <button onClick={() => { setView('about'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'about' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.about}</button>
                             <button onClick={() => { setView('team'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'team' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.team}</button>
                             <button onClick={() => { setView('sponsors'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'sponsors' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.sponsors}</button>
-                            <button onClick={() => { setView('forum'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'forum' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.forum}</button>
+                            <button onClick={() => { setView('gallery'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'gallery' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.gallery}</button>
                             <button onClick={() => { setIsApplyOpen(true); setMenuOpen(false); }} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.apply}</button>
                         </div>
                     )}
@@ -700,8 +736,10 @@
                         <TeamSection t={t} />
                     ) : view === 'sponsors' ? (
                         <SponsorsView t={t} />
-                    ) : view === 'forum' ? (
-                        <ForumView t={t} />
+                    ) : view === 'about' ? (
+                        <AboutView t={t} />
+                    ) : view === 'gallery' ? (
+                        <GalleryView t={t} />
                     ) : (
                         <div className="fade-in relative z-10 w-full">
                             <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20">
