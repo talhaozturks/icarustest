@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Icarus MUN 2026 | Nisan'ı seviyorum.</title>
+    <title>Icarus MUN 2026 | Nisan'ı seviyorum</title>
     <link rel="icon" type="image/png" href="assets/icarus.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -501,8 +501,8 @@
                             <div className="h-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.6)]" style={{ width: `${progress}%`, transition: 'width 75ms ease-out' }} />
                         </div>
                         
-                        <div className="text-sm md:text-base font-serif italic text-gold drop-shadow-md tracking-wider">
-                            Bilal Talha ÖZTÜRK tarafından oluşturuldu.
+                        <div className="mt-2 text-xs sm:text-sm font-serif italic text-gold/90 drop-shadow-md tracking-[0.15em] opacity-80">
+                            Bilal Talha ÖZTÜRK <span className="mx-1 text-[10px] text-slate-400 font-sans font-normal">x</span> ICARUS
                         </div>
                     </div>
                 </div>
@@ -548,20 +548,21 @@
         };
 
         const LangSelector = ({ onSelect }) => (
-            <div className="fixed inset-0 z-40 flex items-center justify-center px-4 bg-slate-50 dark:bg-slate-950 bg-grid-pattern transition-colors">
-                <div className="flex flex-col items-center w-full max-w-2xl fade-in">
+            <div className="fixed inset-0 z-40 flex items-center justify-center px-4 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center transition-colors">
+                <div className="absolute inset-0 bg-slate-100/80 dark:bg-slate-950/80 backdrop-blur-md" />
+                <div className="relative z-10 flex flex-col items-center w-full max-w-2xl fade-in">
                     <div className="mb-12 text-center">
-                        <h2 className="mb-4 text-2xl md:text-3xl font-light tracking-widest font-serif text-slate-800 dark:text-slate-200">Select Language</h2>
+                        <h2 className="mb-4 text-2xl md:text-3xl font-light tracking-widest font-serif text-slate-900 dark:text-white drop-shadow-sm">Select Language</h2>
                         <div className="w-20 h-[1px] mx-auto bg-gold/50" />
                     </div>
                     <div className="flex flex-col sm:flex-row gap-6">
-                        <button onClick={() => onSelect('en')} className="w-52 p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80 transition-colors group flex flex-col items-center justify-center">
-                            <img src="assets/icarus_british_bayrak_dil_secim.png" alt="English Flag" className="w-24 h-16 mb-4 object-cover opacity-80 transition-opacity drop-shadow-sm group-hover:opacity-100" onError={(e) => { e.target.style.display='none'; }} />
-                            <span className="text-sm tracking-widest font-mono text-slate-500 dark:text-slate-400 group-hover:text-gold">ENGLISH</span>
+                        <button onClick={() => onSelect('en')} className="w-52 p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white/90 dark:bg-slate-900/90 shadow-lg hover:shadow-gold/20 transition-all duration-300 group flex flex-col items-center justify-center backdrop-blur-sm rounded-sm">
+                            <img src="assets/icarus_british_bayrak_dil_secim.png" alt="English Flag" className="w-24 h-16 mb-4 object-cover opacity-85 transition-opacity drop-shadow-md group-hover:opacity-100 group-hover:scale-105 duration-300" onError={(e) => { e.target.style.display='none'; }} />
+                            <span className="text-sm tracking-widest font-mono text-slate-500 dark:text-slate-400 group-hover:text-gold transition-colors">ENGLISH</span>
                         </button>
-                        <button onClick={() => onSelect('tr')} className="w-52 p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white dark:bg-slate-900/80 transition-colors group flex flex-col items-center justify-center">
-                            <img src="assets/icarus_turkish_bayrak_dil_secim.png" alt="Türkçe Bayrak" className="w-24 h-16 mb-4 object-cover opacity-80 transition-opacity drop-shadow-sm group-hover:opacity-100" onError={(e) => { e.target.style.display='none'; }} />
-                            <span className="text-sm tracking-widest font-mono text-slate-500 dark:text-slate-400 group-hover:text-gold">TÜRKÇE</span>
+                        <button onClick={() => onSelect('tr')} className="w-52 p-8 border border-slate-200 dark:border-slate-800 hover:border-gold/60 bg-white/90 dark:bg-slate-900/90 shadow-lg hover:shadow-gold/20 transition-all duration-300 group flex flex-col items-center justify-center backdrop-blur-sm rounded-sm">
+                            <img src="assets/icarus_turkish_bayrak_dil_secim.png" alt="Türkçe Bayrak" className="w-24 h-16 mb-4 object-cover opacity-85 transition-opacity drop-shadow-md group-hover:opacity-100 group-hover:scale-105 duration-300" onError={(e) => { e.target.style.display='none'; }} />
+                            <span className="text-sm tracking-widest font-mono text-slate-500 dark:text-slate-400 group-hover:text-gold transition-colors">TÜRKÇE</span>
                         </button>
                     </div>
                 </div>
