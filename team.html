@@ -33,6 +33,12 @@
 
         html.dark body { background-color: #020617; color: #f8fafc; }
         html.light body { background-color: #f8fafc; color: #1e293b; }
+
+        body.modal-open { overflow: hidden !important; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
@@ -54,7 +60,7 @@
             { name: "Muhammet Ali Bolu", role: "Observer", insta: "_slmbnmamii", img: "assets/muhammet_ali_bolu.png" }
         ];
 
-        const Navbar = () => (
+        const Navbar = ({ onOpenApply }) => (
             <nav className="fixed top-0 inset-x-0 z-40 bg-white/95 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center justify-between h-16 md:h-20 max-w-7xl mx-auto px-6">
                     <a href="/" className="flex items-center gap-3">
@@ -65,9 +71,11 @@
                         </div>
                     </a>
                     
-                    <div className="flex gap-8 items-center">
-                        <a href="/" className="text-xs uppercase tracking-widest font-medium text-slate-500 hover:text-gold transition-colors">Home</a>
-                        <span className="text-xs uppercase tracking-widest font-bold text-gold">Team</span>
+                    <div className="flex gap-4 sm:gap-8 items-center">
+                        <a href="/" className="hidden sm:block text-xs uppercase tracking-widest font-medium text-slate-500 hover:text-gold transition-colors">Home</a>
+                        <span className="hidden sm:block text-xs uppercase tracking-widest font-bold text-gold">Team</span>
+                        <a href="/sponsors" className="text-xs uppercase tracking-widest font-medium text-slate-500 hover:text-gold transition-colors">Sponsors</a>
+                        <button onClick={onOpenApply} className="text-xs uppercase tracking-widest font-medium text-slate-500 hover:text-gold transition-colors">Apply</button>
                     </div>
                 </div>
             </nav>
@@ -107,8 +115,62 @@
             </div>
         );
 
+        const ApplyModal = ({ isOpen, onClose }) => {
+            useEffect(() => {
+                document.body.classList.toggle('modal-open', isOpen);
+                return () => document.body.classList.remove('modal-open');
+            }, [isOpen]);
+
+            if (!isOpen) return null;
+
+            return ReactDOM.createPortal(
+                <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 bg-slate-950/80 backdrop-blur-sm" style={{ animation: 'fadeIn 0.3s ease-out forwards' }}>
+                    <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
+                    <div className="relative z-10 w-full max-w-5xl bg-white dark:bg-slate-950 border border-gold/40 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+                        <div className="flex items-center justify-between p-6 border-b border-gold/20 bg-slate-50/90 dark:bg-slate-900/90 backdrop-blur-md">
+                            <h2 className="text-2xl md:text-3xl font-serif text-slate-900 dark:text-white">Application Options</h2>
+                            <button onClick={onClose} className="p-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-500 hover:text-gold transition-colors">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                            </button>
+                        </div>
+                        
+                        <div className="p-6 md:p-10 overflow-y-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-gold/50 transition-colors rounded-lg group text-center">
+                                    <img src="assets/icarus_delegeler.png" alt="Individual Application" className="h-20 w-auto object-contain mb-6 group-hover:scale-110 transition-transform" onError={(e) => { e.target.style.display='none'; }} />
+                                    <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">Individual Application</h3>
+                                    <p className="text-lg font-mono text-gold mb-6">600 TL</p>
+                                    <div className="flex-1" />
+                                    <button className="w-full py-3 text-xs tracking-widest font-mono text-white bg-gold hover:bg-gold/80 transition-colors rounded">APPLY</button>
+                                </div>
+
+                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-gold/50 transition-colors rounded-lg group text-center">
+                                    <img src="assets/icarus_delegasyon.png" alt="Delegation Application" className="h-20 w-auto object-contain mb-6 group-hover:scale-110 transition-transform" onError={(e) => { e.target.style.display='none'; }} />
+                                    <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">Delegation Application</h3>
+                                    <p className="text-lg font-mono text-gold mb-2">550 TL (Per Person)</p>
+                                    <p className="text-[10px] text-slate-500 mb-6 px-2">A minimum of 5 people is required for delegation.</p>
+                                    <div className="flex-1" />
+                                    <button className="w-full py-3 text-xs tracking-widest font-mono text-white bg-gold hover:bg-gold/80 transition-colors rounded">APPLY</button>
+                                </div>
+
+                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-slate-400 dark:hover:border-slate-500 transition-colors rounded-lg group text-center">
+                                    <img src="assets/icarus_ziyaretci.png" alt="Visitor" className="h-20 w-auto object-contain mb-6 group-hover:scale-110 transition-transform opacity-85 group-hover:opacity-100" onError={(e) => { e.target.style.display='none'; }} />
+                                    <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">Visitor</h3>
+                                    <p className="text-lg font-mono text-slate-500 dark:text-slate-400 mb-6">300 TL</p>
+                                    <div className="flex-1" />
+                                    <button className="w-full py-3 text-xs tracking-widest font-mono text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors rounded">APPLY</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>,
+                document.body
+            );
+        };
+
         const MainApp = () => {
             const [dark, setDark] = useState(false);
+            const [isApplyOpen, setIsApplyOpen] = useState(false);
 
             useEffect(() => {
                 document.documentElement.classList.toggle('dark', dark);
@@ -117,7 +179,7 @@
 
             return (
                 <div className="min-h-screen flex flex-col">
-                    <Navbar />
+                    <Navbar onOpenApply={() => setIsApplyOpen(true)} />
 
                     <main className="flex-1 max-w-5xl mx-auto w-full px-6 pt-32 pb-20">
                         <div className="text-center mb-16">
@@ -150,6 +212,8 @@
                             )}
                         </svg>
                     </button>
+                    
+                    <ApplyModal isOpen={isApplyOpen} onClose={() => setIsApplyOpen(false)} />
                 </div>
             );
         };
