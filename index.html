@@ -631,9 +631,8 @@
                         <GalleryView t={t} />
                     ) : (
                         <div className="fade-in relative z-10 w-full">
-                            <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20 bg-slate-50 dark:bg-slate-950">
-                                <div className="absolute inset-0 z-0 bg-grid-pattern opacity-50 dark:opacity-20" />
-                                <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent to-slate-50 dark:to-slate-950" />
+                            <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20">
+                                <div className="absolute inset-0 z-0 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center opacity-30 dark:opacity-20" />
 
                                 <main className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl mx-auto px-4 pt-24 pb-16 sm:pt-32 sm:pb-20 sm:px-6 gap-12 lg:gap-16">
                                     <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
@@ -727,7 +726,9 @@
         };
 
         const MainRoot = () => {
-            const [stage, setStage] = useState('LOADING');
+            const [stage, setStage] = useState(() => {
+                return sessionStorage.getItem('hasSeenLoader') ? 'MAIN' : 'LOADING';
+            });
             const [dark, setDark] = useState(false);
 
             useEffect(() => {
@@ -735,9 +736,14 @@
                 document.documentElement.classList.toggle('light', !dark);
             }, [dark]);
 
+            const handleLoaderComplete = () => {
+                sessionStorage.setItem('hasSeenLoader', 'true');
+                setStage('MAIN');
+            };
+
             return (
                 <>
-                    {stage === 'LOADING' && <Loader onComplete={() => setStage('MAIN')} />}
+                    {stage === 'LOADING' && <Loader onComplete={handleLoaderComplete} />}
                     {stage === 'MAIN' && <MainApp lang="en" />}
 
                     {stage !== 'LOADING' && (
