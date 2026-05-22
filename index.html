@@ -347,9 +347,13 @@
                     setProgress(p => (p >= 100 ? 100 : p + step));
                 }, 50);
                 
-                setTimeout(onComplete, 3500);
-                return () => clearInterval(timer);
-            }, []);
+                const timeout = setTimeout(onComplete, 3500);
+                
+                return () => {
+                    clearInterval(timer);
+                    clearTimeout(timeout);
+                };
+            }, [onComplete]);
 
             return (
                 <div className="fixed inset-0 z-50 flex flex-col items-center justify-center transition-colors bg-slate-100 dark:bg-slate-950">
@@ -697,9 +701,21 @@
 
         const MainRoot = () => {
             const [stage, setStage] = useState(() => {
-                const ref = document.referrer.toLowerCase();
-                const isFromExternalPage = ref.includes('/team') || ref.includes('/sponsors') || ref.includes('kadromuz.html') || ref.includes('sponsors.html');
-                return isFromExternalPage ? 'MAIN' : 'LOADING';
+                let skipLoader = false;
+                try {
+                    if (document.referrer) {
+                        const refUrl = new URL(document.referrer);
+                        if (refUrl.hostname === window.location.hostname) {
+                            const path = refUrl.pathname.toLowerCase();
+                            if (path.includes('team') || path.includes('sponsors') || path.includes('kadromuz')) {
+                                skipLoader = true;
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error("Referrer parse error", e);
+                }
+                return skipLoader ? 'MAIN' : 'LOADING';
             });
             const [dark, setDark] = useState(false);
 
