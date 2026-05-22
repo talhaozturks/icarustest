@@ -1,1 +1,219 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Kitty - Tıkla!</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a cute typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #ffe4e1 0%, #ffc0cb 100%);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
+        /* Float animation for background hearts */
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.5) rotate(360deg); opacity: 0; }
+        }
+
+        .bg-heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.3);
+            z-index: 0;
+            animation: float linear infinite;
+        }
+
+        /* Bubble pop animation */
+        .bubble-enter {
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Floating tiny hearts from the button */
+        @keyframes mini-float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.5) translateX(calc(-50px + 100px * var(--dir))); opacity: 0; }
+        }
+
+        .mini-heart {
+            position: absolute;
+            color: #ff1493;
+            font-size: 24px;
+            pointer-events: none;
+            animation: mini-float 1s ease-out forwards;
+            z-index: 50;
+        }
+
+        /* Hello Kitty Eye Wink */
+        .wink {
+            transform-origin: center;
+            animation: winking 0.4s ease-in-out;
+        }
+        @keyframes winking {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+
+    <!-- Background decorative elements -->
+    <div id="bg-decorations" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
+    <main class="relative z-10 flex flex-col items-center mt-12 md:mt-0">
+        
+        <!-- Speech Bubble (Hidden by default) -->
+        <div id="speechBubble" class="absolute -top-16 md:-top-24 left-1/2 transform -translate-x-1/2 md:translate-x-0 md:-left-20 bg-white border-4 border-black text-pink-500 px-6 py-4 rounded-[2rem] text-2xl md:text-3xl font-black text-center shadow-2xl opacity-0 scale-0 origin-bottom bubble-enter z-20 w-[300px] md:w-[350px]">
+            Seni sonsuza kadar seveceğim! 💖
+            <!-- Bubble Tail -->
+            <div class="absolute -bottom-[18px] left-1/2 transform -translate-x-1/2 md:translate-x-0 md:left-[60px] w-0 h-0 border-l-[16px] border-l-transparent border-t-[20px] border-t-black border-r-[16px] border-r-transparent"></div>
+            <div class="absolute -bottom-[10px] left-1/2 transform -translate-x-1/2 md:translate-x-0 md:left-[64px] w-0 h-0 border-l-[12px] border-l-transparent border-t-[16px] border-t-white border-r-[12px] border-r-transparent"></div>
+        </div>
+
+        <!-- Hello Kitty SVG Container -->
+        <div class="relative w-[320px] h-[320px] md:w-[450px] md:h-[450px] mb-8 drop-shadow-[0_10px_20px_rgba(0,0,0,0.15)]">
+            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <!-- BASE/OUTLINE LAYER (Thick Black Border) -->
+                <g stroke="#1a1a1a" stroke-width="14" stroke-linejoin="round" stroke-linecap="round" fill="#1a1a1a">
+                    <!-- Left Ear Outline - More cylindrical/rounded -->
+                    <path d="M 100 120 C 70 80, 75 40, 100 45 C 130 50, 140 80, 150 110 Z" />
+                    <!-- Right Ear Outline - More cylindrical/rounded -->
+                    <path d="M 300 120 C 330 80, 325 40, 300 45 C 270 50, 260 80, 250 110 Z" />
+                    <!-- Main Face Outline - Slightly wider and flatter at the bottom for authenticity -->
+                    <ellipse cx="200" cy="220" rx="170" ry="125" />
+                </g>
+
+                <!-- WHITE FILL LAYER (Kitty's face) -->
+                <g fill="#ffffff">
+                    <!-- Left Ear Fill -->
+                    <path d="M 100 120 C 70 80, 75 40, 100 45 C 130 50, 140 80, 150 110 Z" />
+                    <!-- Right Ear Fill -->
+                    <path d="M 300 120 C 330 80, 325 40, 300 45 C 270 50, 260 80, 250 110 Z" />
+                    <!-- Main Face Fill -->
+                    <ellipse cx="200" cy="220" rx="170" ry="125" />
+                </g>
+
+                <!-- DETAILS LAYER -->
+                
+                <!-- Whiskers (3 on each side) - Positioned slightly lower -->
+                <g stroke="#1a1a1a" stroke-width="10" stroke-linecap="round">
+                    <!-- Left Whiskers -->
+                    <line x1="80" y1="200" x2="10" y2="185" />
+                    <line x1="75" y1="230" x2="5" y2="230" />
+                    <line x1="80" y1="260" x2="10" y2="275" />
+                    
+                    <!-- Right Whiskers -->
+                    <line x1="320" y1="200" x2="390" y2="185" />
+                    <line x1="325" y1="230" x2="395" y2="230" />
+                    <line x1="320" y1="260" x2="390" y2="275" />
+                </g>
+
+                <!-- Eyes (Black Ovals) - Placed low and wide -->
+                <ellipse id="leftEye" cx="125" cy="235" rx="12" ry="18" fill="#1a1a1a" class="transform origin-center" style="transform-origin: 125px 235px;" />
+                <ellipse id="rightEye" cx="275" cy="235" rx="12" ry="18" fill="#1a1a1a" class="transform origin-center" style="transform-origin: 275px 235px;" />
+
+                <!-- Nose (Yellow Oval) - Center-bottom -->
+                <ellipse cx="200" cy="265" rx="18" ry="12" fill="#FFD700" stroke="#1a1a1a" stroke-width="7" />
+
+                <!-- The Bow (Kurdele) -->
+                <!-- Positioned on the right ear -->
+                <g class="transform" style="transform-origin: 280px 90px;">
+                    <!-- Left Wing -->
+                    <path d="M 285 90 C 220 30, 200 90, 215 110 C 230 130, 250 110, 285 90 Z" fill="#FF2D55" stroke="#1a1a1a" stroke-width="10" stroke-linejoin="round"/>
+                    <!-- Right Wing -->
+                    <path d="M 275 90 C 340 30, 360 90, 345 110 C 330 130, 310 110, 275 90 Z" fill="#FF2D55" stroke="#1a1a1a" stroke-width="10" stroke-linejoin="round"/>
+                    <!-- Center Circle -->
+                    <circle cx="280" cy="90" r="22" fill="#FF2D55" stroke="#1a1a1a" stroke-width="10" />
+                    
+                    <!-- Bow inner creases for 3D/realistic look -->
+                    <path d="M 245 75 Q 260 85 255 105" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round" fill="none"/>
+                    <path d="M 315 75 Q 300 85 305 105" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round" fill="none"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Interactive Button -->
+        <div class="relative z-30">
+            <button id="clickBtn" class="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600 text-white font-black text-3xl md:text-4xl px-12 py-5 rounded-full shadow-[0_10px_0_#9f1239] hover:shadow-[0_5px_0_#9f1239] hover:translate-y-[5px] active:shadow-[0_0px_0_#9f1239] active:translate-y-[10px] transition-all duration-150 flex items-center gap-3">
+                <span>TIKLA!</span>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('clickBtn');
+            const bubble = document.getElementById('speechBubble');
+            const leftEye = document.getElementById('leftEye');
+            const rightEye = document.getElementById('rightEye');
+            const body = document.body;
+
+            // Generate background floating hearts
+            const bgContainer = document.getElementById('bg-decorations');
+            for(let i = 0; i < 15; i++) {
+                let heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.className = 'bg-heart text-4xl md:text-6xl';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                bgContainer.appendChild(heart);
+            }
+
+            // Button Click Event
+            btn.addEventListener('click', (e) => {
+                // Show speech bubble
+                bubble.classList.remove('opacity-0', 'scale-0');
+                bubble.classList.add('opacity-100', 'scale-100');
+
+                // Wink animation
+                leftEye.classList.remove('wink');
+                rightEye.classList.remove('wink');
+                // Trigger reflow
+                void leftEye.offsetWidth;
+                // Add wink class
+                leftEye.classList.add('wink');
+                rightEye.classList.add('wink');
+
+                // Spawn exploding mini hearts
+                createMiniHearts(e.clientX, e.clientY);
+            });
+
+            function createMiniHearts(x, y) {
+                // Fallback coordinates if click position is somehow unavailable
+                const rect = btn.getBoundingClientRect();
+                const startX = x || (rect.left + rect.width / 2);
+                const startY = y || (rect.top + rect.height / 2);
+
+                for (let i = 0; i < 8; i++) {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💖';
+                    heart.className = 'mini-heart';
+                    
+                    // Set custom property for random X direction spread
+                    heart.style.setProperty('--dir', Math.random());
+                    
+                    heart.style.left = (startX - 15) + 'px';
+                    heart.style.top = (startY - 15) + 'px';
+                    
+                    document.body.appendChild(heart);
+
+                    // Remove after animation finishes
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
