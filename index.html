@@ -78,18 +78,6 @@
 
         html.dark body { background-color: #020617; color: #f8fafc; }
         html.light body { background-color: #f8fafc; color: #1e293b; }
-        
-        .globe-scroll { animation: scrollGlobe 25s linear infinite; }
-        @keyframes scrollGlobe {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); } 
-        }
-
-        .map-bg-scroll { animation: scrollMapBg 60s linear infinite; }
-        @keyframes scrollMapBg {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); } 
-        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
@@ -237,31 +225,6 @@
             ]
         };
 
-        const AnimatedMap = () => (
-            <svg className="absolute top-0 left-0 w-[200%] h-full text-gold map-bg-scroll z-0 pointer-events-none" viewBox="0 0 2000 500" fill="none" stroke="currentColor" strokeWidth="0.75" preserveAspectRatio="none">
-                <g opacity="0.3">
-                    <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M450,200 Q550,180 580,250 T500,400 Q450,420 420,320 Q400,250 450,200 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M820,300 Q880,280 920,320 T880,400 Q820,400 800,350 Q780,300 820,300 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M350,30 Q420,20 400,60 Q380,80 340,60 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M 0 125 L 1000 125 M 0 250 L 1000 250 M 0 375 L 1000 375" strokeDasharray="10 10" opacity="0.3"/>
-                    <path d="M 250 0 L 250 500 M 500 0 L 500 500 M 750 0 L 750 500" strokeDasharray="10 10" opacity="0.3"/>
-                </g>
-                <g transform="translate(1000, 0)" opacity="0.3">
-                    <path d="M120,60 Q180,30 250,50 T300,120 Q320,180 250,220 Q180,240 150,180 Q100,120 120,60 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M230,230 Q280,220 300,280 T260,420 Q230,450 210,350 Q180,280 230,230 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M450,50 Q600,20 800,40 T950,150 Q980,220 880,200 Q800,180 750,250 Q650,280 550,220 Q480,250 420,150 Q400,80 450,50 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M450,200 Q550,180 580,250 T500,400 Q450,420 420,320 Q400,250 450,200 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M820,300 Q880,280 920,320 T880,400 Q820,400 800,350 Q780,300 820,300 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M350,30 Q420,20 400,60 Q380,80 340,60 Z" fill="rgba(212, 175, 55, 0.05)" />
-                    <path d="M 0 125 L 1000 125 M 0 250 L 1000 250 M 0 375 L 1000 375" strokeDasharray="10 10" opacity="0.3"/>
-                    <path d="M 250 0 L 250 500 M 500 0 L 500 500 M 750 0 L 750 500" strokeDasharray="10 10" opacity="0.3"/>
-                </g>
-            </svg>
-        );
-
         const ReelsPopup = ({ isOpen, onClose }) => {
             const videoRef = useRef(null);
             const [isPlaying, setIsPlaying] = useState(false);
@@ -340,9 +303,9 @@
                     
                     <div className="relative z-10 flex flex-col w-full max-w-5xl h-[85vh] sm:h-[80vh] bg-slate-50 dark:bg-slate-950 border border-gold/40 rounded-xl overflow-hidden shadow-2xl">
                         
-                        <div className="absolute inset-0 z-0 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center opacity-10 dark:opacity-15 pointer-events-none" />
+                        <div className="absolute inset-0 z-0 bg-slate-100 dark:bg-slate-900 pointer-events-none" />
 
-                        <button onClick={onClose} className="absolute top-4 right-4 p-2 z-50 rounded-full bg-white/50 dark:bg-slate-900/50 text-slate-500 hover:text-gold transition-colors">
+                        <button onClick={onClose} className="absolute top-4 right-4 p-2 z-50 rounded-full bg-white/50 dark:bg-slate-800/50 text-slate-500 hover:text-gold transition-colors">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                         </button>
 
@@ -596,17 +559,6 @@
             </div>
         );
 
-        const SponsorsView = ({ t }) => (
-            <div className="max-w-7xl mx-auto min-h-[90vh] pt-28 pb-16 px-6 fade-in">
-                <div className="text-center mb-16">
-                    <p className="text-xs font-mono text-gold tracking-[0.3em] mb-2">{t.nav.sponsors.toUpperCase()}</p>
-                    <h1 className="text-4xl md:text-5xl font-serif text-slate-900 dark:text-white">{t.sponsorsTitle}</h1>
-                    <div className="w-16 h-[1px] bg-gold mx-auto mt-6" />
-                </div>
-                <div className="flex justify-center text-slate-500">{t.sponsorsDesc}</div>
-            </div>
-        );
-
         const MainApp = ({ lang }) => {
             const t = localeData[lang];
             const [view, setView] = useState('home');
@@ -639,7 +591,7 @@
                                 <button onClick={() => setView('home')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'home' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.home}</button>
                                 <button onClick={() => setView('about')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'about' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.about}</button>
                                 <button onClick={() => window.location.href='/team'} className="text-sm uppercase tracking-wide transition line-draw text-slate-600 dark:text-slate-300 hover:text-gold">{t.nav.team}</button>
-                                <button onClick={() => setView('sponsors')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'sponsors' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.sponsors}</button>
+                                <button onClick={() => window.location.href='/sponsors'} className="text-sm uppercase tracking-wide transition line-draw text-slate-600 dark:text-slate-300 hover:text-gold">{t.nav.sponsors}</button>
                                 <button onClick={() => setView('gallery')} className={`text-sm uppercase tracking-wide transition line-draw ${view === 'gallery' ? 'text-gold font-bold' : 'text-slate-600 dark:text-slate-300 hover:text-gold'}`}>{t.nav.gallery}</button>
                                 <button onClick={() => setIsApplyOpen(true)} className="text-sm uppercase tracking-wide text-slate-600 dark:text-slate-300 hover:text-gold transition line-draw">{t.nav.apply}</button>
                                 <button onClick={() => setIsContactOpen(true)} className="p-2 ml-4 rounded-full transition-colors text-slate-500 hover:text-gold dark:text-slate-400 dark:hover:text-gold border border-transparent hover:border-gold/30">
@@ -667,23 +619,21 @@
                             <button onClick={() => { setView('home'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'home' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.home}</button>
                             <button onClick={() => { setView('about'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'about' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.about}</button>
                             <button onClick={() => window.location.href='/team'} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.team}</button>
-                            <button onClick={() => { setView('sponsors'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'sponsors' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.sponsors}</button>
+                            <button onClick={() => window.location.href='/sponsors'} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.sponsors}</button>
                             <button onClick={() => { setView('gallery'); setMenuOpen(false); }} className={`py-3 text-left font-medium ${view === 'gallery' ? 'text-gold' : 'text-slate-800 dark:text-slate-200'}`}>{t.nav.gallery}</button>
                             <button onClick={() => { setIsApplyOpen(true); setMenuOpen(false); }} className="py-3 text-left font-medium text-slate-800 dark:text-slate-200">{t.nav.apply}</button>
                         </div>
                     )}
 
-                    {view === 'sponsors' ? (
-                        <SponsorsView t={t} />
-                    ) : view === 'about' ? (
+                    {view === 'about' ? (
                         <AboutView t={t} />
                     ) : view === 'gallery' ? (
                         <GalleryView t={t} />
                     ) : (
                         <div className="fade-in relative z-10 w-full">
-                            <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20">
-                                <div className="absolute inset-0 z-0 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center opacity-30 dark:opacity-20" />
-                                <AnimatedMap />
+                            <div className="relative flex flex-col items-center justify-center w-full min-h-[90vh] overflow-hidden border-b border-gold/20 bg-slate-50 dark:bg-slate-950">
+                                <div className="absolute inset-0 z-0 bg-grid-pattern opacity-50 dark:opacity-20" />
+                                <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent to-slate-50 dark:to-slate-950" />
 
                                 <main className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl mx-auto px-4 pt-24 pb-16 sm:pt-32 sm:pb-20 sm:px-6 gap-12 lg:gap-16">
                                     <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
@@ -715,8 +665,8 @@
                                 </main>
                             </div>
 
-                            <section className="relative py-12 overflow-hidden transition-colors sm:py-24 border-t border-slate-300 dark:border-slate-800 bg-[url('assets/icarusyuklenme2.png')] bg-cover bg-center bg-no-repeat">
-                                <div className="absolute inset-0 bg-slate-100/80 dark:bg-slate-950/80 backdrop-blur-[2px]" />
+                            <section className="relative py-12 overflow-hidden transition-colors sm:py-24 border-t border-slate-300 dark:border-slate-800">
+                                <div className="absolute inset-0 bg-slate-50 dark:bg-slate-950" />
                                 <div className="relative z-10 flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6">
                                     <h2 className="flex items-center justify-center w-full gap-3 mb-6 text-2xl text-center transition-colors sm:text-3xl md:text-4xl sm:gap-4 sm:mb-8 font-serif text-slate-900 dark:text-slate-100 drop-shadow-sm">
                                         <img src="assets/Istanbul_Aydın_University_logo.svg.png" alt="İAÜ Logo" className="w-auto h-8 object-contain sm:h-12 md:h-14 drop-shadow" onError={(e) => { e.target.style.display='none'; }} />
