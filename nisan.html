@@ -3,217 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Kitty - Tıkla!</title>
-    <!-- Tailwind CSS for styling -->
+    <title>Gizli Mesaj</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for a cute typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #fdfbf7; /* Hafif sarımsı kağıt rengi */
+            --line-color: #333; /* Siyah çizgiler */
+            --ink-color: #1a1a1a; /* Koyu mürekkep rengi */
+            --highlight-color: #ffb7b2; /* Pembe kurdele rengi */
+        }
+
         body {
-            font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #ffe4e1 0%, #ffc0cb 100%);
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            font-family: 'Caveat', cursive; /* Dağınık el yazısı fontu */
+            overflow: hidden;
         }
 
-        /* Float animation for background hearts */
-        @keyframes float {
-            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.5) rotate(360deg); opacity: 0; }
+        .notebook-page {
+            background-color: var(--bg-color);
+            width: 90vw;
+            max-width: 400px;
+            height: 300px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            /* Defter çizgileri oluşturma */
+            background-image: 
+                linear-gradient(transparent 95%, var(--line-color) 95%),
+                linear-gradient(transparent 95%, var(--line-color) 95%);
+            background-size: 100% 40px;
+            padding-top: 40px; /* İlk çizgiden önce boşluk */
+            transform: rotate(-2deg); /* Hafif yamuk duruş */
+            transition: transform 0.3s ease;
+        }
+        
+        .notebook-page:hover {
+            transform: rotate(-1deg) scale(1.02);
         }
 
-        .bg-heart {
+        /* Sol taraftaki kırmızı dikey çizgi (opsiyonel ama defter hissini artırır) */
+        .notebook-page::before {
+            content: '';
             position: absolute;
-            color: rgba(255, 105, 180, 0.3);
-            z-index: 0;
-            animation: float linear infinite;
+            top: 0;
+            bottom: 0;
+            left: 40px;
+            width: 2px;
+            background-color: rgba(255, 0, 0, 0.3);
+            z-index: 1;
         }
 
-        /* Bubble pop animation */
-        .bubble-enter {
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .text-container {
+            position: relative;
+            z-index: 2;
+            padding-left: 60px; /* Kırmızı çizgiyi geçmesi için */
+            padding-right: 20px;
+            padding-top: 5px;
+            font-size: 2.5rem;
+            color: var(--ink-color);
+            line-height: 40px; /* Çizgi aralığıyla aynı olmalı */
+            letter-spacing: 1px;
+            transform: rotate(1deg); /* Yazı da biraz yamuk */
         }
 
-        /* Floating tiny hearts from the button */
-        @keyframes mini-float {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100px) scale(1.5) translateX(calc(-50px + 100px * var(--dir))); opacity: 0; }
+        .hidden-word {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            padding: 0 5px;
+            white-space: nowrap;
         }
 
-        .mini-heart {
+        .hidden-word span {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .hidden-word.revealed span {
+            opacity: 1;
+        }
+
+        .ribbon-wrapper {
             position: absolute;
-            color: #ff1493;
-            font-size: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 120%;
+            z-index: 3;
+            transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none; /* SVG'nin tıklamayı engellememesi için */
+        }
+
+        /* Kurdele çizimi için SVG stili */
+        .ribbon-svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--highlight-color);
+            filter: drop-shadow(2px 3px 2px rgba(0,0,0,0.2));
+        }
+
+        .hidden-word.revealed .ribbon-wrapper {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.5);
             pointer-events: none;
-            animation: mini-float 1s ease-out forwards;
-            z-index: 50;
         }
 
-        /* Hello Kitty Eye Wink */
-        .wink {
-            transform-origin: center;
-            animation: winking 0.4s ease-in-out;
+        /* Küçük bir mürekkep lekesi detayı */
+        .ink-blot {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            width: 15px;
+            height: 12px;
+            background-color: var(--ink-color);
+            border-radius: 50% 40% 60% 30%;
+            opacity: 0.6;
+            filter: blur(1px);
         }
-        @keyframes winking {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(0.1); }
-        }
+
     </style>
 </head>
+<body>
 
-<body class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-
-    <!-- Background decorative elements -->
-    <div id="bg-decorations" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
-
-    <main class="relative z-10 flex flex-col items-center mt-12 md:mt-0">
-        
-        <!-- Speech Bubble (Hidden by default) -->
-        <div id="speechBubble" class="absolute -top-16 md:-top-24 left-1/2 transform -translate-x-1/2 md:translate-x-0 md:-left-20 bg-white border-4 border-black text-pink-500 px-6 py-4 rounded-[2rem] text-2xl md:text-3xl font-black text-center shadow-2xl opacity-0 scale-0 origin-bottom bubble-enter z-20 w-[300px] md:w-[350px]">
-            Seni sonsuza kadar seveceğim! 💖
-            <!-- Bubble Tail -->
-            <div class="absolute -bottom-[18px] left-1/2 transform -translate-x-1/2 md:translate-x-0 md:left-[60px] w-0 h-0 border-l-[16px] border-l-transparent border-t-[20px] border-t-black border-r-[16px] border-r-transparent"></div>
-            <div class="absolute -bottom-[10px] left-1/2 transform -translate-x-1/2 md:translate-x-0 md:left-[64px] w-0 h-0 border-l-[12px] border-l-transparent border-t-[16px] border-t-white border-r-[12px] border-r-transparent"></div>
+    <div class="notebook-page">
+        <div class="text-container">
+            Nisan oraya gidersen seni <span class="hidden-word" id="secretWord" onclick="revealSecret()">
+                <span>SİKERİM</span>
+                <div class="ribbon-wrapper" id="ribbonWrapper">
+                    <!-- Özel çizim kurdele SVG'si -->
+                    <svg viewBox="0 0 100 60" class="ribbon-svg" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 30 C 30 10, 10 20, 20 40 C 30 60, 45 40, 50 30 C 55 40, 70 60, 80 40 C 90 20, 70 10, 50 30 Z" />
+                        <path d="M 45 35 L 20 55 C 15 60, 10 50, 15 45 L 40 30 Z" fill="#e6a5a0"/>
+                        <path d="M 55 35 L 80 55 C 85 60, 90 50, 85 45 L 60 30 Z" fill="#e6a5a0"/>
+                        <circle cx="50" cy="30" r="6" fill="#cc8e88" />
+                    </svg>
+                </div>
+            </span>
         </div>
-
-        <!-- Hello Kitty SVG Container -->
-        <div class="relative w-[320px] h-[320px] md:w-[450px] md:h-[450px] mb-8 drop-shadow-[0_10px_20px_rgba(0,0,0,0.15)]">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                <!-- BASE/OUTLINE LAYER (Thick Black Border) -->
-                <g stroke="#1a1a1a" stroke-width="14" stroke-linejoin="round" stroke-linecap="round" fill="#1a1a1a">
-                    <!-- Left Ear Outline - More cylindrical/rounded -->
-                    <path d="M 100 120 C 70 80, 75 40, 100 45 C 130 50, 140 80, 150 110 Z" />
-                    <!-- Right Ear Outline - More cylindrical/rounded -->
-                    <path d="M 300 120 C 330 80, 325 40, 300 45 C 270 50, 260 80, 250 110 Z" />
-                    <!-- Main Face Outline - Slightly wider and flatter at the bottom for authenticity -->
-                    <ellipse cx="200" cy="220" rx="170" ry="125" />
-                </g>
-
-                <!-- WHITE FILL LAYER (Kitty's face) -->
-                <g fill="#ffffff">
-                    <!-- Left Ear Fill -->
-                    <path d="M 100 120 C 70 80, 75 40, 100 45 C 130 50, 140 80, 150 110 Z" />
-                    <!-- Right Ear Fill -->
-                    <path d="M 300 120 C 330 80, 325 40, 300 45 C 270 50, 260 80, 250 110 Z" />
-                    <!-- Main Face Fill -->
-                    <ellipse cx="200" cy="220" rx="170" ry="125" />
-                </g>
-
-                <!-- DETAILS LAYER -->
-                
-                <!-- Whiskers (3 on each side) - Positioned slightly lower -->
-                <g stroke="#1a1a1a" stroke-width="10" stroke-linecap="round">
-                    <!-- Left Whiskers -->
-                    <line x1="80" y1="200" x2="10" y2="185" />
-                    <line x1="75" y1="230" x2="5" y2="230" />
-                    <line x1="80" y1="260" x2="10" y2="275" />
-                    
-                    <!-- Right Whiskers -->
-                    <line x1="320" y1="200" x2="390" y2="185" />
-                    <line x1="325" y1="230" x2="395" y2="230" />
-                    <line x1="320" y1="260" x2="390" y2="275" />
-                </g>
-
-                <!-- Eyes (Black Ovals) - Placed low and wide -->
-                <ellipse id="leftEye" cx="125" cy="235" rx="12" ry="18" fill="#1a1a1a" class="transform origin-center" style="transform-origin: 125px 235px;" />
-                <ellipse id="rightEye" cx="275" cy="235" rx="12" ry="18" fill="#1a1a1a" class="transform origin-center" style="transform-origin: 275px 235px;" />
-
-                <!-- Nose (Yellow Oval) - Center-bottom -->
-                <ellipse cx="200" cy="265" rx="18" ry="12" fill="#FFD700" stroke="#1a1a1a" stroke-width="7" />
-
-                <!-- The Bow (Kurdele) -->
-                <!-- Positioned on the right ear -->
-                <g class="transform" style="transform-origin: 280px 90px;">
-                    <!-- Left Wing -->
-                    <path d="M 285 90 C 220 30, 200 90, 215 110 C 230 130, 250 110, 285 90 Z" fill="#FF2D55" stroke="#1a1a1a" stroke-width="10" stroke-linejoin="round"/>
-                    <!-- Right Wing -->
-                    <path d="M 275 90 C 340 30, 360 90, 345 110 C 330 130, 310 110, 275 90 Z" fill="#FF2D55" stroke="#1a1a1a" stroke-width="10" stroke-linejoin="round"/>
-                    <!-- Center Circle -->
-                    <circle cx="280" cy="90" r="22" fill="#FF2D55" stroke="#1a1a1a" stroke-width="10" />
-                    
-                    <!-- Bow inner creases for 3D/realistic look -->
-                    <path d="M 245 75 Q 260 85 255 105" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round" fill="none"/>
-                    <path d="M 315 75 Q 300 85 305 105" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round" fill="none"/>
-                </g>
-            </svg>
-        </div>
-
-        <!-- Interactive Button -->
-        <div class="relative z-30">
-            <button id="clickBtn" class="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600 text-white font-black text-3xl md:text-4xl px-12 py-5 rounded-full shadow-[0_10px_0_#9f1239] hover:shadow-[0_5px_0_#9f1239] hover:translate-y-[5px] active:shadow-[0_0px_0_#9f1239] active:translate-y-[10px] transition-all duration-150 flex items-center gap-3">
-                <span>TIKLA!</span>
-            </button>
-        </div>
-    </main>
+        <div class="ink-blot"></div>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById('clickBtn');
-            const bubble = document.getElementById('speechBubble');
-            const leftEye = document.getElementById('leftEye');
-            const rightEye = document.getElementById('rightEye');
-            const body = document.body;
-
-            // Generate background floating hearts
-            const bgContainer = document.getElementById('bg-decorations');
-            for(let i = 0; i < 15; i++) {
-                let heart = document.createElement('div');
-                heart.innerHTML = '❤';
-                heart.className = 'bg-heart text-4xl md:text-6xl';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                bgContainer.appendChild(heart);
+        function revealSecret() {
+            const wordContainer = document.getElementById('secretWord');
+            // Eğer zaten açılmışsa bir şey yapma
+            if (!wordContainer.classList.contains('revealed')) {
+                wordContainer.classList.add('revealed');
             }
-
-            // Button Click Event
-            btn.addEventListener('click', (e) => {
-                // Show speech bubble
-                bubble.classList.remove('opacity-0', 'scale-0');
-                bubble.classList.add('opacity-100', 'scale-100');
-
-                // Wink animation
-                leftEye.classList.remove('wink');
-                rightEye.classList.remove('wink');
-                // Trigger reflow
-                void leftEye.offsetWidth;
-                // Add wink class
-                leftEye.classList.add('wink');
-                rightEye.classList.add('wink');
-
-                // Spawn exploding mini hearts
-                createMiniHearts(e.clientX, e.clientY);
-            });
-
-            function createMiniHearts(x, y) {
-                // Fallback coordinates if click position is somehow unavailable
-                const rect = btn.getBoundingClientRect();
-                const startX = x || (rect.left + rect.width / 2);
-                const startY = y || (rect.top + rect.height / 2);
-
-                for (let i = 0; i < 8; i++) {
-                    const heart = document.createElement('div');
-                    heart.innerHTML = '💖';
-                    heart.className = 'mini-heart';
-                    
-                    // Set custom property for random X direction spread
-                    heart.style.setProperty('--dir', Math.random());
-                    
-                    heart.style.left = (startX - 15) + 'px';
-                    heart.style.top = (startY - 15) + 'px';
-                    
-                    document.body.appendChild(heart);
-
-                    // Remove after animation finishes
-                    setTimeout(() => {
-                        heart.remove();
-                    }, 1000);
-                }
-            }
-        });
+        }
     </script>
 </body>
 </html>
