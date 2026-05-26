@@ -4,6 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Icarus MUN 2026 | Ana Sayfa</title>
+    <meta name="description" content="Represent your country, defend your ideas, and challenge perspectives in a high-energy Model United Nations experience.">
+    
+    <meta property="og:title" content="Icarus MUN 2026">
+    <meta property="og:description" content="Represent your country, defend your ideas, and challenge perspectives.">
+    <meta property="og:image" content="assets/icarus.png">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "Icarus MUN 2026",
+          "logo": "https://icarusmun.com/assets/icarus.png",
+          "url": "https://icarusmun.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Icarus MUN 2026",
+          "url": "https://icarusmun.com",
+          "hasPart": [
+            {
+              "@type": "WebPage",
+              "name": "Our Team",
+              "description": "The Faces Behind ICARUS",
+              "url": "https://icarusmun.com/team"
+            },
+            {
+              "@type": "WebPage",
+              "name": "Sponsors",
+              "description": "The Sponsors Of ICARUS",
+              "url": "https://icarusmun.com/sponsors"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     
     <link rel="icon" type="image/png" href="assets/icarus.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -240,7 +279,6 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                         </button>
 
-                        {/* Atatürk Görseli Sol Alt - Mobilde watermark efekti, masaüstünde net */}
                         <img 
                             src="assets/ataturk.png" 
                             alt="Mustafa Kemal Atatürk" 
@@ -248,7 +286,6 @@
                             onError={(e) => { e.target.style.display='none'; }}
                         />
 
-                        {/* Merkezdeki Söz - Mobilde tam orta, masaüstünde sağa yaslı */}
                         <div className="relative z-10 flex flex-col items-center text-center w-full pl-0 sm:pl-40 md:pl-56">
                             <svg className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gold/30 mb-4 sm:mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
                             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-signature text-slate-900 dark:text-white leading-tight mb-4 sm:mb-8">
