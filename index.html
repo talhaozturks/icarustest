@@ -448,32 +448,32 @@
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 fade-in bg-slate-950/80 backdrop-blur-sm">
                     <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
                     <div className="relative z-10 w-full max-w-5xl bg-white dark:bg-slate-950 border border-gold/40 rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
-                        <div className="flex items-center justify-between p-6 border-b border-gold/20 bg-slate-50/90 dark:bg-slate-900/90">
-                            <h2 className="text-2xl md:text-3xl font-serif text-slate-900 dark:text-white">{t.bestDelegatesTitle}</h2>
+                        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gold/20 bg-slate-50/90 dark:bg-slate-900/90">
+                            <h2 className="text-xl sm:text-2xl md:text-3xl font-serif text-slate-900 dark:text-white">{t.bestDelegatesTitle}</h2>
                             <button onClick={onClose} className="p-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-500 hover:text-gold transition-colors">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                             </button>
                         </div>
                         
-                        <div className="p-6 md:p-10 overflow-y-auto">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
+                        <div className="p-4 sm:p-6 md:p-10 overflow-y-auto">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
                                 {t.committees.map((com, i) => (
-                                    <div key={i} className="flex flex-col items-center p-6 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 rounded-lg hover:border-gold/50 transition-colors">
-                                        <div className="relative w-full aspect-square max-w-[180px] mb-6">
+                                    <div key={i} className="flex flex-col items-center justify-center p-3 sm:p-6 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 rounded-lg hover:border-gold/50 transition-colors">
+                                        <div className="relative w-full flex justify-center items-center aspect-square max-w-[100px] sm:max-w-[150px] mb-3 sm:mb-6">
                                             <img 
                                                 src={`assets/icarus_best_${i % 2 === 0 ? 'm' : 'w'}.png`} 
                                                 alt="Best Delegate" 
-                                                className="w-full h-full object-cover rounded-md shadow-md" 
+                                                className="w-full h-full object-contain drop-shadow-md" 
                                                 onError={(e) => { e.target.style.display='none'; }} 
                                             />
                                             <img 
                                                 src="assets/icarus_sertifika.png" 
                                                 alt="Sertifika" 
-                                                className="absolute -bottom-3 -left-3 w-12 h-12 object-contain drop-shadow-lg z-10" 
+                                                className="absolute -bottom-2 -left-2 sm:-bottom-3 sm:-left-3 w-8 h-8 sm:w-12 sm:h-12 object-contain drop-shadow-lg z-10" 
                                                 onError={(e) => { e.target.style.display='none'; }} 
                                             />
                                         </div>
-                                        <h3 className="text-sm md:text-base font-serif text-slate-900 dark:text-white text-center leading-relaxed">
+                                        <h3 className="text-[10px] sm:text-sm md:text-base font-serif text-slate-900 dark:text-white text-center leading-tight sm:leading-relaxed">
                                             {t.bestDelegateOf} <br />
                                             <strong className="text-gold uppercase tracking-wider">{com.id}</strong>
                                         </h3>
@@ -481,16 +481,16 @@
                                 ))}
                             </div>
 
-                            <div className="flex flex-col items-center text-center max-w-3xl mx-auto border-t border-gold/20 pt-12 pb-6">
-                                <p className="text-sm md:text-base font-light text-slate-700 dark:text-slate-300 mb-12">
+                            <div className="flex flex-col items-center text-center max-w-3xl mx-auto border-t border-gold/20 pt-8 sm:pt-12 pb-4 sm:pb-6">
+                                <p className="text-xs sm:text-sm md:text-base font-light text-slate-700 dark:text-slate-300 mb-8 sm:mb-12">
                                     {t.bestDelegatesDesc}
                                 </p>
                                 
-                                <h3 className="text-xl md:text-2xl font-serif text-gold mb-2">{t.prizePoolTitle}</h3>
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-serif text-gold mb-2">{t.prizePoolTitle}</h3>
                                 <div className="w-full flex justify-center mb-6">
                                     <Countdown targetDate="2026-08-10T00:00:00" />
                                 </div>
-                                <p className="text-xs tracking-widest font-mono text-slate-500 uppercase">
+                                <p className="text-[10px] sm:text-xs tracking-widest font-mono text-slate-500 uppercase">
                                     {t.toBeAnnounced}
                                 </p>
                             </div>
