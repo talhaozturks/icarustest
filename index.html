@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Icarus MUN 2026 | Ana Sayfa</title>
+    <title>Icarus MUN 2026 | Homepage</title>
     <meta name="description" content="Represent your country, defend your ideas, and challenge perspectives in a high-energy Model United Nations experience.">
     
     <meta property="og:title" content="Icarus MUN 2026">
@@ -45,6 +45,11 @@
     </script>
     
     <link rel="icon" type="image/png" href="assets/icarus.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=block" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -56,8 +61,6 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap');
-
         html, body {
             margin: 0;
             padding: 0;
@@ -372,8 +375,8 @@
             }, [onComplete]);
 
             return (
-                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-950">
-                    <div className="relative z-10 w-full max-w-md px-6 flex flex-col items-center fade-in">
+                <div className="fixed inset-0 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-950 transition-all duration-300" style={{ zIndex: 999999 }}>
+                    <div className="relative w-full max-w-md px-6 flex flex-col items-center fade-in">
                         
                         <div className="relative flex items-center justify-center mb-12">
                             <img src="assets/icarusarkaplansiz.png" alt="Icarus Logo" className="z-10 w-32 h-auto" onError={(e) => { e.target.style.display='none'; }} />
@@ -552,14 +555,20 @@
             </div>
         );
 
-        const MainApp = ({ lang }) => {
+        const MainApp = ({ lang, appReady }) => {
             const t = localeData[lang];
             const [view, setView] = useState('home');
             const [activeCom, setActiveCom] = useState(null);
             const [menuOpen, setMenuOpen] = useState(false);
-            const [showAtaturkPopup, setShowAtaturkPopup] = useState(true);
+            const [showAtaturkPopup, setShowAtaturkPopup] = useState(false);
             const [isContactOpen, setIsContactOpen] = useState(false);
             const [isApplyOpen, setIsApplyOpen] = useState(false);
+
+            useEffect(() => {
+                if (appReady) {
+                    setShowAtaturkPopup(true);
+                }
+            }, [appReady]);
 
             const handleScrollToCommittees = () => {
                 const element = document.getElementById('committees');
@@ -716,7 +725,7 @@
         };
 
         const MainRoot = () => {
-            const [stage, setStage] = useState(() => {
+            const [isLoading, setIsLoading] = useState(() => {
                 let skipLoader = false;
                 try {
                     if (document.referrer) {
@@ -729,9 +738,8 @@
                         }
                     }
                 } catch (e) {
-                    console.error("Referrer parse error", e);
                 }
-                return skipLoader ? 'MAIN' : 'LOADING';
+                return !skipLoader;
             });
             const [dark, setDark] = useState(false);
 
@@ -740,16 +748,12 @@
                 document.documentElement.classList.toggle('light', !dark);
             }, [dark]);
 
-            const handleLoaderComplete = () => {
-                setStage('MAIN');
-            };
-
             return (
                 <>
-                    {stage === 'LOADING' && <Loader onComplete={handleLoaderComplete} />}
-                    {stage === 'MAIN' && <MainApp lang="en" />}
+                    {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+                    <MainApp lang="en" appReady={!isLoading} />
 
-                    {stage !== 'LOADING' && (
+                    {!isLoading && (
                         <button onClick={() => setDark(!dark)} className="fixed bottom-6 right-6 p-4 rounded-full shadow-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 z-[999]">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-600 dark:text-gold">
                                 <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
