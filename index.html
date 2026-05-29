@@ -561,16 +561,21 @@
                         <div className="p-6 md:p-10 overflow-y-auto">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 
-                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-gold/50 transition-colors rounded-lg text-center">
-                                    <img src="assets/icarus_delegeler.png" alt={t.indivApply} className="h-20 w-auto object-contain mb-6" onError={(e) => { e.target.style.display='none'; }} />
-                                    <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">{t.indivApply}</h3>
-                                    <p className="text-lg font-mono text-gold mb-6">{t.indivPrice}</p>
-                                    <div className="flex-1" />
-                                    <a href="https://forms.gle/v9DdMy8icZ1J1XTj8" target="_blank" rel="noopener noreferrer" className="w-full py-3 text-xs tracking-widest font-mono text-white bg-gold hover:bg-gold/80 transition-colors rounded block text-center">{t.applyBtn}</a>
+                                <div className="relative flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 rounded-lg text-center overflow-hidden group hover:border-gold/50 transition-all duration-300 shadow-md hover:shadow-xl">
+                                    <div className="absolute inset-0 z-0 bg-[url('assets/bireyselarkaplan.png')] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" />
+                                    <div className="absolute inset-0 z-0 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-[2px] transition-colors" />
+                                    
+                                    <div className="relative z-10 flex flex-col items-center w-full h-full">
+                                        <img src="assets/icarus_delegeler.png" alt={t.indivApply} className="h-20 w-auto object-contain mb-6 drop-shadow-md group-hover:scale-110 transition-transform duration-500" onError={(e) => { e.target.style.display='none'; }} />
+                                        <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white mb-2 drop-shadow-md">{t.indivApply}</h3>
+                                        <p className="text-lg font-mono font-bold text-gold mb-6 drop-shadow-md">{t.indivPrice}</p>
+                                        <div className="flex-1" />
+                                        <a href="https://forms.gle/v9DdMy8icZ1J1XTj8" target="_blank" rel="noopener noreferrer" className="w-full py-3 text-xs tracking-widest font-mono text-white bg-gold hover:bg-gold/80 transition-colors rounded block text-center shadow-lg">{t.applyBtn}</a>
+                                    </div>
                                 </div>
 
-                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-gold/50 transition-colors rounded-lg text-center">
-                                    <img src="assets/icarus_delegasyon.png" alt={t.delegApply} className="h-20 w-auto object-contain mb-6" onError={(e) => { e.target.style.display='none'; }} />
+                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-gold/50 transition-colors rounded-lg text-center group">
+                                    <img src="assets/icarus_delegasyon.png" alt={t.delegApply} className="h-20 w-auto object-contain mb-6 group-hover:scale-110 transition-transform" onError={(e) => { e.target.style.display='none'; }} />
                                     <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">{t.delegApply}</h3>
                                     <p className="text-lg font-mono text-gold mb-2">{t.delegPrice}</p>
                                     <p className="text-[10px] text-slate-500 mb-6 px-2">{t.delegNote}</p>
@@ -578,8 +583,8 @@
                                     <a href="https://forms.gle/Z9sPWTLnPK39bKr69" target="_blank" rel="noopener noreferrer" className="w-full py-3 text-xs tracking-widest font-mono text-white bg-gold hover:bg-gold/80 transition-colors rounded block text-center">{t.applyBtn}</a>
                                 </div>
 
-                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-slate-400 dark:hover:border-slate-500 transition-colors rounded-lg text-center">
-                                    <img src="assets/icarus_ziyaretci.png" alt={t.visApply} className="h-20 w-auto object-contain mb-6 opacity-85" onError={(e) => { e.target.style.display='none'; }} />
+                                <div className="flex flex-col items-center p-8 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 hover:border-slate-400 dark:hover:border-slate-500 transition-colors rounded-lg text-center group">
+                                    <img src="assets/icarus_ziyaretci.png" alt={t.visApply} className="h-20 w-auto object-contain mb-6 opacity-85 group-hover:scale-110 transition-transform" onError={(e) => { e.target.style.display='none'; }} />
                                     <h3 className="text-xl font-serif text-slate-900 dark:text-white mb-2">{t.visApply}</h3>
                                     <p className="text-lg font-mono text-slate-500 dark:text-slate-400 mb-6">{t.visPrice}</p>
                                     <div className="flex-1" />
